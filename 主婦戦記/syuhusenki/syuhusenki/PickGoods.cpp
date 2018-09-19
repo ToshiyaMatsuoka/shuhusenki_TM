@@ -44,16 +44,16 @@ void pickGoodsControl() {
 
 void pickGoodsRender() {
 	CUSTOMVERTEX playerCutin[4];
-	CreateSquareVertexEx(playerHit, playerCentralHit, 0, 0, YASUKO_TU, YASUKO_TV);
-	CreateSquareVertexEx(playerCutin, playerCutinCentral,0, cutinAnimeCount, 0.8f, cutinAnime);
+	CreateSquareVertex(playerHit, playerCentralHit, 0, 0, YASUKO_TU, YASUKO_TV);
+	CreateSquareVertex(playerCutin, playerCutinCentral,0, cutinAnimeCount, 0.8f, cutinAnime);
 
 	BeginSetTexture();
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, FLOAMOVE_BG_TEX);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
 
-	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, HARFCLEAR, BLANK);
+	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertexEx(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
+		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
 		if (g_isBlowOff) {
 			g_effectCount++;
 
@@ -76,9 +76,9 @@ void pickGoodsRender() {
 	SetUpTexture(playerHit, texturePC);
 
 
-	EasyCreateSquareVertex(0, 150, WIDTH, 550, CUTIN_TEX);
+	EasyCreateSquareVertex(0, 150, WIDTH, 550, "CUTIN_TEX");
 
-	SetUpTexture(playerCutin, CUTIN_YASUKO_TEX);
+	SetUpTexture(playerCutin, "CUTIN_YASUKO_TEX");
 
 	//char rushButton[10];
 	RECT rushButtonAppear = { 470,200,810,550 };
@@ -92,48 +92,48 @@ void pickGoodsRender() {
 
 	sprintf_s(goodsNumA, 10, "%d ", foodGoods[selectedGoods[g_turn]].haveValue);
 	RECT DEBUGGoodsA = { 100 ,200,900,600 };
-	WriteWord(goodsNumA, DEBUGGoodsA, DT_LEFT, 0xff00ffff, DEBUG_FONT);
+	WriteWord(goodsNumA, DEBUGGoodsA, "DEBUG_FONT", 0xff00ffff, DT_LEFT);
 
 	SoundLib::PlayingStatus status = soundsManager.GetStatus("PICK1");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	RECT DEBUGTextA = { 100 ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK2");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 150  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK3");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 200  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK4");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 250  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK5");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 300  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK6");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 350  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK7");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 400  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK8");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 450  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK9");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 500  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT,0xfff0f00f);
 	status = soundsManager.GetStatus("PICK10");
 	sprintf_s(DebugTakeBoolA, 10, "%d ", status);
 	DEBUGTextA = { 550  ,150,900,600 };
-	WriteWord(DebugTakeBoolA, DEBUGTextA, DT_LEFT, 0xfff0f00f, DEBUG_FONT);
+	WriteWord(DebugTakeBoolA, DEBUGTextA, "DEBUG_FONT", DT_LEFT, 0xfff0f00f);
 
 #endif
 

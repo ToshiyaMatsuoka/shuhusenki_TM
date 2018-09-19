@@ -68,7 +68,7 @@ enum GOODSSORTING
 struct GOODSPARAMETER 
 {
 	const int goodsID;
-	const int textureID;
+	const std::string textureID;
 	const int nominalCost;
 	const int selePrice;
 	int haveValue;
@@ -78,7 +78,7 @@ struct GOODSPARAMETER
 struct COMBOPARAMETER 
 {
 	const int comboID;
-	const int textureID;
+	const std::string textureID;
 	const int comboBonus;
 	const int comboElement1;
 	const int comboElement2;

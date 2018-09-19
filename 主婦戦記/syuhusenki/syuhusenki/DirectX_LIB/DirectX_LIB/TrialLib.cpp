@@ -1,20 +1,19 @@
 #include "TrialLib.h"
-
 #pragma comment(lib, "DirectX_LIB.lib")
 
-
+using namespace std;
 
 #define SAFE_RELEASE(p) { if(p) { (p)->Release(); (p)=NULL; } }
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 
 LPDIRECT3D9 g_pDirect3D;		//	Direct3Dのインターフェイス
-LPDIRECT3DTEXTURE9	  g_pTexture[128];	//	画像の情報を入れておく為のポインタ配列
+map<string,LPDIRECT3DTEXTURE9>	g_pTexture;	//	画像の情報を入れておく為のポインタ配列
 IDirect3DDevice9*	  g_pD3Device = NULL;		//	Direct3Dのデバイス
 D3DDISPLAYMODE		  g_D3DdisplayMode;
 D3DPRESENT_PARAMETERS g_D3dPresentParameters;
 LPDIRECTINPUT8 g_pDinput = NULL;
 LPDIRECTINPUTDEVICE8 g_pKeyDevice = NULL;
-LPD3DXFONT g_pFont[128];
+map<string,LPD3DXFONT> g_pFont;
 
 XINPUT_STATE g_Xinput;
 PADSTATE PadState[ButtomIndexMAX];
@@ -29,16 +28,9 @@ void FreeDx()
 	SAFE_RELEASE(g_pDirect3D);
 	SAFE_RELEASE(g_pDinput);
 
-	for (int i = 0; i < 128; i++)
-	{
-		SAFE_RELEASE(g_pTexture[i]);
-	}
-	for (int i = 0; i < 128; i++)
-	{
-		SAFE_RELEASE(g_pFont[i]);
-	}
-
-
+	g_pTexture.clear();
+	g_pFont.clear();
+	
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -83,14 +75,18 @@ HRESULT InitD3d(HWND hWnd, LPCSTR pSrcFile)
 			return E_FAIL;
 		}
 	}
+	g_pTexture["test"] = NULL;
 	//「テクスチャオブジェクト」の作成
 	if (FAILED(D3DXCreateTextureFromFileEx(g_pD3Device, pSrcFile, 100, 100, 0, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
-		0xff000000, NULL, NULL, &g_pTexture[TEXMAX])))
+		0xff000000, NULL, NULL, &g_pTexture["test"])))
 	{
 		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
+		g_pTexture.erase("test");
 		return E_FAIL;
 	}
+	g_pTexture.erase("test");
+
 	return S_OK;
 }
 HRESULT InitD3dFullscreen(HWND hWnd, LPCSTR pSrcFile, int ResolutionWidth, int ResolutionHeight)
@@ -127,14 +123,17 @@ HRESULT InitD3dFullscreen(HWND hWnd, LPCSTR pSrcFile, int ResolutionWidth, int R
 			return E_FAIL;
 		}
 	}
+	g_pTexture["test"] = NULL;
 	//「テクスチャオブジェクト」の作成
 	if (FAILED(D3DXCreateTextureFromFileEx(g_pD3Device, pSrcFile, 100, 100, 0, 0, D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_DEFAULT,
-		0xff000000, NULL, NULL, &g_pTexture[TEXMAX])))
+		0xff000000, NULL, NULL, &g_pTexture["test"])))
 	{
 		MessageBox(0, "テクスチャの作成に失敗しました", "", MB_OK);
+		g_pTexture.erase("test");
 		return E_FAIL;
 	}
+	g_pTexture.erase("test");
 	return S_OK;
 }
 
@@ -228,7 +227,7 @@ HRESULT InitDirectX(HWND hWnd, LPCSTR pSrcFile) {
 
 	return S_OK;
 }
-HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile,int ResolutionWidth,int ResolutionHeight) {
+HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile,int ResolutionWidth,int ResolutionHeight,int PresentationInterval) {
 	//ダイレクト３Dの初期化関数を呼ぶ
 	if (FALSE(InitD3dFullscreen(hWnd, pSrcFile, ResolutionWidth, ResolutionHeight)))
 	{
@@ -266,11 +265,11 @@ HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile,int ResolutionWidth,int
 	g_D3dPresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	g_D3dPresentParameters.hDeviceWindow = hWnd;
 	g_D3dPresentParameters.Windowed = FALSE;
-	//g_D3dPresentParameters.EnableAutoDepthStencil = FALSE;
-	//g_D3dPresentParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
+	g_D3dPresentParameters.EnableAutoDepthStencil = FALSE;
+	g_D3dPresentParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
 	g_D3dPresentParameters.Flags = 0;
-	g_D3dPresentParameters.FullScreen_RefreshRateInHz = 0;
-	g_D3dPresentParameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	g_D3dPresentParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	g_D3dPresentParameters.PresentationInterval = PresentationInterval;
 
 	//デバイスを作る
 	g_pDirect3D->CreateDevice(
@@ -304,7 +303,7 @@ HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile,int ResolutionWidth,int
 }
 
 //WINAPIの空ウィンドウ生成
-int InitWindow(LPCSTR WndName,int WIDTH,int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance,int IconIDI, LPCSTR pSrcFile) {
+int InitWindow(LPCSTR WndName,int WIDTH,int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile,int IconIDI) {
 	
 	HWND hWnd = NULL;
 	
@@ -348,7 +347,7 @@ int InitWindow(LPCSTR WndName,int WIDTH,int HEIGHT, HINSTANCE hInst, HINSTANCE h
 		return 0;
 	}
 }
-int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, int IconIDI, LPCSTR pSrcFile) {
+int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile ,int IconIDI) {
 
 	WNDCLASS Wndclass;
 
@@ -390,7 +389,7 @@ int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hI
 		return 0;
 	}
 }
-int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, int IconIDI, LPCSTR pSrcFile) {
+int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int PresentationInterval, int IconIDI) {
 
 	WNDCLASS Wndclass;
 
@@ -427,7 +426,7 @@ int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HI
 		return 0;
 	}
 
-	if (FAILED(InitDirectXFullscreen(*hWnd, pSrcFile, WIDTH,HEIGHT)))
+	if (FAILED(InitDirectXFullscreen(*hWnd, pSrcFile, WIDTH,HEIGHT, PresentationInterval)))
 	{
 		return 0;
 	}
@@ -485,21 +484,26 @@ void EndSetTexture() {
 }
 
 //画像読み込み
-void ReadInTexture(LPCSTR pTextureName, int TexNum) {
+void ReadInTexture(LPCSTR pTextureName, string TexKey) {
+	g_pTexture[TexKey] = NULL;
 	D3DXCreateTextureFromFile(
 		g_pD3Device,
 		pTextureName,
-		&g_pTexture[TexNum]);
+		&g_pTexture[TexKey]);
 }
 //画像表示
-void SetUpTexture(CUSTOMVERTEX* Vertex, int TexNum) {
-	g_pD3Device->SetTexture(0, g_pTexture[TexNum]);
+void SetUpTexture(CUSTOMVERTEX* Vertex, string TexKey) {
+	g_pD3Device->SetTexture(0, g_pTexture[TexKey]);
 	g_pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, Vertex, sizeof(CUSTOMVERTEX));
 }
 
+void eraseTexture(string TexKey) {
+	g_pTexture.erase(TexKey);
+}
 //DXフォント
 //文字設定
-void SetUpFont(int WordHeight,int WordWidth,int CharSet,LPCSTR FontName, int FontNum) {
+void SetUpFont(int WordHeight,int WordWidth, string FontKey,LPCSTR FontName,int CharSet) {
+	g_pFont[FontKey] = NULL;
 	D3DXCreateFont(
 		g_pD3Device,
 		WordHeight,
@@ -512,11 +516,11 @@ void SetUpFont(int WordHeight,int WordWidth,int CharSet,LPCSTR FontName, int Fon
 		DEFAULT_QUALITY,
 		FIXED_PITCH | FF_SCRIPT,
 		FontName,
-		&g_pFont[FontNum]);
+		&g_pFont[FontKey]);
 }
 //描画設定
-void WriteWord(LPCSTR Texts,RECT Vertex,int TextFormat,int color, int FontNum) {
-	g_pFont[FontNum]->DrawText(
+void WriteWord(LPCSTR Texts,RECT Vertex, string FontKey,int TextFormat,int color) {
+	g_pFont[FontKey]->DrawText(
 		NULL,							
 		Texts,					// 描画テキスト
 		-1,								// 全て表示
@@ -525,16 +529,13 @@ void WriteWord(LPCSTR Texts,RECT Vertex,int TextFormat,int color, int FontNum) {
 		color
 	);
 }
+void eraseFont(string FontKey) {
+	g_pFont.erase(FontKey);
+}
 
 
 //2点設定描画
-void EasyCreateSquareVertex( float Left, float Top, float Right, float Bottom, int TexNum) {
-	
-
-	EasyCreateSquareVertexEx( Left, Top, Right, Bottom, 0xffffffff, NULL, NULL, 1, 1, TexNum);
-
-}
-void EasyCreateSquareVertexColor( float Left, float Top, float Right, float Bottom, DWORD color, int TexNum) {
+void EasyCreateSquareVertexColor( float Left, float Top, float Right, float Bottom, string TexKey, DWORD color) {
 	CUSTOMVERTEX Vertex[4];
 
 	Vertex[0] = { Left,  Top,    1.f, 1.f, color, 0, 0 };
@@ -542,10 +543,10 @@ void EasyCreateSquareVertexColor( float Left, float Top, float Right, float Bott
 	Vertex[2] = { Right, Bottom, 1.f, 1.f, color, 1, 1 };
 	Vertex[3] = { Left,  Bottom, 1.f, 1.f, color, 0, 1 };
 
-	SetUpTexture(Vertex, TexNum);
+	SetUpTexture(Vertex, TexKey);
 
 }
-void EasyCreateSquareVertexEx( float Left, float Top, float Right, float Bottom, DWORD color, float tu, float tv, float scaleTu, float scaleTv, int TexNum) {
+void EasyCreateSquareVertex( float Left, float Top, float Right, float Bottom, string TexKey, DWORD color, float tu, float tv, float scaleTu, float scaleTv) {
 	CUSTOMVERTEX Vertex[4];
 
 
@@ -554,17 +555,11 @@ void EasyCreateSquareVertexEx( float Left, float Top, float Right, float Bottom,
 	Vertex[2] = {  Right, Bottom, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex[3] = {  Left,  Bottom, 1.f, 1.f, color, tu, tv + scaleTv };
 
-	SetUpTexture(Vertex, TexNum);
+	SetUpTexture(Vertex, TexKey);
 }
 
 //RECT引数2頂点設定描画
-void EasyCreateRECTVertex(RECT Vertex, int TexNum) {
-
-
-	EasyCreateSquareVertexEx(Vertex.left, Vertex.top, Vertex.right, Vertex.bottom, 0xffffffff, NULL, NULL, 1, 1, TexNum);
-
-}
-void EasyCreateRECTVertexColor(RECT Vertex, DWORD color, int TexNum) {
+void EasyCreateRECTVertexColor(RECT Vertex, string TexKey, DWORD color) {
 	CUSTOMVERTEX Vertex4[4];
 
 	Vertex4[0] = { (float)Vertex.left, (float)Vertex.top,    1.f, 1.f, color, 0, 0 };
@@ -572,10 +567,10 @@ void EasyCreateRECTVertexColor(RECT Vertex, DWORD color, int TexNum) {
 	Vertex4[2] = { (float)Vertex.right,(float)Vertex.bottom, 1.f, 1.f, color, 1, 1 };
 	Vertex4[3] = { (float)Vertex.left, (float)Vertex.bottom, 1.f, 1.f, color, 0, 1 };
 
-	SetUpTexture(Vertex4, TexNum);
+	SetUpTexture(Vertex4, TexKey);
 
 }
-void EasyCreateRECTVertexEx(RECT Vertex, DWORD color, float tu, float tv, float scaleTu, float scaleTv, int TexNum) {
+void EasyCreateRECTVertex(RECT Vertex, string TexKey, DWORD color, float tu, float tv, float scaleTu, float scaleTv) {
 	CUSTOMVERTEX Vertex4[4];
 	
 
@@ -584,35 +579,25 @@ void EasyCreateRECTVertexEx(RECT Vertex, DWORD color, float tu, float tv, float 
 	Vertex4[2] = { (float)Vertex.right, (float)Vertex.bottom, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex4[3] = { (float)Vertex.left,  (float)Vertex.bottom, 1.f, 1.f, color, tu, tv + scaleTv };
 
-	SetUpTexture(Vertex4, TexNum);
+	SetUpTexture(Vertex4, TexKey);
 }
 
 //4頂点設定
-void CreateSquareVertex(CUSTOMVERTEX* Vertex,CENTRAL_STATE Central) {
-	
-	
-	CreateSquareVertexEx(Vertex,Central,NULL,NULL,1,1);
-	
-	
-}
-void CreateSquareVertexEx(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central,float tu,float tv,float scaleTu,float scaleTv) {
-	CreateSquareVertexColorEx(Vertex, Central, 0xffffffff,tu, tv, scaleTu, scaleTv);
-}
-void CreateSquareVertexColorEx(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central,DWORD color ,float tu, float tv, float scaleTu, float scaleTv) {
+void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central,DWORD color ,float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { Central.x - Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu, tv };
 	Vertex[1] = { Central.x + Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv };
 	Vertex[2] = { Central.x + Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex[3] = { Central.x - Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu, tv + scaleTv };
 }
 void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD color){
-	CreateSquareVertexColorEx(Vertex, Central, color, NULL, NULL, 1, 1);
+	CreateSquareVertex(Vertex, Central, color);
 }
 
 
 
 
 //回転、円運動関数
-void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius) {
+void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius, float tu, float tv, float scaleTu, float scaleTv) {
 	float CharVertexX[4];
 	float CharVertexY[4];
 
@@ -645,13 +630,13 @@ void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Cen
 		CharVertexY[i] += sin(Rad) * motionRadius;
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 }
 //回転、楕円運動関数
-void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY) {
+void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY, float tu, float tv, float scaleTu, float scaleTv) {
 	float CharVertexX[4];
 	float CharVertexY[4];
 
@@ -684,14 +669,14 @@ void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE
 		CharVertexY[i] += sin(Rad) * motionRadiusY;
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 }
 
 //Z軸回転
-void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
+void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];
@@ -721,14 +706,14 @@ void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
 
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 //Z軸　回転軸指定
-void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float RevolvingShaftX,float RevolvingShaftY) {
+void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float RevolvingShaftX,float RevolvingShaftY, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];
@@ -758,15 +743,15 @@ void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float Rev
 
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 
 //Y軸回転
-void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
+void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexX[4];
 
@@ -791,14 +776,14 @@ void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
 
 	}
 
-	Vertex[0] = { CharVertexX[0], Central.y - Central.scaleY, Vertex[0].z, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], Central.y - Central.scaleY, Vertex[1].z, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], Central.y + Central.scaleY, Vertex[2].z, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], Central.y + Central.scaleY, Vertex[3].z, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], Central.y - Central.scaleY, Vertex[0].z, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], Central.y - Central.scaleY, Vertex[1].z, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], Central.y + Central.scaleY, Vertex[2].z, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], Central.y + Central.scaleY, Vertex[3].z, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 //Y軸　回転軸指定
-void RevolveYEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftX, float RevolvingShaftZ) {
+void RevolveYEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftX, float RevolvingShaftZ, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexX[4];
 
@@ -823,15 +808,15 @@ void RevolveYEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float Re
 
 	}
 
-	Vertex[0] = { CharVertexX[0], Central.y - Central.scaleY, Vertex[0].z, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], Central.y - Central.scaleY, Vertex[1].z, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], Central.y + Central.scaleY, Vertex[2].z, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], Central.y + Central.scaleY, Vertex[3].z, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], Central.y - Central.scaleY, Vertex[0].z, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], Central.y - Central.scaleY, Vertex[1].z, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], Central.y + Central.scaleY, Vertex[2].z, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], Central.y + Central.scaleY, Vertex[3].z, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 
 //X軸回転
-void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
+void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv ) {
 	
 	float CharVertexY[4];
 
@@ -856,14 +841,14 @@ void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central) {
 
 	}
 
-	Vertex[0] = { Central.x - Central.scaleX,CharVertexY[0],Vertex[0].z, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { Central.x + Central.scaleX,CharVertexY[1],Vertex[1].z, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { Central.x + Central.scaleX,CharVertexY[2],Vertex[2].z, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { Central.x - Central.scaleX,CharVertexY[3],Vertex[3].z, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { Central.x - Central.scaleX,CharVertexY[0],Vertex[0].z, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { Central.x + Central.scaleX,CharVertexY[1],Vertex[1].z, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { Central.x + Central.scaleX,CharVertexY[2],Vertex[2].z, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { Central.x - Central.scaleX,CharVertexY[3],Vertex[3].z, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 //X軸　回転軸指定
-void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftY, float RevolvingShaftZ) {
+void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftY, float RevolvingShaftZ, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexY[4];
 
@@ -888,15 +873,15 @@ void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float Re
 
 	}
 
-	Vertex[0] = { Central.x - Central.scaleX,CharVertexY[0],Vertex[0].z, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { Central.x + Central.scaleX,CharVertexY[1],Vertex[1].z, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { Central.x + Central.scaleX,CharVertexY[2],Vertex[2].z, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { Central.x - Central.scaleX,CharVertexY[3],Vertex[3].z, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { Central.x - Central.scaleX,CharVertexY[0],Vertex[0].z, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { Central.x + Central.scaleX,CharVertexY[1],Vertex[1].z, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { Central.x + Central.scaleX,CharVertexY[2],Vertex[2].z, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { Central.x - Central.scaleX,CharVertexY[3],Vertex[3].z, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 
 //円運動
-void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float motionRadius) {
+void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float motionRadius, float tu, float tv, float scaleTu, float scaleTv ) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];
@@ -917,14 +902,14 @@ void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central,float
 		CharVertexY[i] += sin(Rad) * motionRadius;
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 //楕円運動
-void OvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY) {
+void OvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY, float tu, float tv, float scaleTu, float scaleTv) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];
@@ -945,10 +930,10 @@ void OvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 		CharVertexY[i] += sin(Rad) * motionRadiusY;
 	}
 
-	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, 0.f, 0.f };
-	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, 1.f, 0.f };
-	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, 1.f, 1.f };
-	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, 0.f, 1.f };
+	Vertex[0] = { CharVertexX[0], CharVertexY[0], 1.f, 1.f, 0xffffffff, tu, tv };
+	Vertex[1] = { CharVertexX[1], CharVertexY[1], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv };
+	Vertex[2] = { CharVertexX[2], CharVertexY[2], 1.f, 1.f, 0xffffffff, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { CharVertexX[3], CharVertexY[3], 1.f, 1.f, 0xffffffff, tu, tv + scaleTv };
 
 }
 

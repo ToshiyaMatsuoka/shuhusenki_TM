@@ -32,12 +32,12 @@ extern int checkedComand;
 extern int rushButtonShow;
 
 extern bool g_isFirst;
-extern int texturePC;
+extern std::string texturePC;
 extern int g_gameScene;
 extern int g_effectCount;
 extern int g_turn;
 extern float mobRad;
-extern int mobTexNum;
+extern std::string mobTexNum;
 
 extern CUSTOMVERTEX playerHit[4];
 extern CENTRAL_STATE playerCentralHit;

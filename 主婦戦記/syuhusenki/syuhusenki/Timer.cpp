@@ -85,21 +85,21 @@ void timerRender(void)
 	RevolveZ(timerHand, timerRotation, g_timerSta);
 
 	//タイマーのテクスチャの描画
-	SetUpTexture(timer, TIMER_FRAME_TEX);
+	SetUpTexture(timer, "TIMER_FRAME_TEX");
 
 	//タイマーのテクスチャの描画
-	SetUpTexture(timerHand, TIMER_HAND_TEX);
+	SetUpTexture(timerHand, "TIMER_HAND_TEX");
 #ifdef _DEBUG
 	char debugTime[10];
 	sprintf_s(debugTime, 10, "%d", g_timerCount);
 	RECT DEBUGText = { 100 ,300,900,600 };
-	WriteWord(debugTime, DEBUGText, DT_LEFT, 0xff0000ff, DEBUG_FONT);
+	WriteWord(debugTime, DEBUGText,"DEBUG_FONT", DT_LEFT, 0xff0000ff);
 	sprintf_s(debugTime, 10, "%d", Limit_frame);
 	DEBUGText = { 400 ,300,900,600 };
-	WriteWord(debugTime, DEBUGText, DT_LEFT, 0xff0000ff, DEBUG_FONT);
+	WriteWord(debugTime, DEBUGText, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 	sprintf_s(debugTime, 10, "%f", ((360.f / Limit_frame) / 180.f)*PI);
 	DEBUGText = { 400 ,350,900,600 };
-	WriteWord(debugTime, DEBUGText, DT_LEFT, 0xff0000ff, DEBUG_FONT);
+	WriteWord(debugTime, DEBUGText, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 
 #endif
 	if (g_timerCount >= THREE_SECOND && !g_isTimeUp)
@@ -110,7 +110,7 @@ void timerRender(void)
 	if (g_isTimeUp /*&& g_turn == 2*/)
 	{
 		//タイムアップのテクスチャの描画
-		SetUpTexture(timeUp, TIMEUP_TEX);
+		SetUpTexture(timeUp, "TIMEUP_TEX");
 		
 	}
 }

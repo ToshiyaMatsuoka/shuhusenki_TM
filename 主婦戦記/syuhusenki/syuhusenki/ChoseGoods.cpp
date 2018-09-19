@@ -55,22 +55,22 @@ void choseGoodsControl() {
 void choseGoodsReader() {
 
 	BeginSetTexture();
-	CreateSquareVertexEx(playerHit, playerCentralHit, 0, 0, YASUKO_TU, YASUKO_TV);
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, FLOAMOVE_BG_TEX);
+	CreateSquareVertex(playerHit, playerCentralHit, 0, 0, YASUKO_TU, YASUKO_TV);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
 
-	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, HARFCLEAR, BLANK);
+	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
 
 
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertexEx(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
+		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
 		SetUpTexture(mobFloa, mobTexNum);
 	}
 	SetUpTexture(playerHit, texturePC);
 	EasyCreateSquareVertex(350, 150, 600, 400, foodGoods[popSales[salesChoice].merchandise[0]].textureID);
 	EasyCreateSquareVertex(660, 150, 910, 400, foodGoods[popSales[salesChoice].merchandise[1]].textureID);
-	EasyCreateSquareVertex(350, 350, 600, 500, X_TEX);
-	EasyCreateSquareVertex(660, 350, 910, 500, B_TEX);
+	EasyCreateSquareVertex(350, 350, 600, 500, "X_TEX");
+	EasyCreateSquareVertex(660, 350, 910, 500, "B_TEX");
 
 	goodsScoreShow();
 	timerRender();

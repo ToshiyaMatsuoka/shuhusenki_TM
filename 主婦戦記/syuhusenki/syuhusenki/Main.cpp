@@ -8,7 +8,7 @@
 
 SoundLib::SoundsManager soundsManager;
 
-bool g_SoundSuccess;
+bool g_SoundSuccess = false;
 
 RECT testWord = { 50,200,1200,500 };
 unsigned int gameRoop();
@@ -25,37 +25,36 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hInstance, LPSTR szStr, INT iCmdSh
 	HWND hWnd = NULL;
 
 #ifdef _DEBUG
-	InitWindowEx("ÅôéÂïwêÌãLÅô", &hWnd, WIDTH, HEIGHT, hInst, hInstance, IDI_ICON1, "Texture/Yasuko.png");
+	InitWindowEx("ÅôéÂïwêÌãLÅô", &hWnd, WIDTH, HEIGHT, hInst, hInstance, "Texture/Yasuko.png", IDI_ICON1);
 #else
-	InitWindowFullscreenEx("ÅôéÂïwêÌãLÅô", &hWnd, WIDTH, HEIGHT, hInst, hInstance, IDI_ICON1, "Texture/Yasuko.png");
+	InitWindowFullscreenEx("ÅôéÂïwêÌãLÅô", &hWnd, WIDTH, HEIGHT, hInst, hInstance, "Texture/Yasuko.png", D3DPRESENT_INTERVAL_DEFAULT, IDI_ICON1);
 #endif
 	g_SoundSuccess = soundsManager.Initialize() && g_SoundSuccess;
-	ReadInTexture("Texture/nowloading.png", LOAD_TEX);
+	ReadInTexture("Texture/nowloading.png", "LOAD_TEX");
 	setNowLoading();
 	g_SoundSuccess = soundsManager.AddFile("Sound/loadEnd.mp3", "LOAD") && g_SoundSuccess;
 
-	ReadInTexture("Texture/Blank.jpg", BLANK);
-	ReadInTexture("Texture/Yasuko.png", YASUKO_TEX);
-	ReadInTexture("Texture/title.jpg", TITLE_BG_TEX);
-	ReadInTexture("Texture/title_select.png", TITLE_UI_TEX);
-	ReadInTexture("Texture/UI/pressA.png", PRESS_TEX);
+	ReadInTexture("Texture/Blank.jpg", "BLANK");
+	ReadInTexture("Texture/Yasuko.png", "YASUKO_TEX");
+	ReadInTexture("Texture/title.jpg", "TITLE_BG_TEX");
+	ReadInTexture("Texture/title_select.png", "TITLE_UI_TEX");
+	ReadInTexture("Texture/UI/pressA.png", "PRESS_TEX");
 
-	ReadInTexture("Texture/mob.png", MOB_TEX);
-	ReadInTexture("Texture/team_logo.png", TEAMLOGO_TEX);
+	ReadInTexture("Texture/mob.png", "MOB_TEX");
+	ReadInTexture("Texture/team_logo.png", "TEAMLOGO_TEX");
 
-	ReadInTexture("Texture/Mituko.png",MITUKO_TEX);
-	ReadInTexture("Texture/Isoko.png",ISOKO_TEX);
-	ReadInTexture("Texture/UI/arrow.png", TITLEICON_TEX);
-	ReadInTexture("Texture/calculation2", RESULT_BG_TEX);
-	ReadInTexture("Texture/wisdomP1.png", WISDOM1_TEX);
-	ReadInTexture("Texture/wisdomP2.png", WISDOM2_TEX);
-	ReadInTexture("Texture/wisdomP3.png", WISDOM3_TEX);
+	ReadInTexture("Texture/Mituko.png","MITUKO_TEX");
+	ReadInTexture("Texture/Isoko.png","ISOKO_TEX");
+	ReadInTexture("Texture/UI/arrow.png", "TITLEICON_TEX");
+	ReadInTexture("Texture/wisdomP1.png", "WISDOM1_TEX");
+	ReadInTexture("Texture/wisdomP2.png", "WISDOM2_TEX");
+	ReadInTexture("Texture/wisdomP3.png", "WISDOM3_TEX");
 
-	ReadInTexture("Texture/button/a.png", A_TEX);
+	ReadInTexture("Texture/button/a.png", "A_TEX");
 
-	SetUpFont(100, 70, DEFAULT_CHARSET, NULL, HOGE_FONT);
-	SetUpFont(25, 25, DEFAULT_CHARSET, NULL, DEBUG_FONT);
-	SetUpFont(70, 50, DEFAULT_CHARSET, NULL, HAVEGOODS_FONT);
+	SetUpFont(100, 70,"HOGE_FONT");
+	SetUpFont(25, 25,"DEBUG_FONT");
+	SetUpFont(70, 50,"HAVEGOODS_FONT");
 
 	soundLoad();
 	g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
@@ -211,10 +210,10 @@ void teamlogoRender(void) {
 	}
 
 	BeginSetTexture();
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT,BLANK);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT,"BLANK");
 
 	CreateSquareVertexColor(teamlogo, logo, logoColor);
-	SetUpTexture(teamlogo, TEAMLOGO_TEX);
+	SetUpTexture(teamlogo, "TEAMLOGO_TEX");
 
 	EndSetTexture();
 
@@ -283,6 +282,6 @@ void soundLoad() {
 void setNowLoading()
 {
 	BeginSetTexture();
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, LOAD_TEX);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "LOAD_TEX");
 	EndSetTexture();
 }

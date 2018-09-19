@@ -83,15 +83,15 @@ void blowOffControl()
 void blowOffRender()
 {
 
-	CreateSquareVertexEx(playerHit, playerCentralHit, 0,0, YASUKO_TU, YASUKO_TV); 
+	CreateSquareVertex(playerHit, playerCentralHit, 0,0, YASUKO_TU, YASUKO_TV); 
 
 	BeginSetTexture();
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, FLOAMOVE_BG_TEX);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
 
-	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, HARFCLEAR, BLANK);
+	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertexEx(mobFloa, mobCentralBlowOff[i],0,0,MOB_TU, MOB_TV);
+		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0,0,MOB_TU, MOB_TV);
 		if (g_isBlowOff) {
 			g_effectCount++;
 
@@ -110,7 +110,7 @@ void blowOffRender()
 		SetUpTexture(mobFloa, mobTexNum);
 	}
 	if ((g_effectCount > 20) && g_isBlowOff) {
-		SetUpTexture(effectExplosion, EXPLOSION_TEX);
+		SetUpTexture(effectExplosion, "EXPLOSION_TEX");
 	}
 	SetUpTexture(playerHit, texturePC);
 
@@ -134,19 +134,19 @@ void blowOffRender()
 		sprintf_s(debugComandInput, 10, "%c", comandButton(comandInput[i]));
 
 		RECT DEBUGText = { 100 + (i * 50),500,900,600 };
-		WriteWord(debugComandInput, DEBUGText, DT_LEFT, 0xff0000ff, DEBUG_FONT);
+		WriteWord(debugComandInput, DEBUGText, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 	}
 	for (int i = 0; i < 5; i++)
 	{
 		sprintf_s(debugComandOutput, 10, "%c", comandButton(comandPresentment[i]));
 
 		RECT DEBUGText = { 100 + (i * 50),450,900,600 };
-		WriteWord(debugComandOutput, DEBUGText, DT_LEFT, 0xff0000ff, DEBUG_FONT);
+		WriteWord(debugComandOutput, DEBUGText, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 	}
 
 	sprintf_s(DebugCounter, 10, "%d", comandCount);
 	RECT DEBUGText = { 100 ,550,900,600 };
-	WriteWord(DebugCounter, DEBUGText, DT_LEFT, 0xff00ffff, DEBUG_FONT);
+	WriteWord(DebugCounter, DEBUGText, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 #endif
 
 	goodsScoreShow();
@@ -210,23 +210,23 @@ char comandButton(int comand)
 	}
 
 }
-int comandButtonTexture(int comand)
+std::string comandButtonTexture(int comand)
 {
 	switch (comand) {
 	case ButtonA:
-		return A_TEX;
+		return "A_TEX";
 	case ButtonB:
-		return B_TEX;
+		return"B_TEX";
 	case ButtonX:
-		return X_TEX;
+		return "X_TEX";
 	case ButtonY:
-		return Y_TEX;
+		return"Y_TEX";
 	case ButtonRB:
-		return R_TEX;
+		return"R_TEX";
 	case ButtonLB:
-		return L_TEX;
+		return "L_TEX";
 	default:
-		return NULL_BUTTON_TEX;
+		return "NULL_BUTTON_TEX";
 	}
 
 }

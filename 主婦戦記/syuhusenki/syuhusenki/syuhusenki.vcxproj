@@ -27,14 +27,12 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PickGoods.cpp" />
     <ClCompile Include="Result.cpp" />
-    <ClCompile Include="Select.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlowOff.h" />
     <ClInclude Include="ChoseGoods.h" />
-    <ClInclude Include="DirectX_LIB\DirectX_LIB\TrialEnums.h" />
     <ClInclude Include="FloaMove.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Goods.h" />
@@ -42,7 +40,6 @@
     <ClInclude Include="PickGoods.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Result.h" />
-    <ClInclude Include="Select.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
@@ -104,12 +101,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\DirectX_LIB\DirectX_LIB;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\DirectX_LIB\Debug;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\DirectX_LIB\DirectX_LIB;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\DirectX_LIB\Release;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -17,8 +17,9 @@
 #include <time.h>
 #include <stdio.h>
 #include<Xinput.h>
+#include "map"
 
-#include "TrialEnums.h"
+
 
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "d3d9.lib")
@@ -119,13 +120,13 @@ struct CIRCLE_STATE{
 };
 
 extern LPDIRECT3D9 g_pDirect3D;		//	Direct3Dのインターフェイス
-extern LPDIRECT3DTEXTURE9	  g_pTexture[128];	//	画像の情報を入れておく為のポインタ配列
+extern std::map<std::string, LPDIRECT3DTEXTURE9>	g_pTexture;	//	画像の情報を入れておく為のポインタ配列
 extern IDirect3DDevice9*	  g_pD3Device;		//	Direct3Dのデバイス
 extern D3DDISPLAYMODE		  g_D3DdisplayMode;
 extern D3DPRESENT_PARAMETERS g_D3dPresentParameters;
 extern LPDIRECTINPUT8 g_pDinput;
 extern LPDIRECTINPUTDEVICE8 g_pKeyDevice;
-extern LPD3DXFONT g_pFont[128];
+extern std::map<std::string, LPD3DXFONT> g_pFont;
 extern PADSTATE PadState[ButtomIndexMAX];
 extern PADSTATE PadOldState[ButtomIndexMAX];
 extern BYTE KeyState[256];
@@ -169,7 +170,7 @@ HRESULT InitDirectX(HWND hWnd, LPCSTR pSrcFile);
 * @param pSrcFile　画像ファイル名
 * @return 成功すればS_OK、失敗でE_FAIL
 */
-HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile, int ResolutionWidth, int ResolutionHeight);
+HRESULT InitDirectXFullscreen(HWND hWnd, LPCSTR pSrcFile, int ResolutionWidth, int ResolutionHeight, int PresentationInterval=D3DPRESENT_INTERVAL_IMMEDIATE);
 
 void FreeDx();
 
@@ -182,11 +183,11 @@ void FreeDx();
 * @param HEIGHT 画面高さ
 * @param hInst APIインスタンスのハンドル
 * @param hInstance APIインスタンスのハンドル
-* @param  IconIDI　IconのID　不要ならNULL
 * @param pSrcFile　画像ファイル名
+* @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindow(LPCSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, int IconIDI, LPCSTR pSrcFile);
+int InitWindow(LPCSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
 
 /**
 * @brief ウィンドウ生成
@@ -196,11 +197,11 @@ int InitWindow(LPCSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE
 * @param HEIGHT 画面高さ
 * @param hInst APIインスタンスのハンドル
 * @param hInstance APIインスタンスのハンドル
-* @param  IconIDI　IconのID　不要ならNULL
 * @param pSrcFile　画像ファイル名
+* @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, int IconIDI, LPCSTR pSrcFile);
+int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
 
 /**
 * @brief フルスクリーン用ウィンドウ生成
@@ -210,11 +211,12 @@ int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hI
 * @param HEIGHT 画面高さ
 * @param hInst APIインスタンスのハンドル
 * @param hInstance APIインスタンスのハンドル
-* @param  IconIDI　IconのID　不要ならNULL
 * @param pSrcFile　画像ファイル名
+* @param  int PresentationInterval 垂直同期の設定　Defaultでオン：D3DPRESENT_INTERVAL_IMMEDIATE　オフにするならD3DPRESENT_INTERVAL_DEFAULTなどを設定する
+* @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, int IconIDI, LPCSTR pSrcFile);
+int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE, int IconIDI = NULL);
 
 /**
 * @brief 秒間60フレームループさせる
@@ -243,18 +245,20 @@ void EndSetTexture();
 /**
 * @brief 画像読み込み
 * @param pTextureName 読み込む画像ファイル名
-* @param TexNum 画像の格納先配列番号
+* @param TexKey 画像の格納キー
 */
-void ReadInTexture(LPCSTR pTextureName, int TexNum);
+void ReadInTexture(LPCSTR pTextureName, std::string TexKey);
 
 
 /**
 * @brief 画像表示
 * @param Vertex 描画する4頂点情報
-* @param TexNum 画像の格納配列番号
+* @param TexKey 画像の格納キー
 * @detail CUSTOMVERTEX変数は自分で用意すること
 */
-void SetUpTexture(CUSTOMVERTEX* Vertex, int TexNum);
+void SetUpTexture(CUSTOMVERTEX* Vertex, std::string TexKey);
+
+void eraseTexture(std::string TexKey);
 
 //2頂点設定描画
 
@@ -264,19 +268,10 @@ void SetUpTexture(CUSTOMVERTEX* Vertex, int TexNum);
 * @param Top 上端
 * @param Right 右端
 * @param Bottom 下端
-* @param TexNum 画像の格納配列番号
-*/
-void EasyCreateSquareVertex(float Left, float Top, float Right, float Bottom, int TexNum);
-/**
-* @brief 2頂点を指定し画像を描画する
-* @param Left 左端
-* @param Top 上端
-* @param Right 右端
-* @param Bottom 下端
 * @param color 色
-* @param TexNum 画像の格納配列番号
+* @param TexKey 画像の格納キー
 */
-void EasyCreateSquareVertexColor(float Left, float Top, float Right, float Bottom, DWORD color, int TexNum);
+void EasyCreateSquareVertexColor(float Left, float Top, float Right, float Bottom, std::string TexKey, DWORD color=0xffffffff);
 
 /**
 * @brief 2頂点を指定し画像を描画する
@@ -289,25 +284,19 @@ void EasyCreateSquareVertexColor(float Left, float Top, float Right, float Botto
 * @param tv 画像切り取り上端
 * @param scaleTu 画像の切り取り幅
 * @param scaleTv 画像の切り取り高さ
-* @param TexNum 画像の格納配列番号
+* @param TexKey 画像の格納キー
 */
-void EasyCreateSquareVertexEx( float Left, float Top, float Right, float Bottom, DWORD  color, float tu, float tv, float scaleTu, float scaleTv, int TexNum);
+void EasyCreateSquareVertex( float Left, float Top, float Right, float Bottom, std::string TexKey, DWORD  color = 0xffffffff, float tu=0, float tv=0, float scaleTu=1, float scaleTv=1);
 
 //RECT引数2頂点設定描画
 
 /**
 * @brief 2頂点を指定し画像を描画する
 * @param Vertex RECT構造体で頂点を指定する
-* @param TexNum 画像の格納配列番号
-*/
-void EasyCreateRECTVertex(RECT Vertex, int TexNum);
-/**
-* @brief 2頂点を指定し画像を描画する
-* @param Vertex RECT構造体で頂点を指定する
 * @param color 色
-* @param TexNum 画像の格納配列番号
+* @param TexKey 画像の格納キー
 */
-void EasyCreateRECTVertexColor(RECT Vertex, DWORD color, int TexNum);
+void EasyCreateRECTVertexColor(RECT Vertex, std::string TexKey, DWORD color = 0xffffffff);
 /**
 * @brief 2頂点を指定し画像を描画する
 * @param Vertex RECT構造体で頂点を指定する
@@ -316,9 +305,9 @@ void EasyCreateRECTVertexColor(RECT Vertex, DWORD color, int TexNum);
 * @param tv 画像切り取り上端
 * @param scaleTu 画像の切り取り幅
 * @param scaleTv 画像の切り取り高さ
-* @param TexNum 画像の格納配列番号
+* @param TexKey 画像の格納キー
 */
-void EasyCreateRECTVertexEx(RECT Vertex, DWORD color, float tu, float tv, float scaleTu, float scaleTv, int TexNum);
+void EasyCreateRECTVertex(RECT Vertex, std::string TexKey, DWORD color = 0xffffffff, float tu=0, float tv=0, float scaleTu=1, float scaleTv=1);
 
 //4頂点設定
 
@@ -326,37 +315,20 @@ void EasyCreateRECTVertexEx(RECT Vertex, DWORD color, float tu, float tv, float 
 * @brief CUSTOMVERTEX変数に値を入れる
 * @param Vertex 入れ物
 * @param Central 入れる中心情報
-*/
-void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central);
-/**
-* @brief CUSTOMVERTEX変数に値を入れる
-* @param Vertex 入れ物
-* @param Central 入れる中心情報
 * @param color 色
 * @param tu 画像切り取り左端
 * @param tv 画像切り取り上端
 * @param scaleTu 画像の切り取り幅
 * @param scaleTv 画像の切り取り高さ
 */
-void CreateSquareVertexEx(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv);
-/**
-* @brief CUSTOMVERTEX変数に値を入れる
-* @param Vertex 入れ物
-* @param Central 入れる中心情報
-* @param color 色
-* @param tu 画像切り取り左端
-* @param tv 画像切り取り上端
-* @param scaleTu 画像の切り取り幅
-* @param scaleTv 画像の切り取り高さ
-*/
-void CreateSquareVertexColorEx(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv);
+void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color=0xffffffff, float tu=0, float tv=0, float scaleTu=1, float scaleTv=1);
 /**
 * @brief CUSTOMVERTEX変数に値を入れる
 * @param Vertex 入れ物
 * @param Central 入れる中心情報
 * @param color 色
 */
-void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color);
+void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff);
 
 
 //DXフォント
@@ -365,21 +337,22 @@ void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD 
 * @brief DXフォント文字設定
 * @param WordHeight 文字の高さ
 * @param WordWidth 文字の幅
-* @param CharSet キャラセット（英字なら１，シフトJISなら128）
 * @param FontName 使用するフォント名
 * @param FontNum 表示文字設定の格納先配列番号
+* @param CharSet キャラセット（英字ならDEFAULT_CHARSET，シフトJISならSHIFTJIS_CHARSET）
 */
-void SetUpFont(int WordHeight, int WordWidth, int CharSet, LPCSTR FontName, int FontNum);
+void SetUpFont(int WordHeight, int WordWidth, std::string FontNum, LPCSTR FontName=NULL, int CharSet=DEFAULT_CHARSET);
 /**
 * @brief DXフォント描画設定
 * @param Texts 表示内容
 * @param Vertex 表示範囲
+* @param FontNum 表示文字設定の格納キー
 * @param TextFormat フォーマット
 * @param color 色
-* @param FontNum 表示文字設定の格納配列番号
 */
-void WriteWord(LPCSTR Texts, RECT Vertex, int TextFormat, int color, int FontNum);
+void WriteWord(LPCSTR Texts, RECT Vertex, std::string FontNum, int TextFormat=DT_LEFT, int color=0xff000000);
 
+void eraseFont(std::string FontKey);
 
 /**
 * @brief 回転、円運動関数
@@ -387,8 +360,12 @@ void WriteWord(LPCSTR Texts, RECT Vertex, int TextFormat, int color, int FontNum
 * @param Rad 回転角度（単位：Radian）
 * @param Central 動かす中心情報
 * @param motionRadius 円運動半径
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius);
+void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief 回転、楕円運動関数
 * @param Vertex 動作後の頂点情報の格納先
@@ -396,8 +373,12 @@ void RevolveAndCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Cen
 * @param Central 動かす中心情報
 * @param motionRadiusX 円運動X半径
 * @param motionRadiusY 円運動Y半径
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY);
+void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 
 /**
@@ -405,8 +386,12 @@ void RevolveAndOvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE
 * @param Vertex 動作後の頂点情報の格納先
 * @param Rad 回転角度（単位：Radian）
 * @param Central 動かす中心情報
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
+void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief 回転軸指定Z軸回転
 * @param Vertex 動作後の頂点情報の格納先
@@ -415,14 +400,18 @@ void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
 * @param RevolvingShaftX 回転軸のX座標
 * @param RevolvingShaftY 回転軸のY座標
 */
-void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY);
+void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief Y軸回転
 * @param Vertex 動作後の頂点情報の格納先
 * @param Rad 回転角度（単位：Radian）
 * @param Central 動かす中心情報
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
+void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief 回転軸指定Y軸回転
 * @param Vertex 動作後の頂点情報の格納先
@@ -431,14 +420,18 @@ void RevolveY(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
 * @param RevolvingShaftX 回転軸のX座標
 * @param RevolvingShaftZ 回転軸のZ座標
 */
-void RevolveYEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftX, float RevolvingShaftZ);
+void RevolveYEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftX, float RevolvingShaftZ, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief X軸回転
 * @param Vertex 動作後の頂点情報の格納先
 * @param Rad 回転角度（単位：Radian）
 * @param Central 動かす中心情報
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
+void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 /**
 * @brief 回転軸指定X軸回転
 * @param Vertex 動作後の頂点情報の格納先
@@ -446,8 +439,12 @@ void RevolveX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central);
 * @param Central 動かす中心情報
 * @param RevolvingShaftY 回転軸のY座標
 * @param RevolvingShaftZ 回転軸のZ座標
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftY, float RevolvingShaftZ);
+void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float RevolvingShaftY, float RevolvingShaftZ, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 //円運動
 /**
@@ -456,8 +453,12 @@ void RevolveXEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float Re
 * @param Rad 回転角度（単位：Radian）
 * @param Central 動かす中心情報
 * @param motionRadius 円運動半径
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius);
+void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadius, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 //
 /**
 * @brief 楕円運動
@@ -466,8 +467,12 @@ void CircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, floa
 * @param Central 動かす中心情報
 * @param motionRadiusX 円運動X半径
 * @param motionRadiusY 円運動Y半径
+* @param tu 画像切り取り左端
+* @param tv 画像切り取り上端
+* @param scaleTu 画像の切り取り幅
+* @param scaleTv 画像の切り取り高さ
 */
-void OvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY);
+void OvalCircularMotion(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float motionRadiusX, float motionRadiusY, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 //Dinputキーボード
 /**
@@ -489,7 +494,7 @@ bool InputKEY(int KeyName);
 * @brief Xinputでゲームパッドデバイスの取得
 * @param GamePadNumber パッド番号（0ベース）
 */
-void GetControl(int GamePadNumber);
+void GetControl(int GamePadNumber = 0);
 /**
 * @brief Xinputでゲームパッドの入力取得
 * @param index 取得したいボタンの配列番号
@@ -595,7 +600,6 @@ bool BtoBContact(CENTRAL_STATE* central1, CENTRAL_STATE* central2);
 * @param Top 指定範囲の上端
 * @param Right 指定範囲の右端
 * @param Bottom 指定範囲の下端
-* @return 当たっていればTrue
 */
 void MoveInToErea(CENTRAL_STATE* central, float Left, float Top, float Right, float Bottom);
 

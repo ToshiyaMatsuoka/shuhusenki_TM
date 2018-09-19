@@ -24,7 +24,7 @@ int g_inCount = 0;
 int g_gameScene = FLOAMOVE;
 
 int g_turn = 0;
-int mobTexNum;
+std::string mobTexNum;
 
 bool g_isFirst = true;
 int g_effectCount = 0;
@@ -48,8 +48,8 @@ CENTRAL_STATE playerCentralHit = {200,350,200,250};
 
 CENTRAL_STATE durabilityPointCentral = { 900,75 ,15,40};
 
-int texturePC = YASUKO_TEX;
-int priceEdit(GOODSPARAMETER foodGoods[], int goodsselector, int nomalOrSale);
+std::string texturePC = "YASUKO_TEX";
+std::string priceEdit(GOODSPARAMETER foodGoods[], int goodsselector, int nomalOrSale);
 int editMerchandise(int selesChoice, int arrayNum);
 
 void gameMain() {
@@ -61,89 +61,89 @@ void gameMain() {
 		{
 			setNowLoading();
 
-			ReadInTexture("Texture/UI/frame_goods.png", FRAME_TEX);
-			ReadInTexture("Texture/effect.png", YASUKO_EFFECT_TEX);
+			ReadInTexture("Texture/UI/frame_goods.png", "FRAME_TEX");
+			ReadInTexture("Texture/effect.png", "YASUKO_EFFECT_TEX");
 
-			ReadInTexture("Texture/FoodSection.png", FOOD_STAGE_TEX);
-			ReadInTexture("Texture/maxresdefault.png", CUTIN_TEX);
-			ReadInTexture("Texture/bakuhuhathu.png", EXPLOSION_TEX);
-			ReadInTexture("Texture/yasukoCutin.png", CUTIN_YASUKO_TEX);
-			ReadInTexture("Texture/UI/durabilityBar.jpg", DURABILITY_TEX);
-			ReadInTexture("Texture/smoke.png", SMOKE_TEX);
-			ReadInTexture("Texture/boy.png", BOY_TEX);
-			ReadInTexture("Texture/salesclerk.png", SALESMAN_TEX);
+			ReadInTexture("Texture/FoodSection.png", "FOOD_STAGE_TEX");
+			ReadInTexture("Texture/maxresdefault.png", "CUTIN_TEX");
+			ReadInTexture("Texture/bakuhuhathu.png", "EXPLOSION_TEX");
+			ReadInTexture("Texture/yasukoCutin.png", "CUTIN_YASUKO_TEX");
+			ReadInTexture("Texture/UI/durabilityBar.jpg", "DURABILITY_TEX");
+			ReadInTexture("Texture/smoke.png", "SMOKE_TEX");
+			ReadInTexture("Texture/boy.png", "BOY_TEX");
+			ReadInTexture("Texture/salesclerk.png", "SALESMAN_TEX");
 
-			ReadInTexture("Texture/UI/timerFrame.png", TIMER_FRAME_TEX);
-			ReadInTexture("Texture/UI/timerHand.png", TIMER_HAND_TEX);
-			ReadInTexture("Texture/UI/startCount3.png", STARTCOUNT_3_TEX);
-			ReadInTexture("Texture/UI/startCount2.png", STARTCOUNT_2_TEX);
-			ReadInTexture("Texture/UI/startCount1.png", STARTCOUNT_1_TEX);
-			ReadInTexture("Texture/UI/salerogo.png", START_TEX);
-			ReadInTexture("Texture/pauseMenu.png", PAUSE_TEX);
-			ReadInTexture("Texture/UI/end.png", TIMEUP_TEX);
-			ReadInTexture("Texture/stage.png", FLOAMOVE_BG_TEX);
+			ReadInTexture("Texture/UI/timerFrame.png", "TIMER_FRAME_TEX");
+			ReadInTexture("Texture/UI/timerHand.png", "TIMER_HAND_TEX");
+			ReadInTexture("Texture/UI/startCount3.png", "STARTCOUNT_3_TEX");
+			ReadInTexture("Texture/UI/startCount2.png", "STARTCOUNT_2_TEX");
+			ReadInTexture("Texture/UI/startCount1.png", "STARTCOUNT_1_TEX");
+			ReadInTexture("Texture/UI/salerogo.png", "START_TEX");
+			ReadInTexture("Texture/pauseMenu.png", "PAUSE_TEX");
+			ReadInTexture("Texture/UI/end.png", "TIMEUP_TEX");
+			ReadInTexture("Texture/stage.png", "FLOAMOVE_BG_TEX");
 
-			ReadInTexture("Texture/scoretext/s50e.png", FIFTY_TEX );
-			ReadInTexture("Texture/scoretext/s60e.png", SIXTY_TEX );
-			ReadInTexture("Texture/scoretext/s65e.png", SIXTYFIVE_TEX );
-			ReadInTexture("Texture/scoretext/s100e.png", HUNDRED_TEX );
-			ReadInTexture("Texture/scoretext/s150e.png", HUNDREDFIFTY_TEX);
-			ReadInTexture("Texture/scoretext/s200e.png", TWEHANDRED_TEX );
-			ReadInTexture("Texture/scoretext/s250e.png", TWEHANDREDFIFTY_TEX );
-			ReadInTexture("Texture/scoretext/s300e.png", THREEHANDRED_TEX );
-			ReadInTexture("Texture/scoretext/ss30e.png", S_THRTY_TEX );
-			ReadInTexture("Texture/scoretext/ss40e.png", S_FOURTY_TEX );
-			ReadInTexture("Texture/scoretext/ss50e.png", S_FIFTY_TEX );
-			ReadInTexture("Texture/scoretext/ss60e.png", S_SIXTY_TEX );
-			ReadInTexture("Texture/scoretext/ss70e.png", S_SEVENTY_TEX );
-			ReadInTexture("Texture/scoretext/ss80e.png", S_EIGHTY_TEX);
-			ReadInTexture("Texture/scoretext/ss100e.png", S_HUNDRED_TEX );
-			ReadInTexture("Texture/scoretext/ss150e.png", S_HUNDREDFIFTY_TEX );
-			ReadInTexture("Texture/scoretext/ss180e.png", S_HUNDREDEIGHTY_TEX);
-			ReadInTexture("Texture/scoretext/ss200e.png", S_TWEHUNDRED_TEX );
+			ReadInTexture("Texture/scoretext/s50e.png", "FIFTY_TEX" );
+			ReadInTexture("Texture/scoretext/s60e.png", "SIXTY_TEX" );
+			ReadInTexture("Texture/scoretext/s65e.png", "SIXTYFIVE_TEX" );
+			ReadInTexture("Texture/scoretext/s100e.png", "HUNDRED_TEX" );
+			ReadInTexture("Texture/scoretext/s150e.png", "HUNDREDFIFTY_TEX");
+			ReadInTexture("Texture/scoretext/s200e.png", "TWEHANDRED_TEX" );
+			ReadInTexture("Texture/scoretext/s250e.png", "TWEHANDREDFIFTY_TEX" );
+			ReadInTexture("Texture/scoretext/s300e.png", "THREEHANDRED_TEX" );
+			ReadInTexture("Texture/scoretext/ss30e.png", "S_THRTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss40e.png", "S_FOURTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss50e.png", "S_FIFTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss60e.png", "S_SIXTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss70e.png", "S_SEVENTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss80e.png", "S_EIGHTY_TEX");
+			ReadInTexture("Texture/scoretext/ss100e.png", "S_HUNDRED_TEX" );
+			ReadInTexture("Texture/scoretext/ss150e.png", "S_HUNDREDFIFTY_TEX" );
+			ReadInTexture("Texture/scoretext/ss180e.png", "S_HUNDREDEIGHTY_TEX");
+			ReadInTexture("Texture/scoretext/ss200e.png", "S_TWEHUNDRED_TEX" );
 
-			ReadInTexture("Texture/scoretext/t1.png", T_1);
-			ReadInTexture("Texture/scoretext/t2.png", T_2);
-			ReadInTexture("Texture/scoretext/t3.png", T_3);
-			ReadInTexture("Texture/scoretext/t4.png", T_4);
-			ReadInTexture("Texture/scoretext/t5.png", T_5);
+			ReadInTexture("Texture/scoretext/t1.png", "T_1");
+			ReadInTexture("Texture/scoretext/t2.png", "T_2");
+			ReadInTexture("Texture/scoretext/t3.png", "T_3");
+			ReadInTexture("Texture/scoretext/t4.png", "T_4");
+			ReadInTexture("Texture/scoretext/t5.png", "T_5");
 
-			ReadInTexture("Texture/button/b.png", B_TEX);
-			ReadInTexture("Texture/button/x.png", X_TEX);
-			ReadInTexture("Texture/button/y.png", Y_TEX);
-			ReadInTexture("Texture/button/r.png", R_TEX);
-			ReadInTexture("Texture/button/l.png", L_TEX);
-			ReadInTexture("Texture/button/button.png", NULL_BUTTON_TEX);
+			ReadInTexture("Texture/button/b.png", "B_TEX");
+			ReadInTexture("Texture/button/x.png", "X_TEX");
+			ReadInTexture("Texture/button/y.png", "Y_TEX");
+			ReadInTexture("Texture/button/r.png", "R_TEX");
+			ReadInTexture("Texture/button/l.png", "L_TEX");
+			ReadInTexture("Texture/button/button.png", "NULL_BUTTON_TEX");
 
-			ReadInTexture("Texture/merchandise/beef.png", BEEF_TEX);
-			ReadInTexture("Texture/merchandise/chicken.png", CHICKEN_TEX);
-			ReadInTexture("Texture/merchandise/pork.png", PORK_TEX);
-			ReadInTexture("Texture/merchandise/wiener.png", VIENNESE_TEX);
-			ReadInTexture("Texture/merchandise/mince.png", MINCE_TEX);
+			ReadInTexture("Texture/merchandise/beef.png", "BEEF_TEX");
+			ReadInTexture("Texture/merchandise/chicken.png", "CHICKEN_TEX");
+			ReadInTexture("Texture/merchandise/pork.png", "PORK_TEX");
+			ReadInTexture("Texture/merchandise/wiener.png", "VIENNESE_TEX");
+			ReadInTexture("Texture/merchandise/mince.png", "MINCE_TEX");
 
-			ReadInTexture("Texture/merchandise/shrimp.png", SHRIMP_TEX);
-			ReadInTexture("Texture/merchandise/octopus.png", OCTOPUS_TEX);
-			ReadInTexture("Texture/merchandise/squid.png", INKFISH_TEX);
-			ReadInTexture("Texture/merchandise/fish.png", FISH_TEX);
+			ReadInTexture("Texture/merchandise/shrimp.png", "SHRIMP_TEX");
+			ReadInTexture("Texture/merchandise/octopus.png", "OCTOPUS_TEX");
+			ReadInTexture("Texture/merchandise/squid.png", "INKFISH_TEX");
+			ReadInTexture("Texture/merchandise/fish.png", "FISH_TEX");
 
-			ReadInTexture("Texture/merchandise/carrot.png", GINESENG_TEX);
-			ReadInTexture("Texture/merchandise/onion.png", ONION_TEX);
-			ReadInTexture("Texture/merchandise/potato.png", POTATO_TEX);
-			ReadInTexture("Texture/merchandise/tomato.png", TOMATO_TEX);
-			ReadInTexture("Texture/merchandise/radish.png", RADISH_TEX);
+			ReadInTexture("Texture/merchandise/carrot.png", "GINESENG_TEX");
+			ReadInTexture("Texture/merchandise/onion.png", "ONION_TEX");
+			ReadInTexture("Texture/merchandise/potato.png", "POTATO_TEX");
+			ReadInTexture("Texture/merchandise/tomato.png", "TOMATO_TEX");
+			ReadInTexture("Texture/merchandise/radish.png", "RADISH_TEX");
 
-			ReadInTexture("Texture/merchandise/snack.png", POTATOCHIPS_TEX);
-			ReadInTexture("Texture/merchandise/choco.png", CHOCOLATE_TEX);
-			ReadInTexture("Texture/merchandise/ice.png", ICE_TEX);
-			ReadInTexture("Texture/merchandise/ricecracker.png", RICECRACKER_TEX);
+			ReadInTexture("Texture/merchandise/snack.png", "POTATOCHIPS_TEX");
+			ReadInTexture("Texture/merchandise/choco.png", "CHOCOLATE_TEX");
+			ReadInTexture("Texture/merchandise/ice.png", "ICE_TEX");
+			ReadInTexture("Texture/merchandise/ricecracker.png", "RICECRACKER_TEX");
 
-			ReadInTexture("Texture/merchandise/apple.png", APPLE_TEX);
-			ReadInTexture("Texture/merchandise/orange.png", ORANGE_TEX);
-			ReadInTexture("Texture/merchandise/banana.png", BANANA_TEX);
+			ReadInTexture("Texture/merchandise/apple.png", "APPLE_TEX");
+			ReadInTexture("Texture/merchandise/orange.png", "ORANGE_TEX");
+			ReadInTexture("Texture/merchandise/banana.png", "BANANA_TEX");
 
-			ReadInTexture("Texture/merchandise/tea.png", TEA_TEX);
-			ReadInTexture("Texture/merchandise/juice.png", JUICE_TEX);
-			ReadInTexture("Texture/merchandise/beer.png", BEER_TEX);
+			ReadInTexture("Texture/merchandise/tea.png", "TEA_TEX");
+			ReadInTexture("Texture/merchandise/juice.png", "JUICE_TEX");
+			ReadInTexture("Texture/merchandise/beer.png", "BEER_TEX");
 
 
 			g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
@@ -177,13 +177,13 @@ void gameMain() {
 		switch (g_turn)
 		{
 		case 0:
-			mobTexNum = ISOKO_TEX;
+			mobTexNum = "ISOKO_TEX";
 			break;
 		case 1:
-			mobTexNum = MOB_TEX;
+			mobTexNum = "MOB_TEX";
 			break;
 		case 2:
-			mobTexNum = MITUKO_TEX;
+			mobTexNum = "MITUKO_TEX";
 			break;
 		}
 
@@ -261,7 +261,7 @@ void goodsScoreShow()
 	static int goodsInfoCount = 0;
 
 	char goodsNumBuff[10];
-	EasyCreateSquareVertex(10, 0, 1260, 90, FRAME_TEX);
+	EasyCreateSquareVertex(10, 0, 1260, 90, "FRAME_TEX");
 	if (!g_timeDeadline && g_isGameStart) 
 	{
 		switch (g_gameScene)
@@ -314,7 +314,7 @@ void goodsScoreShow()
 
 			sprintf_s(goodsNumBuff, 10, "%dƒR", foodGoods[selectedGoods[g_turn]].haveValue);
 			RECT GoodsNUM = { 850 ,10,1100,80 };
-			WriteWord(goodsNumBuff, GoodsNUM, DT_RIGHT, BLACK, HAVEGOODS_FONT);
+			WriteWord(goodsNumBuff, GoodsNUM, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
 			break;
 		}
@@ -326,7 +326,7 @@ void goodsScoreShow()
 			EasyCreateSquareVertex(650, 10, 800, 80, priceEdit(foodGoods, selectedGoods[g_turn], 1));
 			sprintf_s(goodsNumBuff, 10, "%dƒR", foodGoods[selectedGoods[g_turn]].haveValue);
 			RECT GoodsNUM = { 850 ,10,1100,80 };
-			WriteWord(goodsNumBuff, GoodsNUM, DT_RIGHT, BLACK, HAVEGOODS_FONT);
+			WriteWord(goodsNumBuff, GoodsNUM, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
 			break;
 		}
@@ -336,39 +336,39 @@ void goodsScoreShow()
 	{
 		float scaleTimmer = 0;
 		float posYTimmer = 0;
-		int timmerTexture = 0;
+		std::string timmerTexture = NULL;
 
 		switch (timeShow())
 		{
 		case 0:
 			posYTimmer = 200;
 			scaleTimmer = 200;
-			timmerTexture = T_1;
+			timmerTexture = "T_1";
 			break;
 		case 1:
 			posYTimmer = 200;
 			scaleTimmer = 150;
-			timmerTexture = T_2;
+			timmerTexture = "T_2";
 			break;
 		case 2:
 			posYTimmer = 150;
 			scaleTimmer = 100;
-			timmerTexture = T_3;
+			timmerTexture = "T_3";
 			break;
 		case 3:
 			posYTimmer = 100;
 			scaleTimmer = 75;
-			timmerTexture = T_4;
+			timmerTexture = "T_4";
 			break;
 		case 4:
 			posYTimmer = 50;
 			scaleTimmer = 40;
-			timmerTexture = T_5;
+			timmerTexture = "T_5";
 			break;
 		}
 		sprintf_s(goodsNumBuff, 10, "%dƒR", foodGoods[selectedGoods[g_turn]].haveValue);
 		RECT GoodsNUM = { 850 ,10,1100,80 };
-		WriteWord(goodsNumBuff, GoodsNUM, DT_RIGHT, BLACK, HAVEGOODS_FONT);
+		WriteWord(goodsNumBuff, GoodsNUM, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
 		CUSTOMVERTEX timeLimitShow[4];
 		CENTRAL_STATE timeLimitShowCentral = { 640,posYTimmer,scaleTimmer,scaleTimmer };
@@ -383,28 +383,28 @@ void goodsScoreShow()
 	}
 }
 
-int priceEdit(GOODSPARAMETER foodGoods[],int goodsselector,int nomalOrSale)
+std::string priceEdit(GOODSPARAMETER foodGoods[],int goodsselector,int nomalOrSale)
 {
 	if (!nomalOrSale)
 	{
 		switch (foodGoods[goodsselector].nominalCost)
 		{
 		case 300:
-			return THREEHANDRED_TEX;
+			return "THREEHANDRED_TEX";
 		case 250:
-			return TWEHANDREDFIFTY_TEX;
+			return "TWEHANDREDFIFTY_TEX";
 		case 200:
-			return TWEHANDRED_TEX;
+			return "TWEHANDRED_TEX";
 		case 150:
-			return HUNDREDFIFTY_TEX;
+			return "HUNDREDFIFTY_TEX";
 		case 100:
-			return HUNDRED_TEX;
+			return "HUNDRED_TEX";
 		case 65:
-			return SIXTYFIVE_TEX;
+			return "SIXTYFIVE_TEX";
 		case 60:
-			return SIXTY_TEX;
+			return "SIXTY_TEX";
 		case 50:
-			return FIFTY_TEX;
+			return "FIFTY_TEX";
 		}
 	}
 	if (nomalOrSale)
@@ -412,27 +412,27 @@ int priceEdit(GOODSPARAMETER foodGoods[],int goodsselector,int nomalOrSale)
 		switch (foodGoods[goodsselector].selePrice)
 		{
 		case 200:
-			return S_TWEHUNDRED_TEX;
+			return "S_TWEHUNDRED_TEX";
 		case 180:
-			return S_HUNDREDEIGHTY_TEX;
+			return "S_HUNDREDEIGHTY_TEX";
 		case 150:
-			return S_HUNDREDFIFTY_TEX;
+			return "S_HUNDREDFIFTY_TEX";
 		case 100:
-			return S_HUNDRED_TEX;
+			return "S_HUNDRED_TEX";
 		case 80:
-			return S_EIGHTY_TEX;
+			return "S_EIGHTY_TEX";
 		case 70:
-			return S_SEVENTY_TEX;
+			return "S_SEVENTY_TEX";
 		case 60:
-			return S_SIXTY_TEX;
+			return "S_SIXTY_TEX";
 		case 50:
-			return S_FIFTY_TEX;
+			return "S_FIFTY_TEX";
 		case 40:
-			return S_FOURTY_TEX;
+			return "S_FOURTY_TEX";
 		case 30:
-			return S_THRTY_TEX;
+			return "S_THRTY_TEX";
 		}
-	return BLANK;
+	return "BLANK";
 }
 	}
 
@@ -447,5 +447,5 @@ void showPressA()
 	CUSTOMVERTEX showA[4];
 	CENTRAL_STATE centralAButton = {1200,600,50,50};
 	CreateSquareVertexColor(showA, centralAButton,g_cursolColor);
-	SetUpTexture(showA, A_TEX);
+	SetUpTexture(showA, "A_TEX");
 }

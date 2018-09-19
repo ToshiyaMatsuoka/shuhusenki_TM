@@ -115,9 +115,9 @@ void floaMoveControl()
 	}
 	if (isRight)
 	{
-		CreateSquareVertexEx(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
+		CreateSquareVertex(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
 	}
-	else CreateSquareVertexEx(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
+	else CreateSquareVertex(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
 
 }
 void playerControl(int* onceSound)
@@ -472,10 +472,10 @@ void floaMoveRender()
 	char debugPC[10];
 	sprintf_s(debugPC, 10, "%.2f", g_PCSta.x);
 	RECT DEBUGTextA = { 100 ,500,900,600 };
-	WriteWord(debugPC, DEBUGTextA, DT_LEFT, 0xff000000, DEBUG_FONT);
+	WriteWord(debugPC, DEBUGTextA, "DEBUG_FONT", DT_LEFT, 0xff000000);
 	sprintf_s(debugPC, 10, "%.2f", g_PCSta.y);
 	DEBUGTextA = { 100 ,550,900,600 };
-	WriteWord(debugPC, DEBUGTextA, DT_LEFT, 0xff000000, DEBUG_FONT);
+	WriteWord(debugPC, DEBUGTextA, "DEBUG_FONT", DT_LEFT, 0xff000000);
 
 #endif
 
@@ -485,7 +485,7 @@ void floaMoveRender()
 //ゲーム画面のテクスチャ
 void floaMoveRenderSta()
 {
-	EasyCreateSquareVertex(0, 100, WIDTH, 680, FLOAMOVE_BG_TEX);
+	EasyCreateSquareVertex(0, 100, WIDTH, 680, "FLOAMOVE_BG_TEX");
 
 	CUSTOMVERTEX startCount[4];
 	CUSTOMVERTEX start[4];
@@ -493,7 +493,7 @@ void floaMoveRenderSta()
 	CUSTOMVERTEX effectPC[4];
 	CENTRAL_STATE effectCentral = { g_PCSta.x-2,g_PCSta.y-14,60,75 };
 
-	CreateSquareVertexEx(effectPC, effectCentral, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+	CreateSquareVertex(effectPC, effectCentral, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
 	CreateSquareVertex(startCount, g_startCountSta);
 	CreateSquareVertex(start, g_startSta);
 	for (int i = 0; i < 4; i++)
@@ -502,22 +502,22 @@ void floaMoveRenderSta()
 		{
 			if (mobMovedRight[i])
 			{
-				CreateSquareVertexEx(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
+				CreateSquareVertex(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
 			}
-			else CreateSquareVertexEx(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
+			else CreateSquareVertex(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
 		}
 		else {
 			if (mobMovedRight[i])
 			{
-				CreateSquareVertexEx(salesmans, mobCentralFloa[i], MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
+				CreateSquareVertex(salesmans, mobCentralFloa[i], MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
 			}
-			else CreateSquareVertexEx(salesmans, mobCentralFloa[i], 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
+			else CreateSquareVertex(salesmans, mobCentralFloa[i], 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
 		}
 		if (i >= 2)
 		{
 			SetUpTexture(salesmans, mobTexNum);
 		}
-		else SetUpTexture(salesmans, BOY_TEX);
+		else SetUpTexture(salesmans, "BOY_TEX");
 	}
 
 
@@ -545,40 +545,40 @@ void floaMoveRenderSta()
 		else saleAnimeTv = 0;
 		for (int i = 0; i < 3; i++)
 		{
-			CreateSquareVertexEx(salesmans, popSales[i].popPositionCentral, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
-			SetUpTexture(salesmans, SALESMAN_TEX);
+			CreateSquareVertex(salesmans, popSales[i].popPositionCentral, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
+			SetUpTexture(salesmans, "SALESMAN_TEX");
 		}
 	}
 	//プレイヤーキャラクターのテクスチャの描画
-	SetUpTexture(effectPC, YASUKO_EFFECT_TEX);
-	SetUpTexture(PC, YASUKO_TEX);
+	SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
+	SetUpTexture(PC, "YASUKO_TEX");
 
 	timerRender();
 
 	if ((g_timerCount > ZERO_SECOND) && (g_timerCount <= ONE_SECOND))
 	{
 		//スタートカウントのテクスチャの描画
-		SetUpTexture(startCount, STARTCOUNT_3_TEX);
+		SetUpTexture(startCount, "STARTCOUNT_3_TEX");
 	}
 	else if ((g_timerCount > ONE_SECOND) && (g_timerCount <= TWO_SECOND))
 	{
 		//スタートカウントのテクスチャの描画
-		SetUpTexture(startCount, STARTCOUNT_2_TEX);
+		SetUpTexture(startCount, "STARTCOUNT_2_TEX");
 	}
 	else if ((g_timerCount > TWO_SECOND) && (g_timerCount <= THREE_SECOND))
 	{
 		//スタートカウントのテクスチャの描画
-		SetUpTexture(startCount, STARTCOUNT_1_TEX);
+		SetUpTexture(startCount, "STARTCOUNT_1_TEX");
 	}
 	else if ((g_timerCount > THREE_SECOND) && (g_timerCount <= FOUR_SECOND))
 	{
 		//スタートカウントのテクスチャの描画
-		SetUpTexture(start, START_TEX);
+		SetUpTexture(start, "START_TEX");
 	}
 
 	if (g_pause && !(g_isTimeUp))
 	{
-		EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, PAUSE_TEX);
+		EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "PAUSE_TEX");
 	}
 }
 void salesmanPoping(SALESMAN popSales[])

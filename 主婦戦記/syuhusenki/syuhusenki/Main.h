@@ -1,19 +1,20 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+//#include "DirectX_LIB/DirectX_LIB/TrialEnums.h"
 
-#include "DirectX_LIB/DirectX_LIB/TrialLib.h"
+#include "TrialLib.h"
 
 
+#pragma comment(lib, "DirectX_LIB.lib")
 
 #ifdef _DEBUG
 #include "SoundLib/Debug_x86/Include/SoundsManager.h"
 #pragma comment(lib,"SoundLib/Debug_x86/Lib/SoundLib.lib")
-#pragma comment(lib, "DirectX_LIB/Debug/DirectX_LIB.lib")
 #else
 #include "SoundLib/Release_x86/Include/SoundsManager.h"
 #pragma comment(lib,"SoundLib/Release_x86/Lib/SoundLib.lib")
-#pragma comment(lib, "DirectX_LIB/Release/DirectX_LIB.lib")
+//#pragma comment(lib, "DirectX_LIB/Release/DirectX_LIB.lib")
 #endif //_DEBUG
 
 #define WIDTH 1280

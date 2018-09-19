@@ -4,7 +4,7 @@
 
 
 CENTRAL_STATE g_selectArrowSta = { 500.f, ARROWHIGH, 20.f, 20.f };
-static int wisdomTex = WISDOM1_TEX;
+static std::string wisdomTex = "WISDOM1_TEX";
 static bool canApperMene = false;
 
 //タイトル制御処理
@@ -155,7 +155,7 @@ void titleRender(void)
 //タイトル画面のテクスチャ
 void titleRenderSta(void)
 {
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, TITLE_BG_TEX);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "TITLE_BG_TEX");
 	CENTRAL_STATE titleUICentral = { WIDTH / 2, 550, 200.f, 100.f };
 	CUSTOMVERTEX titleUI[4];
 	CreateSquareVertex(titleUI, titleUICentral);
@@ -166,9 +166,9 @@ void titleRenderSta(void)
 	//タイトル矢印テクスチャの生成
 	if (canApperMene)
 	{
-		SetUpTexture(titleUI, TITLE_UI_TEX);
+		SetUpTexture(titleUI, "TITLE_UI_TEX");
 
-		SetUpTexture(selectArrow, TITLEICON_TEX);
+		SetUpTexture(selectArrow, "TITLEICON_TEX");
 	}
 	else
 	{
@@ -180,7 +180,7 @@ void titleRenderSta(void)
 		}
 		if (count > 20)
 		{
-			SetUpTexture(titleUI, PRESS_TEX);
+			SetUpTexture(titleUI, "PRESS_TEX");
 		}
 	}
 
@@ -200,15 +200,15 @@ void wisdomControl()
 		switch (wisdomPage)
 		{
 		case PAGE1:
-			wisdomTex = WISDOM2_TEX;
+			wisdomTex = "WISDOM2_TEX";
 			wisdomPage = PAGE2;
 			break;
 		case PAGE2:
-			wisdomTex = WISDOM3_TEX;
+			wisdomTex = "WISDOM3_TEX";
 			wisdomPage = PAGE3;
 			break;
 		case PAGE3:
-			wisdomTex = WISDOM1_TEX;
+			wisdomTex = "WISDOM1_TEX";
 			wisdomPage = PAGE1;
 			g_titleScene = TITLE;
 			break;

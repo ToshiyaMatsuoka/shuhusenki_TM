@@ -35,38 +35,38 @@ void result()
 
 		comboCheck(selectedGoods[0], selectedGoods[1], selectedGoods[2]);
 		succeedCombo = comboSucceceCheck();
-		SetUpFont(25, 20, DEFAULT_CHARSET, NULL, RESULT_FONT);
-		SetUpFont(70, 50, DEFAULT_CHARSET, NULL, SCORE_FONT);
-		SetUpFont(120, 75, DEFAULT_CHARSET, NULL, LAST_SCORE_FONT);
+		SetUpFont(25, 20, "RESULT_FONT");
+		SetUpFont(70, 50,  "SCORE_FONT");
+		SetUpFont(120, 75,  "LAST_SCORE_FONT");
 
-		ReadInTexture("Texture/result/result.png", RESULT_BG_TEX);
-		ReadInTexture("Texture/result/resultLast.png", RESULT_POP_TEX);
-		ReadInTexture("Texture/result/R_UI.png", RESULT_END_TEX);
-		ReadInTexture("Texture/result/star1.png",RESULT_STAR1_TEX);
-		ReadInTexture("Texture/result/star2.png",RESULT_STAR2_TEX);
-		ReadInTexture("Texture/result/star3.png",RESULT_STAR3_TEX);
-		ReadInTexture("Texture/result/point100.png",RESULT_COMBOTEXT1_TEX );
-		ReadInTexture("Texture/result/point300.png",RESULT_COMBOTEXT2_TEX );
-		ReadInTexture("Texture/result/point500.png",RESULT_COMBOTEXT3_TEX );
-		ReadInTexture("Texture/result/bonus.png", RESULT_COMBO_TEX);
-		ReadInTexture("Texture/result/SALE.png", RESULT_SALE_TEX);
-		ReadInTexture("Texture/result/price.png",RESULT_NOMAL_TEX );
-		ReadInTexture("Texture/yasuko_motion1.png", YASUKO_EMOTION1_TEX);
-		ReadInTexture("Texture/yasuko_motion2.png", YASUKO_EMOTION2_TEX);
-		ReadInTexture("Texture/yasuko_motion3.png", YASUKO_EMOTION3_TEX);
+		ReadInTexture("Texture/result/result.png", "RESULT_BG_TEX");
+		ReadInTexture("Texture/result/resultLast.png", "RESULT_POP_TEX");
+		ReadInTexture("Texture/result/R_UI.png", "RESULT_END_TEX");
+		ReadInTexture("Texture/result/star1.png","RESULT_STAR1_TEX");
+		ReadInTexture("Texture/result/star2.png","RESULT_STAR2_TEX");
+		ReadInTexture("Texture/result/star3.png","RESULT_STAR3_TEX");
+		ReadInTexture("Texture/result/point100.png","RESULT_COMBOTEXT1_TEX" );
+		ReadInTexture("Texture/result/point300.png","RESULT_COMBOTEXT2_TEX" );
+		ReadInTexture("Texture/result/point500.png","RESULT_COMBOTEXT3_TEX" );
+		ReadInTexture("Texture/result/bonus.png", "RESULT_COMBO_TEX");
+		ReadInTexture("Texture/result/SALE.png", "RESULT_SALE_TEX");
+		ReadInTexture("Texture/result/price.png","RESULT_NOMAL_TEX" );
+		ReadInTexture("Texture/yasuko_motion1.png", "YASUKO_EMOTION1_TEX");
+		ReadInTexture("Texture/yasuko_motion2.png", "YASUKO_EMOTION2_TEX");
+		ReadInTexture("Texture/yasuko_motion3.png", "YASUKO_EMOTION3_TEX");
 
-		ReadInTexture("Texture/merchandise/buridaikon.png", BURIDAIKON_TEX);
-		ReadInTexture("Texture/merchandise/tsumami.png", RELISH_TEX);
-		ReadInTexture("Texture/merchandise/teatime.png", TEATIME_TEX);
+		ReadInTexture("Texture/merchandise/buridaikon.png", "BURIDAIKON_TEX");
+		ReadInTexture("Texture/merchandise/tsumami.png", "RELISH_TEX");
+		ReadInTexture("Texture/merchandise/teatime.png", "TEATIME_TEX");
 
-		ReadInTexture("Texture/merchandise/curry.png", CURRY_TEX);
-		ReadInTexture("Texture/merchandise/hamberg.png", HAMBERG_TEX);
-		ReadInTexture("Texture/merchandise/sashimi.png", ASSORTEDSASHIMI_TEX);
-		ReadInTexture("Texture/merchandise/oyatsu.png", AFTERNOONREFRESHMENT_TEX);
+		ReadInTexture("Texture/merchandise/curry.png", "CURRY_TEX");
+		ReadInTexture("Texture/merchandise/hamberg.png", "HAMBERG_TEX");
+		ReadInTexture("Texture/merchandise/sashimi.png", "ASSORTEDSASHIMI_TEX");
+		ReadInTexture("Texture/merchandise/oyatsu.png", "AFTERNOONREFRESHMENT_TEX");
 
-		ReadInTexture("Texture/merchandise/soup.png", SOUP_TEX);
-		ReadInTexture("Texture/merchandise/nimono.png", NIMONO_TEX);
-		ReadInTexture("Texture/merchandise/parfait.png", PARFAIT_TEX);
+		ReadInTexture("Texture/merchandise/soup.png", "SOUP_TEX");
+		ReadInTexture("Texture/merchandise/nimono.png", "NIMONO_TEX");
+		ReadInTexture("Texture/merchandise/parfait.png", "PARFAIT_TEX");
 		if (selectedGoods[0] == selectedGoods[1] && selectedGoods[0] == selectedGoods[2]) {
 			foodGoods[selectedGoods[0]].haveValue = (foodGoods[selectedGoods[0]].haveValue / 3);
 		}
@@ -290,7 +290,7 @@ void resultControl(void)
 void resultRenderOne(void)
 {
 
-	EasyCreateSquareVertex(0, 0, WIDTH, 700, RESULT_BG_TEX);
+	EasyCreateSquareVertex(0, 0, WIDTH, 700, "RESULT_BG_TEX");
 
 	CUSTOMVERTEX resultBaseTex1[4];
 	CUSTOMVERTEX resultBaseTex2[4];
@@ -332,9 +332,9 @@ void resultRenderOne(void)
 	CreateSquareVertex(resultComboTex, comboTexCentral);
 	CreateSquareVertex(comboTextResultTex, comboTextResult);
 
-	SetUpTexture(saleTResultTex, RESULT_SALE_TEX);
-	SetUpTexture(nomalTResultTex, RESULT_NOMAL_TEX);
-	SetUpTexture(comboTResultTex, RESULT_COMBO_TEX);
+	SetUpTexture(saleTResultTex, "RESULT_SALE_TEX");
+	SetUpTexture(nomalTResultTex, "RESULT_NOMAL_TEX");
+	SetUpTexture(comboTResultTex, "RESULT_COMBO_TEX");
 
 
 
@@ -344,51 +344,51 @@ void resultRenderOne(void)
 		SetUpTexture(resultBaseTex1, foodGoods[selectedGoods[0]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[0]].nominalCost, foodGoods[selectedGoods[0]].haveValue, addPrice(0, 0));
 		RECT resultBase1{ 160,125,600,275 };
-		WriteWord(resulttantValue, resultBase1, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultBase1,  "RESULT_FONT",DT_LEFT, BLACK);
 
 		SetUpTexture(resultSeleTex1, foodGoods[selectedGoods[0]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[0]].selePrice, foodGoods[selectedGoods[0]].haveValue, addPrice(0, 1));
 		RECT resultSele1{ 930,125,1240,275 };
-		WriteWord(resulttantValue, resultSele1, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultSele1,  "RESULT_FONT",DT_LEFT, BLACK);
 	}
 	if (apperText[1]) 
 	{
 		SetUpTexture(resultBaseTex2, foodGoods[selectedGoods[1]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[1]].nominalCost, foodGoods[selectedGoods[1]].haveValue, addPrice(1, 0));
 		RECT resultBase2{ 160,225,600,275 };
-		WriteWord(resulttantValue, resultBase2, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultBase2,  "RESULT_FONT",DT_LEFT, BLACK);
 		SetUpTexture(resultSeleTex2, foodGoods[selectedGoods[1]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[1]].selePrice, foodGoods[selectedGoods[1]].haveValue, addPrice(1, 1));
 		RECT resultSele2{ 930,225,1240,275 };
-		WriteWord(resulttantValue, resultSele2, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultSele2,  "RESULT_FONT",DT_LEFT, BLACK);
 	}
 	if (apperText[2]) 
 	{
 		SetUpTexture(resultBaseTex3, foodGoods[selectedGoods[2]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[2]].nominalCost, foodGoods[selectedGoods[2]].haveValue, addPrice(2,0));
 		RECT resultBase3{ 160,325,600,475};
-		WriteWord(resulttantValue, resultBase3, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultBase3,  "RESULT_FONT",DT_LEFT, BLACK);
 		SetUpTexture(resultSeleTex3, foodGoods[selectedGoods[2]].textureID);
 		sprintf_s(resulttantValue, 32, "%dÅ~%d=%d", foodGoods[selectedGoods[2]].selePrice, foodGoods[selectedGoods[2]].haveValue, addPrice(2, 1));
 		RECT resultSele3{ 930,325,1240,475 };
-		WriteWord(resulttantValue, resultSele3, DT_LEFT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultSele3,  "RESULT_FONT",DT_LEFT, BLACK);
 	}
 	if (apperText[3]) 
 	{
 
 		sprintf_s(resulttantValue, 32, "çáåv%dâ~", nomalSum);
 		RECT resultBaseTotal{ 160,425,440,575 };
-		WriteWord(resulttantValue, resultBaseTotal, DT_RIGHT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultBaseTotal ,"RESULT_FONT", DT_RIGHT, BLACK);
 		sprintf_s(resulttantValue, 32, "çáåv%dâ~", saleSale);
 		RECT resultSeleTotal{ 930,425,1240,575 };
-		WriteWord(resulttantValue, resultSeleTotal, DT_RIGHT, BLACK, RESULT_FONT);
+		WriteWord(resulttantValue, resultSeleTotal ,"RESULT_FONT", DT_RIGHT, BLACK);
 
 	}
 	if (apperText[4]) 
 	{
 		sprintf_s(resulttantValue, 32, "%d-%d=%d", nomalSum, saleSale, nomalSum - saleSale);
 		RECT resultTotal{ 100,525,1180,700 };
-		WriteWord(resulttantValue, resultTotal, DT_CENTER, BLACK, SCORE_FONT);
+		WriteWord(resulttantValue, resultTotal, "SCORE_FONT", DT_CENTER, BLACK);
 	}
 	if (apperText[5]) 
 	{
@@ -398,16 +398,16 @@ void resultRenderOne(void)
 		switch (foodCombo[succeedCombo].comboBonus)
 		{
 		case RARE1:
-			SetUpTexture(comboStarResultTex, RESULT_STAR1_TEX);
-			SetUpTexture(comboTextResultTex, RESULT_COMBOTEXT1_TEX);
+			SetUpTexture(comboStarResultTex, "RESULT_STAR1_TEX");
+			SetUpTexture(comboTextResultTex, "RESULT_COMBOTEXT1_TEX");
 			break;
 		case RARE2:
-			SetUpTexture(comboStarResultTex, RESULT_STAR2_TEX);
-			SetUpTexture(comboTextResultTex, RESULT_COMBOTEXT2_TEX);
+			SetUpTexture(comboStarResultTex, "RESULT_STAR2_TEX");
+			SetUpTexture(comboTextResultTex, "RESULT_COMBOTEXT2_TEX");
 			break;
 		case RARE3:
-			SetUpTexture(comboStarResultTex, RESULT_STAR3_TEX);
-			SetUpTexture(comboTextResultTex, RESULT_COMBOTEXT3_TEX);
+			SetUpTexture(comboStarResultTex, "RESULT_STAR3_TEX");
+			SetUpTexture(comboTextResultTex, "RESULT_COMBOTEXT3_TEX");
 			break;
 		}
 
@@ -416,27 +416,27 @@ void resultRenderOne(void)
 
 void resultRenderTwo(void)
 {
-	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, HARFCLEAR, BLANK);
-	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT,RESULT_POP_TEX);
+	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
+	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT,"RESULT_POP_TEX");
 
 	char resulttantValue[32];
 	sprintf_s(resulttantValue, 32, "%d",nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus);
 	RECT resultTotal{ 0,235,435,400 };
-	WriteWord(resulttantValue, resultTotal, DT_RIGHT, BLACK, LAST_SCORE_FONT);
+	WriteWord(resulttantValue, resultTotal, "LAST_SCORE_FONT", DT_RIGHT, BLACK);
 	CUSTOMVERTEX resultPCTex[4];
 	CENTRAL_STATE resultPC{ 1050,350,200,300 };
 	CreateSquareVertex(resultPCTex, resultPC);
 	if ((nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) < LOW_SCORE)
 	{
-		SetUpTexture(resultPCTex, YASUKO_EMOTION3_TEX);
+		SetUpTexture(resultPCTex, "YASUKO_EMOTION3_TEX");
 	}
 	if (LOW_SCORE <= (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) && (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) <= HIGH_SCORE)
 	{
-		SetUpTexture(resultPCTex, YASUKO_EMOTION2_TEX);
+		SetUpTexture(resultPCTex, "YASUKO_EMOTION2_TEX");
 	}
 	if (HIGH_SCORE < (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus)) 
 	{
-		SetUpTexture(resultPCTex, YASUKO_EMOTION1_TEX);
+		SetUpTexture(resultPCTex, "YASUKO_EMOTION1_TEX");
 	}
 
 }
@@ -445,8 +445,8 @@ void resultRenderThree(void)
 {
 	CUSTOMVERTEX cursor[4];
 	CreateSquareVertexColor(cursor, cursorResult, g_cursolColor);
-	EasyCreateSquareVertex(50, 450, 500, 600, RESULT_END_TEX);
-	SetUpTexture(cursor, TITLEICON_TEX);
+	EasyCreateSquareVertex(50, 450, 500, 600, "RESULT_END_TEX");
+	SetUpTexture(cursor, "TITLEICON_TEX");
 }
 
 int addPrice(int num, int nomalOrSale)
