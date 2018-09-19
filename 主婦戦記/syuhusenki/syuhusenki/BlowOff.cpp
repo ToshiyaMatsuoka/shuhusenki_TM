@@ -256,43 +256,54 @@ void blowOffDeviseControl(int* i, int comand[])
 	{
 		soundOnce = true;
 		comand[*i] = ButtonA;
-		*i += 1;
-
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (KeyState[DIK_B] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (KeyState[DIK_X] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonX;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (KeyState[DIK_Y] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonY;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (KeyState[DIK_R] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonRB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (KeyState[DIK_L] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonLB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	//XInputデバイス操作
@@ -309,42 +320,54 @@ void blowOffDeviseControl(int* i, int comand[])
 	{
 		soundOnce = true;
 		comand[*i] = ButtonA;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (PadState[ButtonB] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (PadState[ButtonX] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonX;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (PadState[ButtonY] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonY;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (PadState[ButtonRB] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonRB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 	if (PadState[ButtonLB] == KeyRelease)
 	{
 		soundOnce = true;
 		comand[*i] = ButtonLB;
-		*i += 1;
+		if (*i < 5) {
+			*i += 1;
+		}
 		buttonSE(Button, 3);
 	}
 

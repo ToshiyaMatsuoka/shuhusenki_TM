@@ -336,7 +336,7 @@ void goodsScoreShow()
 	{
 		float scaleTimmer = 0;
 		float posYTimmer = 0;
-		std::string timmerTexture = NULL;
+		std::string timmerTexture;
 
 		switch (timeShow())
 		{
