@@ -115,9 +115,9 @@ void floaMoveControl()
 	}
 	if (isRight)
 	{
-		CreateSquareVertex(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
+		CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
 	}
-	else CreateSquareVertex(PC, g_PCSta, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
+	else CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
 
 }
 void playerControl(int* onceSound)
@@ -493,7 +493,7 @@ void floaMoveRenderSta()
 	CUSTOMVERTEX effectPC[4];
 	CENTRAL_STATE effectCentral = { g_PCSta.x-2,g_PCSta.y-14,60,75 };
 
-	CreateSquareVertex(effectPC, effectCentral, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+	CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
 	CreateSquareVertex(startCount, g_startCountSta);
 	CreateSquareVertex(start, g_startSta);
 	for (int i = 0; i < 4; i++)
@@ -502,16 +502,16 @@ void floaMoveRenderSta()
 		{
 			if (mobMovedRight[i])
 			{
-				CreateSquareVertex(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
+				CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
 			}
-			else CreateSquareVertex(salesmans, mobCentralFloa[i], mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
+			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
 		}
 		else {
 			if (mobMovedRight[i])
 			{
-				CreateSquareVertex(salesmans, mobCentralFloa[i], MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
+				CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
 			}
-			else CreateSquareVertex(salesmans, mobCentralFloa[i], 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
+			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
 		}
 		if (i >= 2)
 		{
@@ -545,7 +545,7 @@ void floaMoveRenderSta()
 		else saleAnimeTv = 0;
 		for (int i = 0; i < 3; i++)
 		{
-			CreateSquareVertex(salesmans, popSales[i].popPositionCentral, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
+			CreateSquareVertex(salesmans, popSales[i].popPositionCentral, WHITE, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
 			SetUpTexture(salesmans, "SALESMAN_TEX");
 		}
 	}

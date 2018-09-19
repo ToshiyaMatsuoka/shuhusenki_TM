@@ -83,7 +83,7 @@ void blowOffControl()
 void blowOffRender()
 {
 
-	CreateSquareVertex(playerHit, playerCentralHit, 0,0, YASUKO_TU, YASUKO_TV); 
+	CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0,0, YASUKO_TU, YASUKO_TV);
 
 	BeginSetTexture();
 	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
@@ -91,7 +91,7 @@ void blowOffRender()
 	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0,0,MOB_TU, MOB_TV);
+		CreateSquareVertex(mobFloa, mobCentralBlowOff[i], WHITE, 0,0,MOB_TU, MOB_TV);
 		if (g_isBlowOff) {
 			g_effectCount++;
 
@@ -105,7 +105,7 @@ void blowOffRender()
 			{
 				mobRad = mobRad * -1;
 			}
-			RevolveZTuTv(mobFloa, mobRad, mobCentralBlowOff[i], 0, 0, MOB_TU, MOB_TV);
+			RevolveZTuTv(mobFloa, mobRad, mobCentralBlowOff[i],  0, 0, MOB_TU, MOB_TV);
 		}
 		SetUpTexture(mobFloa, mobTexNum);
 	}

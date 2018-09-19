@@ -21,6 +21,7 @@
 #define HEIGHT 720
 #define RED 0xFFFF0000
 #define BLACK 0xff000000
+#define WHITE 0xffffffff
 #define HARFCLEAR 0x8a000000
 
 #define YASUKO_TU (350.f/2048.f)

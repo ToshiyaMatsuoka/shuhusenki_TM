@@ -44,8 +44,8 @@ void pickGoodsControl() {
 
 void pickGoodsRender() {
 	CUSTOMVERTEX playerCutin[4];
-	CreateSquareVertex(playerHit, playerCentralHit, 0, 0, YASUKO_TU, YASUKO_TV);
-	CreateSquareVertex(playerCutin, playerCutinCentral,0, cutinAnimeCount, 0.8f, cutinAnime);
+	CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0, 0, YASUKO_TU, YASUKO_TV);
+	CreateSquareVertex(playerCutin, playerCutinCentral, WHITE, 0, cutinAnimeCount, 0.8f, cutinAnime);
 
 	BeginSetTexture();
 	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
@@ -53,7 +53,7 @@ void pickGoodsRender() {
 	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
+		CreateSquareVertex(mobFloa, mobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
 		if (g_isBlowOff) {
 			g_effectCount++;
 
