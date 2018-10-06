@@ -44,7 +44,7 @@ void pickGoodsControl() {
 
 void pickGoodsRender() {
 	CUSTOMVERTEX playerCutin[4];
-	CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0, 0, YASUKO_TU, YASUKO_TV);
+	//CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0, 0, YASUKO_TU, YASUKO_TV);
 	CreateSquareVertex(playerCutin, playerCutinCentral, WHITE, 0, cutinAnimeCount, 0.8f, cutinAnime);
 
 	BeginSetTexture();
@@ -73,7 +73,7 @@ void pickGoodsRender() {
 	}
 
 
-	SetUpTexture(playerHit, texturePC);
+	//SetUpTexture(playerHit, texturePC);
 
 
 	EasyCreateSquareVertex(0, 150, WIDTH, 550, "CUTIN_TEX");
@@ -176,37 +176,37 @@ void pickGoodsDeviseControl(int* rushInput) {
 	{
 		*rushInput = ButtonA;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (KeyState[DIK_B] == KeyRelease)
 	{
 		*rushInput = ButtonB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (KeyState[DIK_X] == KeyRelease)
 	{
 		*rushInput = ButtonX;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (KeyState[DIK_Y] == KeyRelease)
 	{
 		*rushInput = ButtonY;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (KeyState[DIK_R] == KeyRelease)
 	{
 		*rushInput = ButtonRB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (KeyState[DIK_L] == KeyRelease)
 	{
 		*rushInput = ButtonLB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 
 	//XInputデバイス操作
@@ -234,37 +234,37 @@ void pickGoodsDeviseControl(int* rushInput) {
 	{
 		*rushInput = ButtonA;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (PadState[ButtonB] == PadRelease)
 	{
 		*rushInput = ButtonB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (PadState[ButtonX] == PadRelease)
 	{
 		*rushInput = ButtonX;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (PadState[ButtonY] == PadRelease)
 	{
 		*rushInput = ButtonY;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (PadState[ButtonRB] == PadRelease)
 	{
 		*rushInput = ButtonRB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 	if (PadState[ButtonLB] == PadRelease)
 	{
 		*rushInput = ButtonLB;
 		rushButtonCheck(*rushInput, rushButtonShow);
-		buttonSE(Pick, 10);
+		buttonSE(Pick, 15);
 	}
 
 }

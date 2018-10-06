@@ -29,6 +29,7 @@ extern CENTRAL_STATE g_startCountSta;
 extern CENTRAL_STATE g_startSta;
 extern int effectCount;
 extern int effectIntervalPrev;
+extern int blowOffEffectIntervalPrev;
 void floaMove();
 
 #endif // !FLOAMOVE_H

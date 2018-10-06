@@ -8,8 +8,8 @@
 #include "PickGoods.h"
 
 
-#define PLAYER_FLOA_SCALE 50
-#define PLAYER_BLOWOFF_SCALE 150
+
+#define CHARCTOR_BLOWOFF_SCALE 150
 #define MOVE_MILEAGE 8
 #define MOVE_MILEAGE_STICK 2
 
@@ -28,6 +28,8 @@ std::string mobTexNum;
 
 bool g_isFirst = true;
 int g_effectCount = 0;
+int g_blowOffPCEffectCount = 0;
+
 float mobRad = 0;
 
  int comandInput[5] = { 10,10,10,10,10 };
@@ -36,7 +38,7 @@ float mobRad = 0;
  int checkedComand = 2;
  int rushButtonShow;
 SoundEffect Button{ "BUTTON1","BUTTON2","BUTTON3" };
-SoundEffect Pick{ "PICK1", "PICK2","PICK3", "PICK4","PICK5", "PICK6" , "PICK7" ,"PICK8","PICK9","PICK10" };
+SoundEffect Pick{ "PICK1", "PICK2","PICK3", "PICK4","PICK5", "PICK6" , "PICK7" ,"PICK8","PICK9","PICK10","PICK11", "PICK12","PICK13", "PICK14","PICK15" };
 
 
 //ƒ‚ƒu‚Ì‰æ‘œ’¸“_
@@ -44,7 +46,7 @@ CUSTOMVERTEX mobFloa[4];
 CENTRAL_STATE mobCentralBlowOff[5];
 
 CUSTOMVERTEX playerHit[4];
-CENTRAL_STATE playerCentralHit = {200,350,200,250};
+CENTRAL_STATE playerCentralHit = {200,550,(CHARCTOR_BLOWOFF_SCALE-50.f),CHARCTOR_BLOWOFF_SCALE };
 
 CENTRAL_STATE durabilityPointCentral = { 900,75 ,15,40};
 
@@ -170,6 +172,27 @@ void gameMain() {
 		g_isBlowOff = false;
 		g_isFirst = false;
 	}
+	int effectIntervalCurrnt = g_timerCount;
+	if (effectIntervalCurrnt - effectIntervalPrev > 3)
+	{
+		effectCount++;
+		effectIntervalPrev = g_timerCount;
+	}
+	if (effectCount > 3)
+	{
+		effectCount = 0;
+	}
+
+int blowOffEffectIntervalCurrnt = g_timerCount;
+	if (blowOffEffectIntervalCurrnt - blowOffEffectIntervalPrev > 5)
+	{
+		g_blowOffPCEffectCount++;
+		blowOffEffectIntervalPrev = g_timerCount;
+	}
+	if (g_blowOffPCEffectCount > 4)
+	{
+		g_blowOffPCEffectCount = 1;
+	}
 	switch (g_gameScene) 
 	{
 	case FLOAMOVE:
@@ -231,11 +254,11 @@ void gameMain() {
 		if (!g_isBlowOff) 
 		{
 
-			mobCentralBlowOff[0] = { 450,550 ,PLAYER_BLOWOFF_SCALE,PLAYER_BLOWOFF_SCALE };
-			mobCentralBlowOff[1] = { 600,550 ,PLAYER_BLOWOFF_SCALE,PLAYER_BLOWOFF_SCALE };
-			mobCentralBlowOff[2] = { 750,550 ,PLAYER_BLOWOFF_SCALE,PLAYER_BLOWOFF_SCALE };
-			mobCentralBlowOff[3] = { 900,550 ,PLAYER_BLOWOFF_SCALE,PLAYER_BLOWOFF_SCALE };
-			mobCentralBlowOff[4] = { 1050,550 ,PLAYER_BLOWOFF_SCALE,PLAYER_BLOWOFF_SCALE };
+			mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+			mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+			mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+			mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+			mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
 
 			effectExplosionCentral = { 900,750,300,300 };
 			g_effectCount = 0;

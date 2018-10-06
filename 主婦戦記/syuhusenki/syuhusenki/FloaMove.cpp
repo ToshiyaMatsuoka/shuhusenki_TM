@@ -22,10 +22,10 @@ enum CONTACTDIRECTION
 
 CENTRAL_STATE mobCentralFloa[4]
 {
-	{ 620,630 ,PLAYER_FLOA_SCALE,PLAYER_FLOA_SCALE },
-	{ 600,300 ,PLAYER_FLOA_SCALE,PLAYER_FLOA_SCALE },
-	{ 120,500 ,PLAYER_FLOA_SCALE,PLAYER_FLOA_SCALE },
-	{ 1030,230 ,PLAYER_FLOA_SCALE,PLAYER_FLOA_SCALE }
+	{ 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
 
 };
 CUSTOMVERTEX PC[4];
@@ -39,7 +39,7 @@ static int mobtu[4] = {0,0,0,0};
 static int mobtv[4] = {0,0,0,0};
 int effectCount = 0;
 int effectIntervalPrev = 0;
-
+int blowOffEffectIntervalPrev = 0;
 
 void playerControl(int* onceSound);
 void leachedGondolaCheck(int* leschgondola, SALESMAN popSales[], int whergondola);
@@ -71,16 +71,6 @@ void floaMove() {
 void floaMoveControl()
 {
 	static int onceSound = 0;
-	int effectIntervalCurrnt = g_timerCount;
-	if (effectIntervalCurrnt - effectIntervalPrev > 3)
-	{
-		effectCount++;
-		effectIntervalPrev = g_timerCount;
-	}
-	if (effectCount > 3)
-	{
-		effectCount = 0;
-	}
 
 	timerControl();
 	if (g_timerCount < THREE_SECOND)

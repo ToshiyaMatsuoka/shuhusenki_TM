@@ -9,6 +9,7 @@
 #define DEADLINE_SECOND 300
 #define HURRY_TIME (20*60)
 
+
 CENTRAL_STATE g_timerSta = { 1210.f, 50.f, 50.f, 50.f };
 CENTRAL_STATE g_timeUpSta = { WIDTH/2, HEIGHT/2, 260.f, 100.f };
 bool g_timeDeadline = false;

@@ -8,7 +8,6 @@
 //エフェクト
 CUSTOMVERTEX effectExplosion[4];
 CENTRAL_STATE effectExplosionCentral = { 1000,800,300,300 };
-
 bool g_isBlowOff = false;
 
 static bool soundOnce = false;
@@ -60,21 +59,23 @@ void blowOffControl()
 			g_SoundSuccess = soundsManager.Start("ATTACK", false) && g_SoundSuccess;
 			g_isBlowOff = true;
 			checkedComand = 2;
-			comandCount = 0;
+
 		}
 		if (!checkedComand)
 		{
 			g_SoundSuccess = soundsManager.Start("MISS", false) && g_SoundSuccess;
 			checkedComand = 2;
-			comandCount = 0;
+
 		}
 	}
 	if (g_isBlowOff) {
 		madamBlowOff();
 		effectExplosionCentral.scaleX++;
 		effectExplosionCentral.scaleY++;
+		playerCentralHit.x += 17;
 		if (g_effectCount >= 180) {
 			g_gameScene = PICKGOODS;
+			playerCentralHit.x = 200;
 			comandCount = 0;
 		}
 	}
@@ -82,8 +83,12 @@ void blowOffControl()
 }
 void blowOffRender()
 {
+	CUSTOMVERTEX effectPC[4];
+	CENTRAL_STATE effectCentral = { playerCentralHit.x - 2,playerCentralHit.y - 14,playerCentralHit.scaleX*2.03f,playerCentralHit.scaleY*1.4f };
 
-	CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0,0, YASUKO_TU, YASUKO_TV);
+	CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+
+	CreateSquareVertex(playerHit, playerCentralHit, WHITE, g_blowOffPCEffectCount*YASUKO_TU, 2*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
 
 	BeginSetTexture();
 	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
@@ -112,6 +117,7 @@ void blowOffRender()
 	if ((g_effectCount > 20) && g_isBlowOff) {
 		SetUpTexture(effectExplosion, "EXPLOSION_TEX");
 	}
+	SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
 	SetUpTexture(playerHit, texturePC);
 
 	char debugComandInput[10];
@@ -259,7 +265,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (KeyState[DIK_B] == KeyRelease)
 	{
@@ -268,7 +275,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (KeyState[DIK_X] == KeyRelease)
 	{
@@ -277,7 +285,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (KeyState[DIK_Y] == KeyRelease)
 	{
@@ -286,7 +295,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (KeyState[DIK_R] == KeyRelease)
 	{
@@ -295,7 +305,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (KeyState[DIK_L] == KeyRelease)
 	{
@@ -304,7 +315,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	//XInputデバイス操作
 	GetControl(0);
@@ -323,7 +335,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (PadState[ButtonB] == KeyRelease)
 	{
@@ -332,7 +345,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (PadState[ButtonX] == KeyRelease)
 	{
@@ -341,7 +355,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (PadState[ButtonY] == KeyRelease)
 	{
@@ -350,7 +365,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (PadState[ButtonRB] == KeyRelease)
 	{
@@ -359,7 +375,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 	if (PadState[ButtonLB] == KeyRelease)
 	{
@@ -368,7 +385,8 @@ void blowOffDeviseControl(int* i, int comand[])
 		if (*i < 5) {
 			*i += 1;
 		}
-		buttonSE(Button, 3);
+		buttonSE(Button, 10);
+		return;
 	}
 
 }
@@ -381,16 +399,57 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 	}
 
 	switch (buttonKeyID) {
-	case 9:
-		if (buttonKeyID == 9 && buttonKeyID != prevbuttonKeyID) {
-			g_SoundSuccess = soundsManager.Stop(Button.SE10) && g_SoundSuccess;
-			g_SoundSuccess = soundsManager.Start(Button.SE10, false) && g_SoundSuccess;
+	case 14:
+		if ( buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE15) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE15, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
 			buttonKeyID = 0;
 			break;
 		}
+	case 13:
+		if (buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE14) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE14, false) && g_SoundSuccess;
+			prevbuttonKeyID = buttonKeyID;
+			buttonKeyID = 14;
+			break;
+		}
+	case 12:
+		if ( buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE13) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE13, false) && g_SoundSuccess;
+			prevbuttonKeyID = buttonKeyID;
+			buttonKeyID = 13;
+			break;
+		}
+	case 11:
+		if ( buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE12) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE12, false) && g_SoundSuccess;
+			prevbuttonKeyID = buttonKeyID;
+			buttonKeyID = 12;
+			break;
+		}
+	case 10:
+		if ( buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE11) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE11, false) && g_SoundSuccess;
+			prevbuttonKeyID = buttonKeyID;
+			buttonKeyID = 11;
+			break;
+		}
+
+	case 9:
+		if (buttonKeyID != prevbuttonKeyID) {
+			g_SoundSuccess = soundsManager.Stop(Button.SE10) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Start(Button.SE10, false) && g_SoundSuccess;
+			prevbuttonKeyID = buttonKeyID;
+			buttonKeyID = 10;
+			break;
+		}
 	case 8:
-		if (buttonKeyID == 8 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE9) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE9, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -399,7 +458,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 		}
 
 	case 7:
-		if (buttonKeyID == 7 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE8) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE8, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -407,7 +466,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 6:
-		if (buttonKeyID == 6 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE7) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE7, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -415,7 +474,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 5:
-		if (buttonKeyID == 5 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE6) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE6, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -424,7 +483,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 		}
 
 	case 4:
-		if (buttonKeyID == 4 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE5) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE5, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -432,7 +491,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 3:
-		if (buttonKeyID == 3 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE4) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE4, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -440,7 +499,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 2:
-		if (buttonKeyID == 2 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE3) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE3, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -448,7 +507,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 1:
-		if (buttonKeyID == 1 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE2) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE2, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;
@@ -456,7 +515,7 @@ void buttonSE(SoundEffect Button, int SoundNumber) {
 			break;
 		}
 	case 0:
-		if (buttonKeyID == 0 && buttonKeyID != prevbuttonKeyID) {
+		if ( buttonKeyID != prevbuttonKeyID) {
 			g_SoundSuccess = soundsManager.Stop(Button.SE1) && g_SoundSuccess;
 			g_SoundSuccess = soundsManager.Start(Button.SE1, false) && g_SoundSuccess;
 			prevbuttonKeyID = buttonKeyID;

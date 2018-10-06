@@ -22,6 +22,8 @@ void teamlogoControl(void);//‰¼
 DWORD g_cursolColor = 0xffffffff;
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hInstance, LPSTR szStr, INT iCmdShow) {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(1854);
 	HWND hWnd = NULL;
 
 #ifdef _DEBUG
@@ -244,6 +246,11 @@ void soundLoad() {
 	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK8") && g_SoundSuccess;
 	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK9") && g_SoundSuccess;
 	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK10") && g_SoundSuccess;
+	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK11") && g_SoundSuccess;
+	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK12") && g_SoundSuccess;
+	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK13") && g_SoundSuccess;
+	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK14") && g_SoundSuccess;
+	g_SoundSuccess = soundsManager.AddFile("Sound/shopping.mp3", "PICK15") && g_SoundSuccess;
 
 	g_SoundSuccess = soundsManager.AddFile("Sound/selectBGM.mp3", "SELECT") && g_SoundSuccess;
 	g_SoundSuccess = soundsManager.AddFile("Sound/cursor.mp3", "CURSOR") && g_SoundSuccess;
