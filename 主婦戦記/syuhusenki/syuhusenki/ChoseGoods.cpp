@@ -54,18 +54,23 @@ void choseGoodsControl() {
 }
 void choseGoodsReader() {
 
+	CUSTOMVERTEX effectPC[4];
+	CENTRAL_STATE effectCentral = { playerCentralHit.x - 2,playerCentralHit.y - 14,playerCentralHit.scaleX*2.03f,playerCentralHit.scaleY*1.4f };
+
 	BeginSetTexture();
 	CreateSquareVertex(playerHit, playerCentralHit, WHITE, 0, 0, YASUKO_TU, YASUKO_TV);
+	CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+
 	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "FLOAMOVE_BG_TEX");
 
 	EasyCreateSquareVertexColor(0, 0, WIDTH, HEIGHT, "BLANK", HARFCLEAR);
-
-
 
 	for (int i = 0; i < 5; i++) {
 		CreateSquareVertex(mobFloa, mobCentralBlowOff[i],0, 0, MOB_TU, MOB_TV);
 		SetUpTexture(mobFloa, mobTexNum);
 	}
+
+	SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
 	SetUpTexture(playerHit, texturePC);
 	EasyCreateSquareVertex(350, 150, 600, 400, foodGoods[popSales[salesChoice].merchandise[0]].textureID);
 	EasyCreateSquareVertex(660, 150, 910, 400, foodGoods[popSales[salesChoice].merchandise[1]].textureID);

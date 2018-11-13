@@ -19,6 +19,12 @@
 #include<Xinput.h>
 #include "map"
 
+#ifdef UNICODE
+#define Tstring wstring
+#else
+#define Tstring string
+#endif
+//#define TEXT(p) ((LPCSTR)p)
 
 
 #pragma comment(lib, "winmm.lib")
@@ -187,7 +193,7 @@ void FreeDx();
 * @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindow(LPCSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
+int InitWindow(LPCTSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
 
 /**
 * @brief ウィンドウ生成
@@ -201,7 +207,7 @@ int InitWindow(LPCSTR WndName, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE
 * @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
+int InitWindowEx(LPCTSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int IconIDI = NULL);
 
 /**
 * @brief フルスクリーン用ウィンドウ生成
@@ -216,7 +222,7 @@ int InitWindowEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hI
 * @param  IconIDI　IconのID　不要ならNULL
 * @return NULL返すとウィンドウを閉じる
 */
-int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE, int IconIDI = NULL);
+int InitWindowFullscreenEx(LPCTSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HINSTANCE hInst, HINSTANCE hInstance, LPCSTR pSrcFile, int PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE, int IconIDI = NULL);
 
 /**
 * @brief 秒間60フレームループさせる
@@ -226,7 +232,9 @@ int InitWindowFullscreenEx(LPCSTR WndName, HWND* hWnd, int WIDTH, int HEIGHT, HI
 */
 int FlameRoop(unsigned int gameroop(void));
 
-//描画
+/*************************************
+*描画
+**************************************/
 
 /**
 * @brief 描画開始関数
@@ -260,8 +268,9 @@ void SetUpTexture(CUSTOMVERTEX* Vertex, std::string TexKey);
 
 void eraseTexture(std::string TexKey);
 
-//2頂点設定描画
-
+/*************************************
+*2頂点設定描画
+**************************************/
 /**
 * @brief 2頂点を指定し画像を描画する
 * @param Left 左端
@@ -296,7 +305,7 @@ void EasyCreateSquareVertex( float Left, float Top, float Right, float Bottom, s
 * @param color 色
 * @param TexKey 画像の格納キー
 */
-void EasyCreateRECTVertexColor(RECT Vertex, std::string TexKey, DWORD color = 0xffffffff);
+void EasyCreateRECTVertexColor(RECT Vertex, std::string TexKey, DWORD color);
 /**
 * @brief 2頂点を指定し画像を描画する
 * @param Vertex RECT構造体で頂点を指定する
@@ -307,7 +316,7 @@ void EasyCreateRECTVertexColor(RECT Vertex, std::string TexKey, DWORD color = 0x
 * @param scaleTv 画像の切り取り高さ
 * @param TexKey 画像の格納キー
 */
-void EasyCreateRECTVertex(RECT Vertex, std::string TexKey, DWORD color = 0xffffffff, float tu=0, float tv=0, float scaleTu=1, float scaleTv=1);
+void EasyCreateRECTVertex(RECT Vertex, std::string TexKey, DWORD color=0xffffffff, float tu=0, float tv=0, float scaleTu=1, float scaleTv=1);
 
 //4頂点設定
 
@@ -328,11 +337,12 @@ void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  colo
 * @param Central 入れる中心情報
 * @param color 色
 */
-void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff);
+void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color);
 
 
-//DXフォント
-
+/*******************************
+*DXフォント
+********************************/
 /**
 * @brief DXフォント文字設定
 * @param WordHeight 文字の高さ
@@ -341,7 +351,7 @@ void CreateSquareVertexColor(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD 
 * @param FontNum 表示文字設定の格納先配列番号
 * @param CharSet キャラセット（英字ならDEFAULT_CHARSET，シフトJISならSHIFTJIS_CHARSET）
 */
-void SetUpFont(int WordHeight, int WordWidth, std::string FontNum, LPCSTR FontName=NULL, int CharSet=DEFAULT_CHARSET);
+void SetUpFont(int WordHeight, int WordWidth, std::string FontNum, LPCSTR FontName, int CharSet=DEFAULT_CHARSET);
 /**
 * @brief DXフォント描画設定
 * @param Texts 表示内容
@@ -350,7 +360,7 @@ void SetUpFont(int WordHeight, int WordWidth, std::string FontNum, LPCSTR FontNa
 * @param TextFormat フォーマット
 * @param color 色
 */
-void WriteWord(LPCSTR Texts, RECT Vertex, std::string FontNum, int TextFormat=DT_LEFT, int color=0xff000000);
+void WriteWord(LPCSTR Texts, RECT Vertex, std::string FontNum, int TextFormat = DT_LEFT, int color = 0xff000000);
 
 void eraseFont(std::string FontKey);
 

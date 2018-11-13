@@ -72,7 +72,7 @@ void blowOffControl()
 		madamBlowOff();
 		effectExplosionCentral.scaleX++;
 		effectExplosionCentral.scaleY++;
-		playerCentralHit.x += 17;
+		playerCentralHit.x += 30;
 		if (g_effectCount >= 180) {
 			g_gameScene = PICKGOODS;
 			playerCentralHit.x = 200;

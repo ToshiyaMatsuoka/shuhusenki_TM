@@ -24,121 +24,113 @@ static bool isFirst = true;
 static DWORD SyncOld;
 static DWORD SyncNow;
 
-void result() 
+void result()
 {
 
 	if (isFirst) {
-		setNowLoading();
-		g_SoundSuccess = soundsManager.Stop("HURRY_UP") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Stop("FOOD") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Stop("TIME_LIMIT") && g_SoundSuccess;
-
-		comboCheck(selectedGoods[0], selectedGoods[1], selectedGoods[2]);
-		succeedCombo = comboSucceceCheck();
-		SetUpFont(25, 20, "RESULT_FONT");
-		SetUpFont(70, 50,  "SCORE_FONT");
-		SetUpFont(120, 75,  "LAST_SCORE_FONT");
-
-		ReadInTexture("Texture/result/result.png", "RESULT_BG_TEX");
-		ReadInTexture("Texture/result/resultLast.png", "RESULT_POP_TEX");
-		ReadInTexture("Texture/result/R_UI.png", "RESULT_END_TEX");
-		ReadInTexture("Texture/result/star1.png","RESULT_STAR1_TEX");
-		ReadInTexture("Texture/result/star2.png","RESULT_STAR2_TEX");
-		ReadInTexture("Texture/result/star3.png","RESULT_STAR3_TEX");
-		ReadInTexture("Texture/result/point100.png","RESULT_COMBOTEXT1_TEX" );
-		ReadInTexture("Texture/result/point300.png","RESULT_COMBOTEXT2_TEX" );
-		ReadInTexture("Texture/result/point500.png","RESULT_COMBOTEXT3_TEX" );
-		ReadInTexture("Texture/result/bonus.png", "RESULT_COMBO_TEX");
-		ReadInTexture("Texture/result/SALE.png", "RESULT_SALE_TEX");
-		ReadInTexture("Texture/result/price.png","RESULT_NOMAL_TEX" );
-		ReadInTexture("Texture/yasuko_motion1.png", "YASUKO_EMOTION1_TEX");
-		ReadInTexture("Texture/yasuko_motion2.png", "YASUKO_EMOTION2_TEX");
-		ReadInTexture("Texture/yasuko_motion3.png", "YASUKO_EMOTION3_TEX");
-
-		ReadInTexture("Texture/merchandise/buridaikon.png", "BURIDAIKON_TEX");
-		ReadInTexture("Texture/merchandise/tsumami.png", "RELISH_TEX");
-		ReadInTexture("Texture/merchandise/teatime.png", "TEATIME_TEX");
-
-		ReadInTexture("Texture/merchandise/curry.png", "CURRY_TEX");
-		ReadInTexture("Texture/merchandise/hamberg.png", "HAMBERG_TEX");
-		ReadInTexture("Texture/merchandise/sashimi.png", "ASSORTEDSASHIMI_TEX");
-		ReadInTexture("Texture/merchandise/oyatsu.png", "AFTERNOONREFRESHMENT_TEX");
-
-		ReadInTexture("Texture/merchandise/soup.png", "SOUP_TEX");
-		ReadInTexture("Texture/merchandise/nimono.png", "NIMONO_TEX");
-		ReadInTexture("Texture/merchandise/parfait.png", "PARFAIT_TEX");
-		if (selectedGoods[0] == selectedGoods[1] && selectedGoods[0] == selectedGoods[2]) {
-			foodGoods[selectedGoods[0]].haveValue = (foodGoods[selectedGoods[0]].haveValue / 3);
+		if (!LoadConpleate[2]) {
+			static bool canCreateThread = true;
+			if (canCreateThread) {
+				threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Thread, NULL, 0, NULL);
+				canCreateThread = false;
+			}
+			ResumeThread(threadHandle);
+			static DWORD LodingColor = 0xffffffff;
+			setNowLoading(LodingColor);
+			if (LodingColor < 0xffffff) {
+				LodingColor = 0xffffffff;
+			}
+			LodingColor = colorDecrease(LodingColor);
+			GetExitCodeThread(threadHandle, &threadResult);
+			if (threadResult != STILL_ACTIVE) {
+				LoadConpleate[2] = true;
+				g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
+				CloseHandle(threadHandle);
+			}
 		}
-		else if (selectedGoods[0] == selectedGoods[1] || selectedGoods[0] == selectedGoods[2]) {
-			foodGoods[selectedGoods[0]].haveValue = (foodGoods[selectedGoods[0]].haveValue / 2);
-		}
-		else if (selectedGoods[1] == selectedGoods[2]) {
-			foodGoods[selectedGoods[1]].haveValue = (foodGoods[selectedGoods[1]].haveValue / 2);
-		}
+		else {
+			g_SoundSuccess = soundsManager.Stop("HURRY_UP") && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Stop("FOOD") && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Stop("TIME_LIMIT") && g_SoundSuccess;
 
-		for (int i = 0; i < 3; i++)
-		{
-			nomalSum += addPrice(i, 0);
-			saleSale += addPrice(i, 1);
+			comboCheck(selectedGoods[0], selectedGoods[1], selectedGoods[2]);
+			succeedCombo = comboSucceceCheck();
+
+
+			if (selectedGoods[0] == selectedGoods[1] && selectedGoods[0] == selectedGoods[2]) {
+				foodGoods[selectedGoods[0]].haveValue = (foodGoods[selectedGoods[0]].haveValue / 3);
+			}
+			else if (selectedGoods[0] == selectedGoods[1] || selectedGoods[0] == selectedGoods[2]) {
+				foodGoods[selectedGoods[0]].haveValue = (foodGoods[selectedGoods[0]].haveValue / 2);
+			}
+			else if (selectedGoods[1] == selectedGoods[2]) {
+				foodGoods[selectedGoods[1]].haveValue = (foodGoods[selectedGoods[1]].haveValue / 2);
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				nomalSum += addPrice(i, 0);
+				saleSale += addPrice(i, 1);
+			}
+			for (int i = 0; i < 10; i++)
+			{
+				apperText[i] = false;
+			}
+			g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
+			resultCounter = 0;
+			isFirst = false;
+			g_timerCount = 0;
 		}
-		for (int i = 0; i < 10; i++)
-		{
-			apperText[i] = false;
-		}
-		g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
-		resultCounter = 0;
-		isFirst = false;
-		g_timerCount = 0;
 
 	}
-
-	resultControl();
-	BeginSetTexture();
-	static bool canSound = true;
-	switch (resultPage)
-	{
-	case PAGE1:
-		resultRenderOne();
-		showPressA();
-		break;
-	case PAGE2:
-	{
-		SyncNow = timeGetTime();
-
-		resultRenderOne();
-		if (SyncNow - SyncOld > 3000) 
+	if (LoadConpleate[2]) {
+		resultControl();
+		BeginSetTexture();
+		static bool canSound = true;
+		switch (resultPage)
 		{
-			resultRenderTwo();
-			if (canSound)
+		case PAGE1:
+			resultRenderOne();
+			showPressA();
+			break;
+		case PAGE2:
+		{
+			SyncNow = timeGetTime();
+
+			resultRenderOne();
+			if (SyncNow - SyncOld > 3000)
 			{
-				canSound = false;
-				if ((nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) < LOW_SCORE)
+				resultRenderTwo();
+				if (canSound)
 				{
-					g_SoundSuccess = soundsManager.Start("LOW_SCORE", false) && g_SoundSuccess;
-				}
-				if (LOW_SCORE <= (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) && (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) <= HIGH_SCORE)
-				{
-					g_SoundSuccess = soundsManager.Start("MIDLE_SCORE", false) && g_SoundSuccess;
+					canSound = false;
+					if ((nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) < LOW_SCORE)
+					{
+						g_SoundSuccess = soundsManager.Start("LOW_SCORE", false) && g_SoundSuccess;
+					}
+					if (LOW_SCORE <= (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) && (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) <= HIGH_SCORE)
+					{
+						g_SoundSuccess = soundsManager.Start("MIDLE_SCORE", false) && g_SoundSuccess;
 
-				}
-				if (HIGH_SCORE < (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus))
-				{
-					g_SoundSuccess = soundsManager.Start("HIGH_SCORE", false) && g_SoundSuccess;
+					}
+					if (HIGH_SCORE < (nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus))
+					{
+						g_SoundSuccess = soundsManager.Start("HIGH_SCORE", false) && g_SoundSuccess;
 
+					}
 				}
 			}
 		}
-	}
-	showPressA();
+		showPressA();
 		break;
-	case PAGE3:
-		canSound = true;
-		resultRenderOne();
-		resultRenderTwo();
-		resultRenderThree();
+		case PAGE3:
+			canSound = true;
+			resultRenderOne();
+			resultRenderTwo();
+			resultRenderThree();
+		}
+		EndSetTexture();
 	}
-	EndSetTexture();
 }
 
 void resultControl(void)

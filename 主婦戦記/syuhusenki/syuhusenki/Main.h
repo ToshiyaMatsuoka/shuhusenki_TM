@@ -105,7 +105,16 @@ extern bool g_isTimeUp;
 extern bool g_isSound;
 extern bool g_isNextSelect;
 extern bool g_isLastCheck;
+extern bool LoadConpleate[3];
+extern HANDLE threadHandle;
+extern DWORD threadResult;
+void setNowLoading(DWORD color);
 
-void setNowLoading();
+DWORD WINAPI Thread(LPVOID *data);
+
+inline DWORD colorDecrease(DWORD color) {
+	color -= 6 << 24;
+	return color;
+}
 
 #endif // !MAIN_H

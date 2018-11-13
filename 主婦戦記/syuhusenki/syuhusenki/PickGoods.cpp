@@ -11,10 +11,11 @@
 CENTRAL_STATE playerCutinCentral = { 1200,350,320,280 };
 static float cutinAnime = 0.5f;
 static float cutinAnimeCount = 0;
+static bool canCutin = true;
 void pickGoods() {
-	static bool canCutin = true;
 	if (canCutin)
 	{
+		g_SoundSuccess = soundsManager.SetVolume("CUTIN",65) && g_SoundSuccess;
 		g_SoundSuccess = soundsManager.Start("CUTIN", false) && g_SoundSuccess;
 		canCutin = false;
 	}
@@ -30,6 +31,7 @@ void pickGoodsControl() {
 	if (playerCutinCentral.x < 50)
 	{
 		g_isBlowOff = false;
+		canCutin = true;
 		g_gameScene = PUSHENEMY;
 	}
 	if (g_isGameStart)

@@ -61,98 +61,31 @@ void gameMain() {
 		static bool canRead = true;
 		if (canRead) 
 		{
-			setNowLoading();
-
-			ReadInTexture("Texture/UI/frame_goods.png", "FRAME_TEX");
-			ReadInTexture("Texture/effect.png", "YASUKO_EFFECT_TEX");
-
-			ReadInTexture("Texture/FoodSection.png", "FOOD_STAGE_TEX");
-			ReadInTexture("Texture/maxresdefault.png", "CUTIN_TEX");
-			ReadInTexture("Texture/bakuhuhathu.png", "EXPLOSION_TEX");
-			ReadInTexture("Texture/yasukoCutin.png", "CUTIN_YASUKO_TEX");
-			ReadInTexture("Texture/UI/durabilityBar.jpg", "DURABILITY_TEX");
-			ReadInTexture("Texture/smoke.png", "SMOKE_TEX");
-			ReadInTexture("Texture/boy.png", "BOY_TEX");
-			ReadInTexture("Texture/salesclerk.png", "SALESMAN_TEX");
-
-			ReadInTexture("Texture/UI/timerFrame.png", "TIMER_FRAME_TEX");
-			ReadInTexture("Texture/UI/timerHand.png", "TIMER_HAND_TEX");
-			ReadInTexture("Texture/UI/startCount3.png", "STARTCOUNT_3_TEX");
-			ReadInTexture("Texture/UI/startCount2.png", "STARTCOUNT_2_TEX");
-			ReadInTexture("Texture/UI/startCount1.png", "STARTCOUNT_1_TEX");
-			ReadInTexture("Texture/UI/salerogo.png", "START_TEX");
-			ReadInTexture("Texture/pauseMenu.png", "PAUSE_TEX");
-			ReadInTexture("Texture/UI/end.png", "TIMEUP_TEX");
-			ReadInTexture("Texture/stage.png", "FLOAMOVE_BG_TEX");
-
-			ReadInTexture("Texture/scoretext/s50e.png", "FIFTY_TEX" );
-			ReadInTexture("Texture/scoretext/s60e.png", "SIXTY_TEX" );
-			ReadInTexture("Texture/scoretext/s65e.png", "SIXTYFIVE_TEX" );
-			ReadInTexture("Texture/scoretext/s100e.png", "HUNDRED_TEX" );
-			ReadInTexture("Texture/scoretext/s150e.png", "HUNDREDFIFTY_TEX");
-			ReadInTexture("Texture/scoretext/s200e.png", "TWEHANDRED_TEX" );
-			ReadInTexture("Texture/scoretext/s250e.png", "TWEHANDREDFIFTY_TEX" );
-			ReadInTexture("Texture/scoretext/s300e.png", "THREEHANDRED_TEX" );
-			ReadInTexture("Texture/scoretext/ss30e.png", "S_THRTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss40e.png", "S_FOURTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss50e.png", "S_FIFTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss60e.png", "S_SIXTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss70e.png", "S_SEVENTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss80e.png", "S_EIGHTY_TEX");
-			ReadInTexture("Texture/scoretext/ss100e.png", "S_HUNDRED_TEX" );
-			ReadInTexture("Texture/scoretext/ss150e.png", "S_HUNDREDFIFTY_TEX" );
-			ReadInTexture("Texture/scoretext/ss180e.png", "S_HUNDREDEIGHTY_TEX");
-			ReadInTexture("Texture/scoretext/ss200e.png", "S_TWEHUNDRED_TEX" );
-
-			ReadInTexture("Texture/scoretext/t1.png", "T_1");
-			ReadInTexture("Texture/scoretext/t2.png", "T_2");
-			ReadInTexture("Texture/scoretext/t3.png", "T_3");
-			ReadInTexture("Texture/scoretext/t4.png", "T_4");
-			ReadInTexture("Texture/scoretext/t5.png", "T_5");
-
-			ReadInTexture("Texture/button/b.png", "B_TEX");
-			ReadInTexture("Texture/button/x.png", "X_TEX");
-			ReadInTexture("Texture/button/y.png", "Y_TEX");
-			ReadInTexture("Texture/button/r.png", "R_TEX");
-			ReadInTexture("Texture/button/l.png", "L_TEX");
-			ReadInTexture("Texture/button/button.png", "NULL_BUTTON_TEX");
-
-			ReadInTexture("Texture/merchandise/beef.png", "BEEF_TEX");
-			ReadInTexture("Texture/merchandise/chicken.png", "CHICKEN_TEX");
-			ReadInTexture("Texture/merchandise/pork.png", "PORK_TEX");
-			ReadInTexture("Texture/merchandise/wiener.png", "VIENNESE_TEX");
-			ReadInTexture("Texture/merchandise/mince.png", "MINCE_TEX");
-
-			ReadInTexture("Texture/merchandise/shrimp.png", "SHRIMP_TEX");
-			ReadInTexture("Texture/merchandise/octopus.png", "OCTOPUS_TEX");
-			ReadInTexture("Texture/merchandise/squid.png", "INKFISH_TEX");
-			ReadInTexture("Texture/merchandise/fish.png", "FISH_TEX");
-
-			ReadInTexture("Texture/merchandise/carrot.png", "GINESENG_TEX");
-			ReadInTexture("Texture/merchandise/onion.png", "ONION_TEX");
-			ReadInTexture("Texture/merchandise/potato.png", "POTATO_TEX");
-			ReadInTexture("Texture/merchandise/tomato.png", "TOMATO_TEX");
-			ReadInTexture("Texture/merchandise/radish.png", "RADISH_TEX");
-
-			ReadInTexture("Texture/merchandise/snack.png", "POTATOCHIPS_TEX");
-			ReadInTexture("Texture/merchandise/choco.png", "CHOCOLATE_TEX");
-			ReadInTexture("Texture/merchandise/ice.png", "ICE_TEX");
-			ReadInTexture("Texture/merchandise/ricecracker.png", "RICECRACKER_TEX");
-
-			ReadInTexture("Texture/merchandise/apple.png", "APPLE_TEX");
-			ReadInTexture("Texture/merchandise/orange.png", "ORANGE_TEX");
-			ReadInTexture("Texture/merchandise/banana.png", "BANANA_TEX");
-
-			ReadInTexture("Texture/merchandise/tea.png", "TEA_TEX");
-			ReadInTexture("Texture/merchandise/juice.png", "JUICE_TEX");
-			ReadInTexture("Texture/merchandise/beer.png", "BEER_TEX");
-
-
-			g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
+			if (!LoadConpleate[1]) {
+				static bool canCreateThread = true;
+				if (canCreateThread) {
+					threadHandle = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Thread, NULL, 0, NULL);
+					canCreateThread = false;
+				}
+				ResumeThread(threadHandle);
+				static DWORD LodingColor = 0xffffffff;
+				setNowLoading(LodingColor);
+				if (LodingColor < 0xffffff) {
+					LodingColor = 0xffffffff;
+				}
+				LodingColor = colorDecrease(LodingColor);
+				GetExitCodeThread(threadHandle, &threadResult);
+				if (threadResult != STILL_ACTIVE) {
+					LoadConpleate[1] = true;
+					g_SoundSuccess = soundsManager.Start("LOAD", false) && g_SoundSuccess;
+					CloseHandle(threadHandle);
+					canRead = false;
+				}
+			}
 
 			g_SoundSuccess = soundsManager.Stop("SELECT_BGM") && g_SoundSuccess;
 
-			canRead = false;
+			
 		}
 
 		popSales[0].goodsSorting = rand() % 6;//フロア移動で決めたものを入れる
@@ -168,9 +101,10 @@ void gameMain() {
 		selectGoods(&popSales[2]);
 
 		comandMake();
-
-		g_isBlowOff = false;
-		g_isFirst = false;
+		if (LoadConpleate[1]) {
+			g_isBlowOff = false;
+			g_isFirst = false;
+		}
 	}
 	int effectIntervalCurrnt = g_timerCount;
 	if (effectIntervalCurrnt - effectIntervalPrev > 3)
@@ -193,87 +127,89 @@ int blowOffEffectIntervalCurrnt = g_timerCount;
 	{
 		g_blowOffPCEffectCount = 1;
 	}
-	switch (g_gameScene) 
-	{
-	case FLOAMOVE:
-	{
-		switch (g_turn)
+	if (LoadConpleate[1]) {
+		switch (g_gameScene)
 		{
-		case 0:
-			mobTexNum = "ISOKO_TEX";
-			break;
-		case 1:
-			mobTexNum = "MOB_TEX";
-			break;
-		case 2:
-			mobTexNum = "MITUKO_TEX";
-			break;
-		}
-
-		for (int i = 0; i < 5; i++)
+		case FLOAMOVE:
 		{
-			comandInput[i] = 10;
-		}
-		g_isBlowOff = false;
-
-		floaMove();
-		
-		CheckKeyState(DIK_0);
-		if (KeyState[DIK_0] == KeyRelease)
-		{
-			for (int i = 0; i < 3; i++)
+			switch (g_turn)
 			{
-				popSales[i].goodsSorting = rand() % 6;//フロア移動で決めたものを入れる
+			case 0:
+				mobTexNum = "ISOKO_TEX";
+				break;
+			case 1:
+				mobTexNum = "MOB_TEX";
+				break;
+			case 2:
+				mobTexNum = "MITUKO_TEX";
+				break;
 			}
-			selectGoods(&popSales[0]);
-			selectGoods(&popSales[1]);
-			selectGoods(&popSales[2]);
-		}
-		CheckKeyState(DIK_1);
-		if (KeyState[DIK_1] == KeyRelease)
-		{
-			salesChoice = 0;
-		}
-		CheckKeyState(DIK_2);
-		if (KeyState[DIK_2] == KeyRelease)
-		{
-			salesChoice = 1;
-		}
-		CheckKeyState(DIK_3);
-		if (KeyState[DIK_3] == KeyRelease)
-		{
-			salesChoice = 2;
-		}
-		break;
-	}
-	case CHOSEGOODS:
 
-		choseGoods();
-		break;
-	case PUSHENEMY:
-		if (!g_isBlowOff) 
-		{
+			for (int i = 0; i < 5; i++)
+			{
+				comandInput[i] = 10;
+			}
+			g_isBlowOff = false;
 
-			mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+			floaMove();
 
-			effectExplosionCentral = { 900,750,300,300 };
-			g_effectCount = 0;
-			playerCutinCentral.x = 1200;
+			CheckKeyState(DIK_0);
+			if (KeyState[DIK_0] == KeyRelease)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					popSales[i].goodsSorting = rand() % 6;//フロア移動で決めたものを入れる
+				}
+				selectGoods(&popSales[0]);
+				selectGoods(&popSales[1]);
+				selectGoods(&popSales[2]);
+			}
+			CheckKeyState(DIK_1);
+			if (KeyState[DIK_1] == KeyRelease)
+			{
+				salesChoice = 0;
+			}
+			CheckKeyState(DIK_2);
+			if (KeyState[DIK_2] == KeyRelease)
+			{
+				salesChoice = 1;
+			}
+			CheckKeyState(DIK_3);
+			if (KeyState[DIK_3] == KeyRelease)
+			{
+				salesChoice = 2;
+			}
+			break;
 		}
-		blowOff();		
-		break;
-	case PICKGOODS:
-		pickGoods();
-		comandMake();
-		for (int i = 0; i < 5; i++)
-		{
-			comandInput[i] = 10;
+		case CHOSEGOODS:
+
+			choseGoods();
+			break;
+		case PUSHENEMY:
+			if (!g_isBlowOff)
+			{
+
+				mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+				mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+				mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+				mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+				mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+
+				effectExplosionCentral = { 900,750,300,300 };
+				g_effectCount = 0;
+				playerCutinCentral.x = 1200;
+			}
+			blowOff();
+			break;
+		case PICKGOODS:
+			pickGoods();
+			comandMake();
+			for (int i = 0; i < 5; i++)
+			{
+				comandInput[i] = 10;
+			}
+			break;
 		}
-		break;
 	}
 }
 
