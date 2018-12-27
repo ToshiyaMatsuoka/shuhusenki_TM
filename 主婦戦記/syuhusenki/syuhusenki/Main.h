@@ -3,7 +3,10 @@
 
 //#include "DirectX_LIB/DirectX_LIB/TrialEnums.h"
 
-#include "TrialLib.h"
+//#include "TrialLib.h"
+
+#define _CRTDBG_MAP_ALLOC
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 
 #pragma comment(lib, "DirectX_LIB.lib")

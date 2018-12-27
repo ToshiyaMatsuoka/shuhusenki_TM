@@ -1,0 +1,56 @@
+#pragma once
+#include "Scene.h"
+class ResultScene :
+	public Scene
+{
+public:
+	ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
+	~ResultScene();
+
+	SCENE_NUM Update();
+	void KeyOperation();
+
+	void Render();
+	void resultRenderOne(void);
+	void resultRenderTwo(void);
+	void resultRenderThree(void);
+	void LoadResouce();
+private:
+	enum SCENEPAGE
+	{
+		PAGE1,
+		PAGE2,
+		PAGE3
+	};
+
+	const int HIGH_SCORE = 35000;
+	const int LOW_SCORE = 15000;
+	CENTRAL_STATE cursorResult{ 100,490,25,25 };
+	int succeedCombo;
+	int resultPage = PAGE1;
+	int nomalSum = 0;
+	int saleSale = 0;
+	int resultCounter = 0;
+	DWORD SyncOld;
+	DWORD SyncNow;
+	bool apperText[10];
+
+	void PageOneKeyOperation();
+	void PageTwoKeyOperation();
+	void PageThreeKeyOperation();
+
+	const CENTRAL_STATE BaseTexCentral1{ 100,150,50,50 };
+	const CENTRAL_STATE BaseTexCentral2{ 100,250,50,50 };
+	const CENTRAL_STATE BaseTexCentral3{ 100,350,50,50 };
+	const CENTRAL_STATE SeleTexCentral1{ 850,150,50,50 };
+	const CENTRAL_STATE SeleTexCentral2{ 850,250,50,50 };
+	const CENTRAL_STATE SeleTexCentral3{ 850,350,50,50 };
+	const CENTRAL_STATE comboTexCentral{ 640,315,100,100 };
+	const CENTRAL_STATE nomalTResult{ 200,30,100,25 };
+	const CENTRAL_STATE saleTResult{ 1020,30,100,25 };
+	const CENTRAL_STATE comboTResult{ 640,30,100,25 };
+	const CENTRAL_STATE comboStarResult{ 640,150,100,25 };
+	const CENTRAL_STATE comboTextResult{ 640,650,300,25 };
+
+};
+

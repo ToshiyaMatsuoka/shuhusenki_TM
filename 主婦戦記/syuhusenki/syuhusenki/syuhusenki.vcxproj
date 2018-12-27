@@ -21,27 +21,49 @@
   <ItemGroup>
     <ClCompile Include="BlowOff.cpp" />
     <ClCompile Include="ChoseGoods.cpp" />
+    <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="FloaMove.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="PickGoods.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SoundOperater.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleCursol.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="XinputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlowOff.h" />
     <ClInclude Include="ChoseGoods.h" />
+    <ClInclude Include="DirectX.h" />
     <ClInclude Include="FloaMove.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Goods.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="PickGoods.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SoundOperater.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleCursol.h" />
+    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="XinputDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\icon1.ico" />

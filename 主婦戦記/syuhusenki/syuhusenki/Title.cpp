@@ -101,6 +101,8 @@ void titleControl(void)
 		if ((KeyState[DIK_RETURN] == KeyRelease || KeyState[DIK_NUMPADENTER] == KeyRelease) && g_selectArrowSta.y == ARROWMIDLE || PadState[ButtonA] == PadRelease && g_selectArrowSta.y == ARROWMIDLE)
 		{
 			g_SoundSuccess = soundsManager.Start("BOW", false) && g_SoundSuccess;
+			g_SoundSuccess = soundsManager.Stop("OP_BGM") && g_SoundSuccess;
+
 			entry[1] = true;
 		}
 		if ((KeyState[DIK_RETURN] == KeyRelease || KeyState[DIK_NUMPADENTER] == KeyRelease) && g_selectArrowSta.y == ARROWDOWN || PadState[ButtonA] == PadRelease && g_selectArrowSta.y == ARROWDOWN)

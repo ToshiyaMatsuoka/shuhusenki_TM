@@ -405,6 +405,6 @@ void showPressA()
 {
 	CUSTOMVERTEX showA[4];
 	CENTRAL_STATE centralAButton = {1200,600,50,50};
-	CreateSquareVertexColor(showA, centralAButton,g_cursolColor);
+	CreateSquareVertexColor(showA, centralAButton,m_Color);
 	SetUpTexture(showA, "A_TEX");
 }
