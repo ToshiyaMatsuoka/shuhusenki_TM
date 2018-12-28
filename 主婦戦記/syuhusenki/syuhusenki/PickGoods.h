@@ -1,4 +1,4 @@
-#ifndef PICKGOODS_H
+﻿#ifndef PICKGOODS_H
 #define PICKGOODS_H
 
 

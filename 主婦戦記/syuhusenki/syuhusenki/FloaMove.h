@@ -1,5 +1,25 @@
-#ifndef FLOAMOVE_H
+Ôªø#ifndef FLOAMOVE_H
 #define FLOAMOVE_H
+
+#include "Scene.h"
+
+enum SCENE_NUM;
+class Scene;
+class TitleCursol;
+
+class FloaMove : public Scene
+{
+public:
+	FloaMove(DirectX* pDirectX, SoundOperater* pSoundOperater);
+	~FloaMove();
+	SCENE_NUM Update();
+	void Render();
+	void LoadResouce();
+
+private:
+
+
+};
 
 //enum SALESPOSITION
 //{
@@ -19,7 +39,7 @@
 //	POS_NOTING
 //};
 //
-////ÉÇÉuÇÃâÊëúí∏ì_
+////„É¢„Éñ„ÅÆÁîªÂÉèÈ†ÇÁÇπ
 //extern CUSTOMVERTEX mobFloa[4];
 //extern CENTRAL_STATE mobCentralFloa[4];
 //extern CENTRAL_STATE mobCentralBlowOff[5];

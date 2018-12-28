@@ -1,10 +1,10 @@
-//#include "Main.h"
+Ôªø//#include "Main.h"
 //#include "Timer.h"
 //#include "GameMain.h"
 //#include "FloaMove.h"
 //
 //#define PI 3.14159265358979
-//#define LIMIT_TIME 60//ïb
+//#define LIMIT_TIME 60//Áßí
 //#define Limit_frame (LIMIT_TIME*60)
 //#define DEADLINE_SECOND 300
 //#define HURRY_TIME (20*60)
@@ -15,7 +15,7 @@
 //bool g_timeDeadline = false;
 //int g_timerCount = 0;
 //
-////É^ÉCÉ}Å[êßå‰èàóù
+////„Çø„Ç§„Éû„ÉºÂà∂Âæ°Âá¶ÁêÜ
 //void timerControl(void)
 //{
 //	if (g_timerCount < THREE_SECOND + Limit_frame)
@@ -69,7 +69,7 @@
 //	}
 //}
 //
-////É^ÉCÉ}Å[ï`âÊèàóù
+////„Çø„Ç§„Éû„ÉºÊèèÁîªÂá¶ÁêÜ
 //void timerRender(void)
 //{
 //	static float timerRotation = 0.f;
@@ -82,13 +82,13 @@
 //	CreateSquareVertex(timer, g_timerSta);
 //	CreateSquareVertex(timerHand, g_timerSta);
 //
-//	//ïbêjâÒì]
+//	//ÁßíÈáùÂõûËª¢
 //	RevolveZ(timerHand, timerRotation, g_timerSta);
 //
-//	//É^ÉCÉ}Å[ÇÃÉeÉNÉXÉ`ÉÉÇÃï`âÊ
+//	//„Çø„Ç§„Éû„Éº„ÅÆ„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÊèèÁîª
 //	SetUpTexture(timer, "TIMER_FRAME_TEX");
 //
-//	//É^ÉCÉ}Å[ÇÃÉeÉNÉXÉ`ÉÉÇÃï`âÊ
+//	//„Çø„Ç§„Éû„Éº„ÅÆ„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÊèèÁîª
 //	SetUpTexture(timerHand, "TIMER_HAND_TEX");
 //#ifdef _DEBUG
 //	char debugTime[10];
@@ -110,7 +110,7 @@
 //
 //	if (g_isTimeUp /*&& g_turn == 2*/)
 //	{
-//		//É^ÉCÉÄÉAÉbÉvÇÃÉeÉNÉXÉ`ÉÉÇÃï`âÊ
+//		//„Çø„Ç§„É†„Ç¢„ÉÉ„Éó„ÅÆ„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÊèèÁîª
 //		SetUpTexture(timeUp, "TIMEUP_TEX");
 //		
 //	}

@@ -1,4 +1,4 @@
-#ifndef CHOSEGOODS_H
+﻿#ifndef CHOSEGOODS_H
 #define CHOSEGOODS_H
 
 //void choseGoods();

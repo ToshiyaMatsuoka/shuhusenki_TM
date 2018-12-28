@@ -103,7 +103,7 @@ extern int g_inCount;
 extern int g_timerCount;
 
 extern bool g_pause;
-extern bool g_isGameStart;
+extern bool m_isGameStart;
 extern bool g_isTimeUp;
 extern bool g_isSound;
 extern bool g_isNextSelect;

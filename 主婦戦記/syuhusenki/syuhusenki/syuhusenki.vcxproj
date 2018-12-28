@@ -40,6 +40,7 @@
     <ClCompile Include="TitleCursol.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="XinputDevice.cpp" />
+    <ClCompile Include="Yasuko.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlowOff.h" />
@@ -64,6 +65,7 @@
     <ClInclude Include="TitleCursol.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="XinputDevice.h" />
+    <ClInclude Include="Yasuko.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\icon1.ico" />

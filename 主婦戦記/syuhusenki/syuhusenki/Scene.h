@@ -57,13 +57,13 @@ public:
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, float xScale, float yScale, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-	
+
 	int GetGameState() {
 		return m_GameState;
 	}
 
 protected:
-	DirectX* m_pDirectX = NULL;
+	DirectX * m_pDirectX = NULL;
 	XinputDevice* m_pXinputDevice = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
 
@@ -84,6 +84,18 @@ protected:
 
 	void showPressA();
 
+	const DWORD BLACK = 0xff000000;
+	const DWORD  HARFCLEAR = 0x8a000000;
+	const float  YASUKO_TU = (350.f / 2048.f);
+	const float  YASUKO_TV = (679.f / 2048.f);
+	const float  BOY_TU = (487.f / 2048.f);
+	const float  BOY_TV = (707.f / 2048.f);
+	const float  MOB_TU = (430.f / 2048.f);
+	const float  MOB_TV = (685.f / 2048.f);
+	const float  SALE_TU = (480.f / 2048.f);
+	const float  SALE_TV = (785.f / 2048.f);
+	const float  EFFECT_TU = (500.f / 2048.f);
+	const float  EFFECT_TV = (700.f / 2048.f);
 
 	SCENE_NUM m_NextScene;	//次のシーン
 private:

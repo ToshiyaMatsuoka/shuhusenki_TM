@@ -5,10 +5,8 @@
 */
 #pragma once
 
-#include "SCENE.h"
+#include "Scene.h"
 
-enum SCENE_NUM;
-class Scene;
 class TitleCursol;
 
 class TitleScene : public Scene

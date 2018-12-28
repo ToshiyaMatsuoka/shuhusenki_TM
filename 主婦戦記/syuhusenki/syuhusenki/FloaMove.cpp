@@ -1,12 +1,8 @@
-//#include "Main.h"
-//#include "GameMain.h"
-//#include "FloaMove.h"
-//#include "Timer.h"
-//#include "Goods.h"
-//#include "ChoseGoods.h"
-//
+ï»¿#include "GameScene.h"
+
+#include "FloaMove.h"
 //#define ANIMETIONTIME 20
-////ƒ‚ƒu‚Ì“®‚­•ûŒü
+////ãƒ¢ãƒ–ã®å‹•ãæ–¹å‘
 //enum MOBDIRECTION {
 //	NORTH,
 //	SOUTH,
@@ -66,8 +62,8 @@
 //	floaMoveControl();
 //	floaMoveRender();
 //}
-//
-////ƒQ[ƒ€§Œäˆ—
+
+////ã‚²ãƒ¼ãƒ åˆ¶å¾¡å‡¦ç†
 //void floaMoveControl()
 //{
 //	static int onceSound = 0;
@@ -332,65 +328,65 @@
 //	mobToPCContact(&g_PCSta, mobCentralFloa);
 //	collision(&g_PCSta);
 //}
-//
-////“–‚½‚è”»’èˆ—
+
+////å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
 //void collision(CENTRAL_STATE* charctor)
 //{
 //	MoveInToErea(charctor, 0.f, 145.f, 1280.f, 690.f);
-//	//¤•i’I
-//	//ƒWƒ…[ƒX1
-//	MoveOutToErea(charctor, -50, 195, 100, 545, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 0, 185, 100, 194, UPPER);//ã
-//	MoveOutToErea(charctor, 0, 545, 100, 555, UNDER);//‰º
+//	//å•†å“æ£š
+//	//ã‚¸ãƒ¥ãƒ¼ã‚¹1
+//	MoveOutToErea(charctor, -50, 195, 100, 545, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 0, 185, 100, 194, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 0, 545, 100, 555, UNDER);//ä¸‹
 //
-//	//“÷
-//	MoveOutToErea(charctor, 125, -50, 640, 139, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 125, 140, 640, 145, UNDER);//‰º
+//	//è‚‰
+//	MoveOutToErea(charctor, 125, -50, 640, 139, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 125, 140, 640, 145, UNDER);//ä¸‹
 //
-//	//‹›1
-//	MoveOutToErea(charctor, 640, -50, 1230, 139, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 640, 140, 1230, 145, UNDER);//‰º
-//	//–ìØ1
-//	MoveOutToErea(charctor, 1200, 170, 1380, 608, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 1200, 165, 1280, 169, UPPER);//ã
-//	MoveOutToErea(charctor, 1200, 609, 1280, 615, UNDER);//‰º
+//	//é­š1
+//	MoveOutToErea(charctor, 640, -50, 1230, 139, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 640, 140, 1230, 145, UNDER);//ä¸‹
+//	//é‡Žèœ1
+//	MoveOutToErea(charctor, 1200, 170, 1380, 608, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 1200, 165, 1280, 169, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 1200, 609, 1280, 615, UNDER);//ä¸‹
 //
-//	//‰ÊŽÀ2
-//	MoveOutToErea(charctor, 786, 425, 1016, 568, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 786, 420, 1016, 425, UPPER);//ã
-//	MoveOutToErea(charctor, 786, 568, 1016, 575, UNDER);//‰º
+//	//æžœå®Ÿ2
+//	MoveOutToErea(charctor, 786, 425, 1016, 568, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 786, 420, 1016, 425, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 786, 568, 1016, 575, UNDER);//ä¸‹
 //
-//	//–ìØ2
-//	MoveOutToErea(charctor, 1035, 218, 1152, 558, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 1035, 213, 1152, 217, UPPER);//ã
-//	MoveOutToErea(charctor, 1035, 557, 1152, 565, UNDER);//‰º
-//	//‹›2
-//	MoveOutToErea(charctor, 640, 178, 1152, 246, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 640, 170, 1152, 177, UPPER);//ã
-//	MoveOutToErea(charctor, 640, 245, 1152, 250, UNDER);//‰º
-//	//ƒWƒ…[ƒX3
-//	MoveOutToErea(charctor, 682, 265, 1016, 399, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 682, 260, 1016, 264, UPPER);//ã
-//	MoveOutToErea(charctor, 682, 400, 1016, 405, UNDER);//‰º
-//	//‰ÊŽÀ1
-//	MoveOutToErea(charctor, 442, 436, 770, 584, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 442, 429, 770, 435, UPPER);//ã
-//	MoveOutToErea(charctor, 442, 585, 770, 590, UNDER);//‰º
-//	//‚¨‚â‚Â1
-//	MoveOutToErea(charctor, 270, 176, 595, 284, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 270, 170, 595, 175, UPPER);//ã
-//	MoveOutToErea(charctor, 270, 285, 595, 290, UNDER);//‰º
-//	//‚¨‚â‚Â2-1
-//	MoveOutToErea(charctor, 135, 175, 250, 330, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 135, 170, 250, 174, UPPER);//ã
-//	//‚¨‚â‚Â2-2
-//	MoveOutToErea(charctor, 135, 328, 600, 389, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 135, 320, 600, 327, UPPER);//ã
-//	MoveOutToErea(charctor, 135, 390, 600, 400, UNDER);//‰º
-//	//‚¨‚â‚Â3
-//	MoveOutToErea(charctor, 135, 436, 420, 584, SIDE);//¶‰E
-//	MoveOutToErea(charctor, 135, 430, 420, 435, UPPER);//ã
-//	MoveOutToErea(charctor, 135, 585, 420, 590, UNDER);//‰º
+//	//é‡Žèœ2
+//	MoveOutToErea(charctor, 1035, 218, 1152, 558, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 1035, 213, 1152, 217, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 1035, 557, 1152, 565, UNDER);//ä¸‹
+//	//é­š2
+//	MoveOutToErea(charctor, 640, 178, 1152, 246, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 640, 170, 1152, 177, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 640, 245, 1152, 250, UNDER);//ä¸‹
+//	//ã‚¸ãƒ¥ãƒ¼ã‚¹3
+//	MoveOutToErea(charctor, 682, 265, 1016, 399, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 682, 260, 1016, 264, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 682, 400, 1016, 405, UNDER);//ä¸‹
+//	//æžœå®Ÿ1
+//	MoveOutToErea(charctor, 442, 436, 770, 584, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 442, 429, 770, 435, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 442, 585, 770, 590, UNDER);//ä¸‹
+//	//ãŠã‚„ã¤1
+//	MoveOutToErea(charctor, 270, 176, 595, 284, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 270, 170, 595, 175, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 270, 285, 595, 290, UNDER);//ä¸‹
+//	//ãŠã‚„ã¤2-1
+//	MoveOutToErea(charctor, 135, 175, 250, 330, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 135, 170, 250, 174, UPPER);//ä¸Š
+//	//ãŠã‚„ã¤2-2
+//	MoveOutToErea(charctor, 135, 328, 600, 389, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 135, 320, 600, 327, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 135, 390, 600, 400, UNDER);//ä¸‹
+//	//ãŠã‚„ã¤3
+//	MoveOutToErea(charctor, 135, 436, 420, 584, SIDE);//å·¦å³
+//	MoveOutToErea(charctor, 135, 430, 420, 435, UPPER);//ä¸Š
+//	MoveOutToErea(charctor, 135, 585, 420, 590, UNDER);//ä¸‹
 //
 //}
 //void leachedGondolaCheck(int* leschgondola, SALESMAN popSales[], int whergondola)
@@ -451,12 +447,13 @@
 //	}
 //	return POS_NOTING;
 //}
-////ƒQ[ƒ€•`‰æˆ—
+
+////ã‚²ãƒ¼ãƒ æç”»å‡¦ç†
 //void floaMoveRender()
 //{
 //	BeginSetTexture();
 //
-//	//ƒQ[ƒ€‰æ–Ê‚ÌƒeƒNƒXƒ`ƒƒ‚ÌÝ’è
+//	//ã‚²ãƒ¼ãƒ ç”»é¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 //	floaMoveRenderSta();
 //#ifdef _DEBUG
 //	char debugPC[10];
@@ -472,7 +469,7 @@
 //	EndSetTexture();
 //}
 //
-////ƒQ[ƒ€‰æ–Ê‚ÌƒeƒNƒXƒ`ƒƒ
+////ã‚²ãƒ¼ãƒ ç”»é¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
 //void floaMoveRenderSta()
 //{
 //	EasyCreateSquareVertex(0, 100, WIDTH, 680, "FLOAMOVE_BG_TEX");
@@ -539,7 +536,7 @@
 //			SetUpTexture(salesmans, "SALESMAN_TEX");
 //		}
 //	}
-//	//ƒvƒŒƒCƒ„[ƒLƒƒƒ‰ƒNƒ^[‚ÌƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ
+//	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»
 //	SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
 //	SetUpTexture(PC, "YASUKO_TEX");
 //
@@ -547,22 +544,22 @@
 //
 //	if ((g_timerCount > ZERO_SECOND) && (g_timerCount <= ONE_SECOND))
 //	{
-//		//ƒXƒ^[ƒgƒJƒEƒ“ƒg‚ÌƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ
+//		//ã‚¹ã‚¿ãƒ¼ãƒˆã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»
 //		SetUpTexture(startCount, "STARTCOUNT_3_TEX");
 //	}
 //	else if ((g_timerCount > ONE_SECOND) && (g_timerCount <= TWO_SECOND))
 //	{
-//		//ƒXƒ^[ƒgƒJƒEƒ“ƒg‚ÌƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ
+//		//ã‚¹ã‚¿ãƒ¼ãƒˆã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»
 //		SetUpTexture(startCount, "STARTCOUNT_2_TEX");
 //	}
 //	else if ((g_timerCount > TWO_SECOND) && (g_timerCount <= THREE_SECOND))
 //	{
-//		//ƒXƒ^[ƒgƒJƒEƒ“ƒg‚ÌƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ
+//		//ã‚¹ã‚¿ãƒ¼ãƒˆã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»
 //		SetUpTexture(startCount, "STARTCOUNT_1_TEX");
 //	}
 //	else if ((g_timerCount > THREE_SECOND) && (g_timerCount <= FOUR_SECOND))
 //	{
-//		//ƒXƒ^[ƒgƒJƒEƒ“ƒg‚ÌƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ
+//		//ã‚¹ã‚¿ãƒ¼ãƒˆã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»
 //		SetUpTexture(start, "START_TEX");
 //	}
 //
@@ -947,3 +944,65 @@
 //		}
 //	}
 //}
+
+FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater) :Scene(pDirectX, pSoundOperater)
+{
+}
+
+FloaMove::~FloaMove()
+{
+}
+
+SCENE_NUM FloaMove::Update()
+{
+	//	static int onceSound = 0;
+	//
+	//	timerControl();
+	//	if (g_timerCount < THREE_SECOND)
+	//	{
+	//		salesmanPoping(popSales);
+	//	}
+	//	if (g_isTimeUp)
+	//	{
+	//		for (onceSound; onceSound < 2; onceSound++)
+	//		{
+	//			soundsManager.Start("GONG", false);
+	//			
+	//		}
+	//	}
+	//
+	//	if (g_isGameStart)
+	//	{
+	//		playerControl(&onceSound);
+	//		mobControler(mobCentralFloa);
+	//		for (int i = 0; i < 4; i++)
+	//		{
+	//			collision(&mobCentralFloa[i]);
+	//;		}
+	//#ifdef _DEBUG
+	//		CheckKeyState(DIK_SPACE);
+	//		if (KeyState[DIK_SPACE] == KeyRelease)
+	//		{
+	//			g_gameScene = CHOSEGOODS;
+	//			onceSound = 0;
+	//		}
+	//#endif
+	//	}
+	//	if (isRight)
+	//	{
+	//		CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
+	//	}
+	//	else CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
+
+	return SCENE_NUM();
+}
+
+void FloaMove::Render()
+{
+}
+
+void FloaMove::LoadResouce()
+{
+}
+
+

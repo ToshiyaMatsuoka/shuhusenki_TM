@@ -103,9 +103,21 @@ void Scene::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWO
 
 void Scene::showPressA()
 {
+	static DWORD Color = 0xffffffff;
+	static int CursorAnimeInterval = 0;
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 40) {
+
+		Color += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
+	}
+
 	CUSTOMVERTEX showA[4];
 	CENTRAL_STATE centralAButton = { 1200,600,50,50 };
-	CreateSquareVertex(showA, centralAButton, m_Color);
+	CreateSquareVertex(showA, centralAButton, Color);
 	m_pDirectX->DrawTexture("A_TEX", showA);
 }
 

@@ -1,4 +1,4 @@
-//#include "Main.h"
+ï»¿//#include "Main.h"
 //#include "FloaMove.h"
 //#include "GameMain.h"
 //#include "Goods.h"
@@ -211,7 +211,7 @@
 //		buttonSE(Pick, 15);
 //	}
 //
-//	//XInputƒfƒoƒCƒX‘€ì
+//	//XInputãƒ‡ãƒã‚¤ã‚¹æ“ä½œ
 //	GetControl(0);
 //	BottonCheck();
 //#ifdef _DEBUG

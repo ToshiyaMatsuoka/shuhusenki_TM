@@ -16,12 +16,9 @@ enum KeyInput
 	DOWN,
 	LEFT,
 	RIGHT,
-	JUMP,
 	MOVE_LEFT,
 	MOVE_RIGHT,
 	SPACE,
-	THROW,
-	SoundOn,
 };
 
 class Object

@@ -1,11 +1,11 @@
-//#include "Main.h"
+Ôªø//#include "Main.h"
 //#include "FloaMove.h"
 //#include "GameMain.h"
 //#include "Goods.h"
 //#include "Timer.h"
 //#include "BlowOff.h"
 //
-////ÉGÉtÉFÉNÉg
+////„Ç®„Éï„Çß„ÇØ„Éà
 //CUSTOMVERTEX effectExplosion[4];
 //CENTRAL_STATE effectExplosionCentral = { 1000,800,300,300 };
 //bool g_isBlowOff = false;
@@ -318,7 +318,7 @@
 //		buttonSE(Button, 10);
 //		return;
 //	}
-//	//XInputÉfÉoÉCÉXëÄçÏ
+//	//XInput„Éá„Éê„Ç§„ÇπÊìç‰Ωú
 //	GetControl(0);
 //	BottonCheck();
 //#ifdef _DEBUG
