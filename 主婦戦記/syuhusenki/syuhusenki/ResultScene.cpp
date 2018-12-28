@@ -35,27 +35,33 @@ ResultScene::~ResultScene()
 
 SCENE_NUM ResultScene::Update()
 {
-	switch (resultPage)
-	{
-	case PAGE1:
-		m_pSoundOperater->Start("DRUM", false);
-		SyncOld = timeGetTime();
+	++resultCounter;
+	ApperResult(&resultCounter);
 
-		resultPage = PAGE2;
-		break;
-	case PAGE2:
+	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease))
 	{
-		resultPage = PAGE3;
-		break;
-	}
-	case PAGE3:
-		if (cursorResult.y < 500) {
-			return  GAME_SCENE;
+
+		switch (resultPage)
+		{
+		case PAGE1:
+			m_pSoundOperater->Start("DRUM", false);
+			SyncOld = timeGetTime();
+
+			resultPage = PAGE2;
+			break;
+		case PAGE2:
+		{
+			resultPage = PAGE3;
+			break;
 		}
-		else return TITLE_SCENE;
-		break;
+		case PAGE3:
+			if (cursorResult.y < 500) {
+				return  GAME_SCENE;
+			}
+			else return TITLE_SCENE;
+			break;
+		}
 	}
-
 #ifdef _DEBUG
 
 	if (m_pDirectX->GetKeyStatus(DIK_SPACE) == KeyRelease)
@@ -64,7 +70,54 @@ SCENE_NUM ResultScene::Update()
 	}
 #endif
 
-	return SCENE_NUM();
+	if (resultPage == PAGE3) {
+		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease)
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 490;
+		}
+		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease)
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 560;
+
+		}
+		if (m_pXinputDevice->GetButton(ButtonUP) == PadRelease)
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 490;
+
+		}
+
+		if (m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease)
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 560;
+
+		}
+		if (m_pXinputDevice->GetAnalogL(ANALOGDOWN))
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 490;
+
+		}
+
+		if (m_pXinputDevice->GetAnalogL(ANALOGUP))
+		{
+			m_pSoundOperater->Stop("CURSOR");
+			m_pSoundOperater->Start("CURSOR", false);
+			cursorResult.y = 560;
+
+		}
+
+	}
+
+	return SCENE_NONE;
 }
 
 void ResultScene::KeyOperation()
@@ -269,18 +322,17 @@ void ResultScene::resultRenderTwo(void)
 void ResultScene::resultRenderThree(void)
 {
 	CUSTOMVERTEX cursor[4];
-	CreateSquareVertex(cursor,50, 450, 500, 600);
+	CreateSquareVertex(cursor,50.f, 450.f, 500.f, 600.f);
 	m_pDirectX->DrawTexture("RESULT_END_TEX", cursor);
 	CreateSquareVertex(cursor, cursorResult, m_Color);
 
 	m_pDirectX->DrawTexture( "TITLEICON_TEX", cursor);
 }
 
-
-
 void ResultScene::LoadResouce()
 {
 	m_pDirectX->LoadTexture("Texture/button/a.png", "A_TEX");
+	m_pDirectX->LoadTexture("Texture/UI/arrow.png", "TITLEICON_TEX");
 
 	m_pDirectX->LoadTexture("Texture/merchandise/beef.png", "BEEF_TEX");
 	m_pDirectX->LoadTexture("Texture/merchandise/chicken.png", "CHICKEN_TEX");
@@ -341,14 +393,11 @@ void ResultScene::LoadResouce()
 	m_pDirectX->LoadTexture("Texture/merchandise/nimono.png", "NIMONO_TEX");
 	m_pDirectX->LoadTexture("Texture/merchandise/parfait.png", "PARFAIT_TEX");
 
-
-
 	m_pDirectX->SetFont(25, 20, "RESULT_FONT");
 	m_pDirectX->SetFont(70, 50, "SCORE_FONT");
 	m_pDirectX->SetFont(120, 75, "LAST_SCORE_FONT");
 
 }
-
 
 void ResultScene::PageOneKeyOperation()
 {
@@ -423,6 +472,36 @@ void ResultScene::PageThreeKeyOperation()
 		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 560;
 
+	}
+
+}
+
+void ResultScene::ApperResult(int* resultCounter)
+{
+	
+	if (*resultCounter == 30) {
+		apperText[0] = true;
+		m_pSoundOperater->Start("COIN1", false);
+	}
+	if (*resultCounter == 60) {
+		apperText[1] = true;
+		m_pSoundOperater->Start("COIN2", false);
+	}
+	if (*resultCounter == 90) {
+		apperText[2] = true;
+		m_pSoundOperater->Start("COIN3", false);
+	}
+	if (*resultCounter == 120) {
+		apperText[3] = true;
+		m_pSoundOperater->Start("COIN4", false);
+	}
+	if (*resultCounter == 150) {
+		apperText[4] = true;
+		m_pSoundOperater->Start("CASHER", false);
+	}
+	if ((*resultCounter == 180) && (foodCombo[succeedCombo].comboSucceed)) {
+		apperText[5] = true;
+		m_pSoundOperater->Start("WIN", false);
 	}
 
 }

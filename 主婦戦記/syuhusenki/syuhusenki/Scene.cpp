@@ -17,6 +17,9 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 
 Scene::~Scene()
 {
+	if (m_pSoundOperater) {
+		m_pSoundOperater->AllStop();
+	}
 	delete m_pXinputDevice;
 	m_pXinputDevice = NULL;
 }

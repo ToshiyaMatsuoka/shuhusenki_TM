@@ -33,12 +33,14 @@ private:
 	int resultCounter = 0;
 	DWORD SyncOld;
 	DWORD SyncNow;
-	bool apperText[10];
+	bool apperText[10] = { false };
 	DWORD m_Color = 0xffffffff;
 
 	void PageOneKeyOperation();
 	void PageTwoKeyOperation();
 	void PageThreeKeyOperation();
+
+	void ApperResult(int* resultCounter);
 
 	const DWORD BLACK = 0xff000000;
 	const DWORD  HARFCLEAR = 0x8a000000;

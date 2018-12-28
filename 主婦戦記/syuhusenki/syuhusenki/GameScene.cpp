@@ -15,7 +15,7 @@ GameScene::~GameScene()
 
 SCENE_NUM GameScene::Update()
 {
-	return SCENE_NUM();
+	return SCENE_NONE;
 }
 
 void GameScene::KeyOperation()
