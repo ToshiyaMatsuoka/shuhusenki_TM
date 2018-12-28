@@ -1,11 +1,12 @@
-#ifndef GOODS_H
+﻿#ifndef GOODS_H
 #define GOODS_H
 
-#include "Main.h"
+//#include "Main.h"
+#include "Scene.h"
 
-#define RARE1 100
-#define RARE2 300
-#define RARE3 500
+const int RARE1 = 100;
+const int RARE2 = 300;
+const int RARE3 = 500;
 
 enum GOODSNUMBER 
 {
@@ -98,19 +99,7 @@ extern COMBOPARAMETER foodCombo[COMBOMAX];
 extern SALESMAN popSales[3];
 extern int selectedGoods[3];
 
-int addPrice(int num, int nomalOrSale)
-{
-	switch (nomalOrSale)
-	{
-	case 0:
-		return foodGoods[selectedGoods[num]].nominalCost * foodGoods[selectedGoods[num]].haveValue;
-		break;
-	case 1:
-		return foodGoods[selectedGoods[num]].selePrice * foodGoods[selectedGoods[num]].haveValue;
-		break;
-	}
-}
-
+int addPrice(int num, int nomalOrSale);
 int comboSucceceCheck(void);
 void comboCheck(int goodsId1, int goodsId2, int goodsId3);
 void selectGoods(SALESMAN* popSales);

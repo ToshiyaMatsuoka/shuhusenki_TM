@@ -34,10 +34,14 @@ private:
 	DWORD SyncOld;
 	DWORD SyncNow;
 	bool apperText[10];
+	DWORD m_Color = 0xffffffff;
 
 	void PageOneKeyOperation();
 	void PageTwoKeyOperation();
 	void PageThreeKeyOperation();
+
+	const DWORD BLACK = 0xff000000;
+	const DWORD  HARFCLEAR = 0x8a000000;
 
 	const CENTRAL_STATE BaseTexCentral1{ 100,150,50,50 };
 	const CENTRAL_STATE BaseTexCentral2{ 100,250,50,50 };

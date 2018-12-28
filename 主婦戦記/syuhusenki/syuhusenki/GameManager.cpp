@@ -64,7 +64,7 @@ GameManager::GameManager(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCm
 	UpdateWindow(hWnd);
 	pDirectX->InitPresentParameters(hWnd);
 	pDirectX->BuildDXDevice(hWnd, isWindowMode, "texture/Yasuko.png");
-	pSoundOperater->Initialize();
+	bool SoundSuccess = pSoundOperater->Initialize();
 
 
 }

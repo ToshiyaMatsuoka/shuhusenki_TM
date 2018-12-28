@@ -85,7 +85,7 @@ enum SCENE {
 extern SoundLib::SoundsManager soundsManager;
 extern bool g_SoundSuccess;
 extern RECT testWord;
-extern int g_titleScene;
+extern int m_TitleOrWisdom;
 extern int g_scene;
 
 extern FLOAT g_PCSpeed;

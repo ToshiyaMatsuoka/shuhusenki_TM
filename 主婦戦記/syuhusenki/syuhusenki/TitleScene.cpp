@@ -7,17 +7,19 @@
 #include "TitleScene.h"
 #include "TitleCursol.h"
 
+bool TitleScene::m_isRuningTeamlogo = true;
+
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
 	m_pScene = this;
-	m_pCursol = new TitleCursol(m_pDirectX, m_pSoundOperater);
+	m_pCursor = new TitleCursol(m_pDirectX, m_pSoundOperater);
 
 	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 TitleScene::~TitleScene()
 {
-	delete m_pCursol;
+	delete m_pCursor;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 }
@@ -26,57 +28,172 @@ SCENE_NUM  TitleScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
 
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_UP))
-	{
-		m_pCursol->KeyOperation(UP);
-	}
-	if (KeyPush == m_pDirectX->GetKeyStatus(DIK_DOWN))
-	{
-		m_pCursol->KeyOperation(DOWN);
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonUP))
-	{
-		m_pCursol->KeyOperation(UP);
-	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonDOWN))
-	{
-		m_pCursol->KeyOperation(DOWN);
-	}
-	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
-	{
-		m_pCursol->KeyOperation(UP);
-	}
-	if (PadPush == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
-	{
-		m_pCursol->KeyOperation(DOWN);
+	static int CursorAnimeInterval = 0;
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 20) {
+
+		m_Color += (0xFF << 24) * ((CursorColorOn) ? 1 : -1);
+
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
 	}
 
-	if (GetPushedRETURN()) {
-		ChoseMenu();
+	static int sceneSuccession = 0;
+	static bool entry[2] = { false,false };
+	for (BGM; BGM < 1; BGM++)
+	{
+		m_pSoundOperater->SetVolume("OP_BGM", 50);
+		m_pSoundOperater->Start("OP_BGM", true);
 	}
-	if (PadRelease == m_pXinputDevice->GetButton(ButtonA)) {
-		ChoseMenu();
+
+	if (m_TitleOrWisdom == WISDOM) {
+		WisdomControl();
+		return GetNextScene();
 	}
-	m_pCursol->Update();
+
+
+	if (m_canApperMenu)
+	{
+		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease || m_pXinputDevice->GetButton(ButtonUP) == PadRelease || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) >= 6000)
+		{
+			if (m_Cursor.y == ARROWHIGH)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWDOWN;
+			}
+
+			else if (m_Cursor.y == ARROWMIDLE)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWHIGH;
+			}
+			else if (m_Cursor.y == ARROWDOWN)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWMIDLE;
+			}
+
+		}
+
+		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease || m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) <= -6000)
+		{
+
+			if (m_Cursor.y == ARROWHIGH)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWMIDLE;
+			}
+			else if (m_Cursor.y == ARROWMIDLE)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWDOWN;
+			}
+			else if (m_Cursor.y == ARROWDOWN)
+			{
+				m_pSoundOperater->Start("CURSOR", false);
+				m_Cursor.y = ARROWHIGH;
+			}
+
+		}
+
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWHIGH && (!entry[0]))
+		{
+			m_pSoundOperater->Start("GREETING", false);
+			m_pSoundOperater->Start("BUTTON1", false);
+			m_pSoundOperater->Stop("OP_BGM");
+			BGM = 0;
+			entry[0] = true;
+		}
+
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWMIDLE)
+		{
+			m_pSoundOperater->Start("BOW", false);
+			m_pSoundOperater->Stop("OP_BGM");
+
+			entry[1] = true;
+		}
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWDOWN)
+		{
+			m_TitleOrWisdom = WISDOM;
+		}
+
+		if (entry[0])
+		{
+			sceneSuccession++;
+			if ((sceneSuccession >= 70) && entry[0])
+			{
+				SetNextScene(GAME_SCENE);
+				sceneSuccession = 0;
+				entry[0] = false;
+			}
+		}
+		if (entry[1])
+		{
+			sceneSuccession++;
+
+			if ((sceneSuccession >= 170) && entry[1])
+			{
+				PostQuitMessage(0);
+			}
+
+		}
+
+	}
+	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && (!m_canApperMenu))
+	{
+		m_canApperMenu = true;
+
+	}
+
 	return GetNextScene();
 }
 
 void TitleScene::Render()
 {
+	if (m_TitleOrWisdom == WISDOM) {
+		WisdomRender();
+		return;
+	}
 
+	//CUSTOMVERTEX LogoVertex[4];
+	//CreateSquareVertex(LogoVertex, m_Logo);
+	//m_pDirectX->DrawTexture("LOGO", LogoVertex);
 
-	m_pDirectX->DrawTexture("BACKGROUND_TEX", m_TitleBackground);
-
-	CUSTOMVERTEX LogoVertex[4];
-	CreateSquareVertex(LogoVertex, m_Logo);
-	m_pDirectX->DrawTexture("LOGO_TEX", LogoVertex);
-
-	m_pCursol->Render();
+	//m_pCursor->Render();
 
 	CUSTOMVERTEX MenuVertex[4];
 	CreateSquareVertex(MenuVertex, m_Menu);
-	m_pDirectX->DrawTexture("MENU_TEX", MenuVertex);
+	//m_pDirectX->DrawTexture("TITLE_UI_TEX", MenuVertex);
+	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	m_pDirectX->DrawTexture("TITLE_BG_TEX", m_TitleBackground);
+	CENTRAL_STATE titleUICentral = { DISPLAY_WIDTH / 2, 550, 200.f, 100.f };
+	CUSTOMVERTEX titleUI[4];
+	CreateSquareVertex(titleUI, titleUICentral);
 
+	CUSTOMVERTEX selectArrow[4];
+	CreateSquareVertex(selectArrow, m_Cursor, m_Color);
+
+	//タイトル矢印テクスチャの生成
+	if (m_canApperMenu)
+	{
+		m_pDirectX->DrawTexture("TITLE_UI_TEX", titleUI);
+
+		m_pDirectX->DrawTexture("TITLEICON_TEX", selectArrow);
+	}
+	else
+	{
+		static int count = 0;
+		count++;
+		if (count > 40)
+		{
+			count = 0;
+		}
+		if (count > 20)
+		{
+			m_pDirectX->DrawTexture("PRESS_TEX", titleUI);
+		}
+	}
 }
 
 void TitleScene::LoadResouce()
@@ -96,8 +213,9 @@ void TitleScene::LoadResouce()
 	m_pDirectX->LoadTexture("Texture/button/a.png", "A_TEX");
 
 }
+
 void TitleScene::ChoseMenu() {
-	switch (m_pCursol->getCursolPosition()) {
+	switch (m_pCursor->getCursolPosition()) {
 	case Cursol::START:
 		SetNextScene(GAME_SCENE);
 		break;
@@ -108,3 +226,78 @@ void TitleScene::ChoseMenu() {
 	}
 }
 
+void TitleScene::TeamlogoControl(void) {
+
+	static DWORD SyncOld = timeGetTime();
+	DWORD SyncNow = timeGetTime();
+	if (SyncNow - SyncOld > 4500 || GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	{
+		m_isRuningTeamlogo = false;
+	}
+}
+
+void TitleScene::TeamlogoRender(void) {
+	CUSTOMVERTEX teamlogo[4];
+	CENTRAL_STATE logo{ 640,320,400,400 };
+	static DWORD logoColor = 0x00ffffff;
+	static bool canCleared = false;
+	if (!canCleared) {
+		logoColor += 2 << 24;
+	}
+	if (canCleared && (logoColor > 0xfffffff)) {
+		logoColor -= 2 << 24;
+	}
+	if (canCleared && (logoColor > 0xffffff)) {
+		logoColor -= 1 << 24;
+	}
+
+	if (logoColor == (0xfeffffff))
+	{
+		canCleared = true;
+	}
+
+	CreateSquareVertex(teamlogo, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	m_pDirectX->DrawTexture( "BLANK", teamlogo);
+
+	CreateSquareVertex(teamlogo, logo, logoColor);
+	m_pDirectX->DrawTexture("TEAMLOGO_TEX", teamlogo);
+
+
+}
+
+//主婦の知恵
+void TitleScene::WisdomControl()
+{
+	static int wisdomPage = PAGE1;
+
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	{
+		switch (wisdomPage)
+		{
+		case PAGE1:
+			m_WisdomTex = "WISDOM2_TEX";
+			wisdomPage = PAGE2;
+			break;
+		case PAGE2:
+			m_WisdomTex = "WISDOM3_TEX";
+			wisdomPage = PAGE3;
+			break;
+		case PAGE3:
+			m_WisdomTex = "WISDOM1_TEX";
+			wisdomPage = PAGE1;
+			m_TitleOrWisdom = TITLE;
+			break;
+		}
+
+	}
+
+}
+
+void TitleScene::WisdomRender()
+{
+	CUSTOMVERTEX WisdomVertex[4];
+	CreateSquareVertex(WisdomVertex,1270, 680);
+	m_pDirectX->DrawTexture(m_WisdomTex, WisdomVertex);
+
+	showPressA();
+}

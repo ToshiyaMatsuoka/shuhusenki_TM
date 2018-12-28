@@ -56,17 +56,8 @@ public:
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX * Vertex, float x, float y, float xScale, float yScale, DWORD color, float tu, float tv, float scaleTu, float scaleTv);
-	int GetStageNum() {
-		return m_StageNum;
-	}
 	int GetGameState() {
 		return m_GameState;
-	}
-	bool GetSoundSetting() {
-		return m_SoundSetting;
-	}
-	void InactiveSoundSetting() {
-		m_SoundSetting = false;
 	}
 
 protected:
@@ -91,8 +82,9 @@ protected:
 
 	void showPressA();
 
-	DWORD m_Color = 0xffffffff;
 
 	SCENE_NUM m_NextScene;	//次のシーン
 private:
+	DWORD m_Color = 0xffffffff;
+
 };

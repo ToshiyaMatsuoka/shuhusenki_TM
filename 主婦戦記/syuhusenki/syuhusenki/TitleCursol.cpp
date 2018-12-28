@@ -18,6 +18,7 @@ TitleCursol::~TitleCursol()
 
 }
 
+
 void TitleCursol::Update() {
 	//数値は仮
 	switch (m_CursolPos) {
@@ -46,14 +47,90 @@ void TitleCursol::KeyOperation(KeyInput vec) {
 	switch (vec)
 	{
 	case UP:
+		//if (KeyState[DIK_W] == KeyRelease || PadState[ButtonUP] == PadRelease && !(g_inCount) || GetAnalogLValue(ANALOG_Y) >= 6000 && !(g_inCount))
+		//{
+		//	if (m_Cursor.y == ARROWHIGH)
+		//	{
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWDOWN;
+		//		g_inCount++;
+		//	}
+
+		//	else if (m_Cursor.y == ARROWMIDLE)
+		//	{
+
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWHIGH;
+		//		g_inCount++;
+		//	}
+		//	else if (m_Cursor.y == ARROWDOWN)
+		//	{
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWMIDLE;
+		//		g_inCount++;
+		//	}
+
+		//}
 		MoveUp();
 		break;
 	case DOWN:
 		MoveDown();
 		break;
-	};
+
+		//if (KeyState[DIK_S] == KeyRelease || PadState[ButtonDOWN] == PadRelease && !(g_inCount) || GetAnalogLValue(ANALOG_Y) <= -6000 && !(g_inCount))
+		//{
+
+		//	if (m_Cursor.y == ARROWHIGH)
+		//	{
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWMIDLE;
+		//		g_inCount++;
+		//	}
+		//	else if (m_Cursor.y == ARROWMIDLE)
+		//	{
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWDOWN;
+		//		g_inCount++;
+		//	}
+		//	else if (m_Cursor.y == ARROWDOWN)
+		//	{
+		//		m_pSoundOperater->Start("CURSOR", false);
+		//		m_Cursor.y = ARROWHIGH;
+		//		g_inCount++;
+		//	}
+
+		//}
+		//};
+
+		//if ((KeyState[DIK_RETURN] == KeyRelease || KeyState[DIK_NUMPADENTER] == KeyRelease) && m_Cursor.y == ARROWHIGH || PadState[ButtonA] == PadRelease && !(g_inCount) && m_Cursor.y == ARROWHIGH && (!entry[0]))
+		//{
+		//	m_pSoundOperater->Start("GREETING", false);
+		//	m_pSoundOperater->Start("BUTTON1", false);
+		//	m_pSoundOperater->Stop("OP_BGM");
+		//	BGM = 0;
+		//	entry[0] = true;
+		//	//g_scene = SCENE_SERECTCHARANDSTAGE;
+		//	g_inCount++;
+
+		//}
+
+		//if ((KeyState[DIK_RETURN] == KeyRelease || KeyState[DIK_NUMPADENTER] == KeyRelease) && m_Cursor.y == ARROWMIDLE || PadState[ButtonA] == PadRelease && m_Cursor.y == ARROWMIDLE)
+		//{
+		//	m_pSoundOperater->Start("BOW", false);
+		//	m_pSoundOperater->Stop("OP_BGM");
+
+		//	entry[1] = true;
+		//}
+		//if ((KeyState[DIK_RETURN] == KeyRelease || KeyState[DIK_NUMPADENTER] == KeyRelease) && m_Cursor.y == ARROWDOWN || PadState[ButtonA] == PadRelease && m_Cursor.y == ARROWDOWN)
+		//{
+		//	m_TitleOrWisdom = WISDOM;
+		//}
+
+
+	}
 }
 void TitleCursol::MoveUp() {
+
 	switch (m_CursolPos) {
 	case START:
 		m_CursolPos = END;

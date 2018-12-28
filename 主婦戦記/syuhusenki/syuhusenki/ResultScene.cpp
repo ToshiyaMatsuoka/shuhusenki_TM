@@ -38,7 +38,7 @@ SCENE_NUM ResultScene::Update()
 	switch (resultPage)
 	{
 	case PAGE1:
-		g_SoundSuccess = soundsManager.Start("DRUM", false) && g_SoundSuccess;
+		m_pSoundOperater->Start("DRUM", false);
 		SyncOld = timeGetTime();
 
 		resultPage = PAGE2;
@@ -58,9 +58,9 @@ SCENE_NUM ResultScene::Update()
 
 #ifdef _DEBUG
 
-	if (m_pDirectX->GetKeyStatus[DIK_SPACE] == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_SPACE) == KeyRelease)
 	{
-		g_scene = SCENE_TITLE;
+		//g_scene = SCENE_TITLE;
 	}
 #endif
 
@@ -271,7 +271,7 @@ void ResultScene::resultRenderThree(void)
 	CUSTOMVERTEX cursor[4];
 	CreateSquareVertex(cursor,50, 450, 500, 600);
 	m_pDirectX->DrawTexture("RESULT_END_TEX", cursor);
-	CreateSquareVertex(cursor, cursorResult, g_cursolColor);
+	CreateSquareVertex(cursor, cursorResult, m_Color);
 
 	m_pDirectX->DrawTexture( "TITLEICON_TEX", cursor);
 }
@@ -354,7 +354,7 @@ void ResultScene::PageOneKeyOperation()
 {
 	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
 	{
-		g_SoundSuccess = soundsManager.Start("DRUM", false) && g_SoundSuccess;
+		m_pSoundOperater->Start("DRUM", false);
 		SyncOld = timeGetTime();
 
 		resultPage = PAGE2;
@@ -381,46 +381,46 @@ void ResultScene::PageThreeKeyOperation()
 			else SetNextScene(TITLE_SCENE);
 	}
 
-	if (m_pDirectX->GetKeyStatus[DIK_W] == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease)
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 490;
 	}
-	if (m_pDirectX->GetKeyStatus[DIK_S] == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease)
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 560;
 
 	}
 	if (m_pXinputDevice->GetButton(ButtonUP) == PadRelease)
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 490;
 
 	}
 
 	if (m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease)
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 560;
 
 	}
 	if (PadOn == m_pXinputDevice->GetAnalogLState(ANALOGDOWN))
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 490;
 
 	}
 
 	if (PadOn == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 	{
-		g_SoundSuccess = soundsManager.Stop("CURSOR") && g_SoundSuccess;
-		g_SoundSuccess = soundsManager.Start("CURSOR", false) && g_SoundSuccess;
+		m_pSoundOperater->Stop("CURSOR");
+		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 560;
 
 	}

@@ -11,7 +11,6 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundOperater = pSoundOperater;
 	m_pDirectX->LoadTexture("Texture/nowloading.png", "LOAD_TEX");
-	m_pSoundOperater->AddFile("Sound/loadEnd.mp3", "LOAD",SE);
 
 	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }
@@ -57,7 +56,7 @@ void Scene::LoadAnimation() {
 
 	CUSTOMVERTEX LoadBg[4];
 	CreateSquareVertex(LoadBg, DISPLAY_WIDTH, DISPLAY_HEIGHT - 20, m_Color);
-	m_pDirectX->DrawTexture("LOAD_BG_TEX", LoadBg);
+	m_pDirectX->DrawTexture("LOAD_TEX", LoadBg);
 
 }
 

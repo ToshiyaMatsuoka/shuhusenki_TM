@@ -12,7 +12,7 @@ void titleRender(void);
 
 void titleRenderSta(void);
 
-void wisdomControl();
-void wisdomRender();
+void WisdomControl();
+void WisdomRender();
 
 #endif // !TITLE_H

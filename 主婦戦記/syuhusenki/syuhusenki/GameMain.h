@@ -56,7 +56,7 @@ extern SoundEffect Pick;
 
 void gameMain();
 void goodsScoreShow();
-void buttonSE(SoundEffect Button, int SoundNumber);
+//void buttonSE(SoundEffect Button, int SoundNumber);
 void showPressA();
 
 #endif

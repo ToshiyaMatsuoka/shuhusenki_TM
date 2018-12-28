@@ -26,18 +26,18 @@ public:
 private:
 	void LoadAnimation();
 
-	SCENE_NUM m_CurrentScene;	//今のシーン
+	SCENE_NUM m_CurrentScene;
 
-								//! メモリリーク検知器では検出されないと思われる。
+	//! メモリリーク検知器では検出されないと思われる。
 	static Scene*	m_pScene;
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;
-	SoundOperater* m_pSoundOperater = NULL;
+	static SoundOperater* m_pSoundOperater;
 	VOLUMESELECTSCENE* m_pVolumeSettingScene = NULL;
 
 	HANDLE m_threadHandle;
 	DWORD m_threadResult;
-
+	static void SoundLoad();
 	void LoadAction();
 	bool isRunOnce = false;
 	bool isThreadActive = false;

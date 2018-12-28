@@ -2,20 +2,20 @@
 #define BLOWOFF_H
 
 
-extern CUSTOMVERTEX effectExplosion[4];
-extern CENTRAL_STATE effectExplosionCentral;
+//extern CUSTOMVERTEX effectExplosion[4];
+//extern CENTRAL_STATE effectExplosionCentral;
+//
+//extern bool g_isBlowOff;
 
-extern bool g_isBlowOff;
-
-void blowOff();
-void blowOffControl();
-void blowOffRender();
-void blowOffDeviseControl(int* i, int comand[]);
-void madamBlowOff();
-int comandCheck(int comand[], int inputComand[], int count);
-void comandMake();
-char comandButton(int comand);
-std::string comandButtonTexture(int comand);
-void RevolveZTuTv(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv);
+//void blowOff();
+//void blowOffControl();
+//void blowOffRender();
+//void blowOffDeviseControl(int* i, int comand[]);
+//void madamBlowOff();
+//int comandCheck(int comand[], int inputComand[], int count);
+//void comandMake();
+//char comandButton(int comand);
+//std::string comandButtonTexture(int comand);
+//void RevolveZTuTv(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float tu, float tv, float scaleTu, float scaleTv);
 
 #endif

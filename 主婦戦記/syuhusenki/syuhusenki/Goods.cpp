@@ -1,37 +1,37 @@
-#include "Goods.h"
+ï»¿#include "Goods.h"
 
 SALESMAN popSales[3];
-//¤•iî•ñ
+//å•†å“æƒ…å ±
 GOODSPARAMETER foodGoods[GOODS_MAX]
 {
 {BLANKGOODS,"BLANK",0,0,0},
-//“÷
+//è‚‰
 { BEEF,"BEEF_TEX",300,200,0 },
 { PORK,"PORK_TEX",200,150,0 },
 { CHICKEN,"CHICKEN_TEX",100,80,0 },
 { VIENNESE,"VIENNESE_TEX",200,100,0 },
 { MINCE,"MINCE_TEX",150,100,0 },
-//‹›
+//é­š
 { SHRIMP,"SHRIMP_TEX",250,200,0 },
 { OCTOPUS,"OCTOPUS_TEX",300,180,0 },
 { INKFISH,"INKFISH_TEX",200,180,0 },
 { FISH,"FISH_TEX",200,150,0 },
-//–ìØ
+//é‡èœ
 { GINESENG,"GINESENG_TEX",50,30,0 },
 { ONION,"ONION_TEX",60,40,0 },
 { POTATO,"POTATO_TEX",65,40,0 },
 { TOMATO,"TOMATO_TEX",100,50,0 },
 { RADISH,"RADISH_TEX",200,150,0 },
-//‚¨‰Ùq
+//ãŠè“å­
 { POTATOCHIPS,"POTATOCHIPS_TEX",100,80,0 },
 { CHOCOLATE,"CHOCOLATE_TEX",100,50,0 },
 { ICE,"ICE_TEX",150,50,0 },
 { RICECRACKER,"RICECRACKER_TEX",100,60,0 },
-//‰Ê•¨
+//æœç‰©
 { APPLE,"APPLE_TEX",100,80,0 },
 { ORANGE,"ORANGE_TEX",200,150,0 },
 { BANANA,"BANANA_TEX",100,80,0 },
-//ˆù‚İ•¨
+//é£²ã¿ç‰©
 { TEA,"TEA_TEX",100,70,0 },
 { JUICE,"JUICE_TEX",150,80,0 },
 { BEER,"BEER_TEX",200,100,0 },
@@ -40,7 +40,7 @@ GOODSPARAMETER foodGoods[GOODS_MAX]
 { FRUIT,"BLANK",0,0,0 },
 
 };
-//ƒRƒ“ƒ{î•ñ
+//ã‚³ãƒ³ãƒœæƒ…å ±
 COMBOPARAMETER foodCombo[COMBOMAX]{
 { BURIDAIKON,"BURIDAIKON_TEX",RARE1, FISH,RADISH,BLANKGOODS,false },
 { RELISH,"RELISH_TEX",RARE1,BEER,VIENNESE, BLANKGOODS,false },
@@ -64,6 +64,19 @@ struct COMBO_OK {
 COMBO_OK checkOk{false,false,false};
 int selectedGoods[3];
 
+int addPrice(int num, int nomalOrSale)
+{
+	switch (nomalOrSale)
+	{
+	case 0:
+		return foodGoods[selectedGoods[num]].nominalCost * foodGoods[selectedGoods[num]].haveValue;
+		break;
+	case 1:
+		return foodGoods[selectedGoods[num]].selePrice * foodGoods[selectedGoods[num]].haveValue;
+		break;
+	}
+}
+
 void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 {
 	if (foodGoods[goodsId1].haveValue)
@@ -75,13 +88,13 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 			if (BLANKGOODS == foodCombo[i].comboElement3 && (!checkOk.three)) {
 				checkOk.three = true;
 			}
-			//1‚Â–Ú‚Ìƒ`ƒFƒbƒN
-			//‘æˆê€–Ú
+			//1ã¤ç›®ã®ãƒã‚§ãƒƒã‚¯
+			//ç¬¬ä¸€é …ç›®
 			if (foodGoods[goodsId1].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
 			{
 				checkOk.one = true;
 			}
-			//‘æ“ñ€–Ú
+			//ç¬¬äºŒé …ç›®
 			else if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 			{
 				if (foodGoods[goodsId1].goodsID == APPLE)
@@ -101,7 +114,7 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 			{
 				checkOk.twe = true;
 			}
-			//‘æO€–Ú
+			//ç¬¬ä¸‰é …ç›®
 			else if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
 			{
 				if (foodGoods[goodsId1].goodsID == BEEF)
@@ -138,15 +151,15 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 
 				checkOk.three = true;
 			}
-			//2‚Â–Ú‚Ìƒ`ƒFƒbƒN
-			//‘æˆê€–Ú
+			//2ã¤ç›®ã®ãƒã‚§ãƒƒã‚¯
+			//ç¬¬ä¸€é …ç›®
 			if (foodGoods[goodsId2].haveValue)
 			{
 				if (foodGoods[goodsId2].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
 				{
 					checkOk.one = true;
 				}
-				//‘æ“ñ€–Ú
+				//ç¬¬äºŒé …ç›®
 				if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 				{
 					if (foodGoods[goodsId2].goodsID == APPLE)
@@ -167,7 +180,7 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 
 					checkOk.twe = true;
 				}
-				//‘æO€–Ú
+				//ç¬¬ä¸‰é …ç›®
 				if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
 				{
 					if (foodGoods[goodsId2].goodsID == BEEF)
@@ -204,15 +217,15 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 				}
 			}
 
-			//3‚Â–Ú‚Ìƒ`ƒFƒbƒN
-			//‘æˆê€–Ú
+			//3ã¤ç›®ã®ãƒã‚§ãƒƒã‚¯
+			//ç¬¬ä¸€é …ç›®
 			if (goodsId3 != BLANKGOODS && foodGoods[goodsId3].haveValue)
 			{
 				if (foodGoods[goodsId3].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
 				{
 					checkOk.one = true;
 				}
-				//‘æ“ñ€–Ú
+				//ç¬¬äºŒé …ç›®
 				if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 				{
 					if (foodGoods[goodsId3].goodsID == APPLE)
@@ -232,7 +245,7 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 				{
 					checkOk.twe = true;
 				}
-				//‘æO€–Ú
+				//ç¬¬ä¸‰é …ç›®
 				if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
 				{
 					if (foodGoods[goodsId3].goodsID == BEEF)
