@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Goods.h"
 
+class FloaMove;
 
 enum GAMESCENE {
 	FLOAMOVE,
@@ -47,8 +48,17 @@ public:
 
 	int editMerchandise(int seleChoice, int arrayNum);
 
-private:
+	CENTRAL_STATE mobCentralFloa[4]
+	{
+		{ 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+		{ 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+		{ 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+		{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
+	
+	};
 
+private:
+	const float MOB_FLOA_SCALE = 50;
 	int comandInput[5];
 	int comandPresentment[5];
 	int comandCount;

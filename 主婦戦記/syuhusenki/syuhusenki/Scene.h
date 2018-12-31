@@ -29,7 +29,7 @@ enum SCENE_NUM
 
 struct CENTRAL_STATE
 {
-	float x, y, scale_x, scale_y;
+	float x, y, scaleX, scaleY;
 };
 
 class Scene {

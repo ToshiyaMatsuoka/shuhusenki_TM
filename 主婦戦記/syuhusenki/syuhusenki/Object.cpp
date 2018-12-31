@@ -42,10 +42,10 @@ void Object::Render()
 
 
 void Object::CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
-	Vertex[0] = { Central.x - Central.scale_x, Central.y - Central.scale_y, 1.f, 1.f, color, tu, tv };
-	Vertex[1] = { Central.x + Central.scale_x, Central.y - Central.scale_y, 1.f, 1.f, color, tu + scaleTu, tv };
-	Vertex[2] = { Central.x + Central.scale_x, Central.y + Central.scale_y, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
-	Vertex[3] = { Central.x - Central.scale_x, Central.y + Central.scale_y, 1.f, 1.f, color, tu, tv + scaleTv };
+	Vertex[0] = { Central.x - Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu, tv };
+	Vertex[1] = { Central.x + Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { Central.x + Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { Central.x - Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu, tv + scaleTv };
 }
 void Object::CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { 0,  0, 1.f, 1.f, color, tu, tv };
@@ -55,16 +55,16 @@ void Object::CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  c
 }
 void Object::CreateSquareVertex( CENTRAL_STATE Central,CUSTOMVERTEX* Vertex, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { Central.x , Central.y , 1.f, 1.f, color, tu, tv };
-	Vertex[1] = { Central.x + Central.scale_x, Central.y , 1.f, 1.f, color, tu + scaleTu, tv };
-	Vertex[2] = { Central.x + Central.scale_x, Central.y + Central.scale_y, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
-	Vertex[3] = { Central.x , Central.y + Central.scale_y, 1.f, 1.f, color, tu, tv + scaleTv };
+	Vertex[1] = { Central.x + Central.scaleX, Central.y , 1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { Central.x + Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { Central.x , Central.y + Central.scaleY, 1.f, 1.f, color, tu, tv + scaleTv };
 }
 
 void Object::TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex) {
 	Central->x = Vertex[0].x;
 	Central->y = Vertex[0].y;
-	Central->scale_x = Vertex[1].x - Vertex[0].x;
-	Central->scale_y = Vertex[3].y - Vertex[0].y;
+	Central->scaleX = Vertex[1].x - Vertex[0].x;
+	Central->scaleY = Vertex[3].y - Vertex[0].y;
 }
 
 void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
@@ -72,15 +72,15 @@ void Object::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DW
 	float CharVertexX[4];
 	float CharVertexY[4];
 
-	CharVertexX[0] = Central.x - Central.scale_x;
-	CharVertexX[1] = Central.x + Central.scale_x;
-	CharVertexX[2] = Central.x + Central.scale_x;
-	CharVertexX[3] = Central.x - Central.scale_x;
+	CharVertexX[0] = Central.x - Central.scaleX;
+	CharVertexX[1] = Central.x + Central.scaleX;
+	CharVertexX[2] = Central.x + Central.scaleX;
+	CharVertexX[3] = Central.x - Central.scaleX;
 
-	CharVertexY[0] = Central.y - Central.scale_y;
-	CharVertexY[1] = Central.y - Central.scale_y;
-	CharVertexY[2] = Central.y + Central.scale_y;
-	CharVertexY[3] = Central.y + Central.scale_y;
+	CharVertexY[0] = Central.y - Central.scaleY;
+	CharVertexY[1] = Central.y - Central.scaleY;
+	CharVertexY[2] = Central.y + Central.scaleY;
+	CharVertexY[3] = Central.y + Central.scaleY;
 
 	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
 
@@ -109,15 +109,15 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 	float CharVertexX[4];
 	float CharVertexY[4];
 
-	CharVertexX[0] = Central.x - Central.scale_x;
-	CharVertexX[1] = Central.x + Central.scale_x;
-	CharVertexX[2] = Central.x + Central.scale_x;
-	CharVertexX[3] = Central.x - Central.scale_x;
+	CharVertexX[0] = Central.x - Central.scaleX;
+	CharVertexX[1] = Central.x + Central.scaleX;
+	CharVertexX[2] = Central.x + Central.scaleX;
+	CharVertexX[3] = Central.x - Central.scaleX;
 
-	CharVertexY[0] = Central.y - Central.scale_y;
-	CharVertexY[1] = Central.y - Central.scale_y;
-	CharVertexY[2] = Central.y + Central.scale_y;
-	CharVertexY[3] = Central.y + Central.scale_y;
+	CharVertexY[0] = Central.y - Central.scaleY;
+	CharVertexY[1] = Central.y - Central.scaleY;
+	CharVertexY[2] = Central.y + Central.scaleY;
+	CharVertexY[3] = Central.y + Central.scaleY;
 
 	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
 
@@ -141,3 +141,29 @@ void Object::RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, 
 
 }
 
+bool Object::BtoBContact(CENTRAL_STATE* central1, CENTRAL_STATE* central2) {
+	if ((central1->x <= central2->x + central2->scaleX) && (central2->x <= central1->x + central1->scaleX)
+		&& (central1->y <= central2->y + central2->scaleY) && (central2->y <= central1->y + central1->scaleY)) {
+		return true;
+	}
+	else return false;
+}
+////矩形が指定範囲外に出ないようにする
+void Object::MoveInToErea(CENTRAL_STATE* central, float Left, float Top, float Right, float Bottom) {
+	if (Left >= central->x - central->scaleX || central->x + central->scaleX >= Right
+		|| Top >= central->y || central->y + central->scaleY >= Bottom) {
+
+		if (Left >= central->x - central->scaleX) {
+			central->x = Left + central->scaleX;
+		}
+		if (central->x + central->scaleX >= Right) {
+			central->x = Right - central->scaleX;
+		}
+		if (Top >= central->y) {
+			central->y = Top;
+		}
+		if (central->y + central->scaleY >= Bottom) {
+			central->y = Bottom - central->scaleY;
+		}
+	}
+}

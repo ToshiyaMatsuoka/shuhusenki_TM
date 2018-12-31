@@ -19,6 +19,7 @@ enum KeyInput
 	MOVE_LEFT,
 	MOVE_RIGHT,
 	SPACE,
+	ACTION,
 };
 
 class Object
@@ -126,6 +127,10 @@ protected:
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+
+	bool BtoBContact(CENTRAL_STATE * central1, CENTRAL_STATE * central2);
+
+	void MoveInToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom);
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };
