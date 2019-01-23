@@ -10,7 +10,6 @@
 
 enum SCENE_NUM;
 class Scene;
-class VOLUMESELECTSCENE;
 
 
 class SceneManager
@@ -33,7 +32,6 @@ private:
 	SCENE_NUM m_NextScene;
 	DirectX* m_pDirectX = NULL;
 	static SoundOperater* m_pSoundOperater;
-	VOLUMESELECTSCENE* m_pVolumeSettingScene = NULL;
 
 	HANDLE m_threadHandle;
 	DWORD m_threadResult;

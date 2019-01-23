@@ -5,7 +5,7 @@
 */
 #include "Object.h"
 
-
+SALESMAN Object::popSales[3];
 
 Object::Object(DirectX* pDirectX, SoundOperater* pSoundOperater):m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
@@ -167,3 +167,31 @@ void Object::MoveInToErea(CENTRAL_STATE* central, float Left, float Top, float R
 		}
 	}
 }
+
+int Object::salesmanToPCCollision(CENTRAL_STATE* central)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (BtoBContact(central, &popSales[i].popPositionCentral))
+		{
+			return popSales[i].popPosition;
+		}
+	}
+	return POS_NOTING;
+}
+
+void Object::DebugSetting() {
+	for (int i = 0; i < 3; i++)
+	{
+		popSales[i].goodsSorting = rand() % 6;//フロア移動で決めたものを入れる
+	}
+	selectGoods(&popSales[0]);
+	selectGoods(&popSales[1]);
+	selectGoods(&popSales[2]);
+}
+
+int Object::editMerchandise(int seleChoice, int arrayNum)
+{
+	return popSales[seleChoice].merchandise[arrayNum];
+}
+

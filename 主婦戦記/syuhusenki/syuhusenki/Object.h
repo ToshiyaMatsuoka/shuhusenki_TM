@@ -7,7 +7,25 @@
 #include <vector>
 
 #include "Scene.h"
+#include "Goods.h"
 
+enum SALESPOSITION
+{
+	POS_MEET,
+	POS_VEGETABLE1,
+	POS_VEGETABLE2,
+	POS_SEAFOOD1,
+	POS_SEAFOOD2,
+	POS_SWEET1,
+	POS_SWEET2,
+	POS_SWEET3,
+	POS_DRINK1,
+	POS_DRINK2,
+	POS_FRUIT1,
+	POS_FRUIT2,
+	POS_FRUIT3,
+	POS_NOTING
+};
 
 enum KeyInput
 {
@@ -29,7 +47,7 @@ public:
 	*キー入力時の内部処理関数
 	*/
 	virtual void KeyOperation();
-	virtual void KeyOperation(KeyInput vec) {};
+	virtual void KeyOperation(KeyInput key) {};
 
 	virtual void Update();
 	virtual void Render();
@@ -43,8 +61,7 @@ public:
 	void TextureRender(std::string TextureKey, CUSTOMVERTEX* TextureSize);
 
 	Object(DirectX* pDirectX, SoundOperater* pSoundOperater);
-	Object(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* MapChip) {};
-	~Object();
+	virtual ~Object();
 
 	/**
 	*@brief CUSTOMVERTEXにパラメータを入れる
@@ -67,63 +84,32 @@ public:
 	* @details 関連するCUSTOMVERTEX作成関数の逆動作をする
 	*/
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
+	int salesmanToPCCollision(CENTRAL_STATE* central);
 
-	/**
-	*@brief CSV読み取りとマップデータ生成
-	* @param filename CSVファイルパス
-	*/
-	virtual void Create(const char *filename) {};
+	void DebugSetting();
 
-	struct MAPCharPosition {
-		int X;
-		int Y;
-	};
+	int editMerchandise(int seleChoice, int arrayNum);
 
-	MAPCharPosition MapCharaPosition;
-
-	int getMapCharaPositionX() {
-		return MapCharaPosition.X;
-	};
-	int getMapCharaPositionY() {
-		return MapCharaPosition.Y;
-	};
-	int m_MapScrollX = 0;
-	int m_MapScrollY = 0;
-
-	void setMapScrollX(int x){};
-	void setMapScrollY(int y){};
-
-	int getRow() {
-		return m_row;
-	}
-	int getColunm() {
-		return m_colunm;
-	}
-	int getMapChipData(int height,int width) {
-		return MapData[height][width];
-	}
-	virtual bool RestrictBottomScroll() { return false; };
-	virtual float GetBottomPoint(int charaLeft, int charRight) { return 0; };
-	virtual float GetBottomWorldPoint(int charaLeft, int charRight) { return 0; };
-
-	virtual void Reverse() {};
-	virtual bool GetActive() { return false; };
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
+	}
+	SALESMAN* GetSalesman() {
+		return popSales;
+	}
+	CENTRAL_STATE* GetCentral() {
+		return &m_Center;
 	}
 protected:
 	DirectX* m_pDirectX = NULL;
 	SoundOperater* m_pSoundOperater = NULL;
+	CUSTOMVERTEX Vertex[4];
+	const DWORD WHITE = 0xFFFFFFFF;
+	static SALESMAN popSales[3];
+	CENTRAL_STATE m_Center;
 
-	std::vector< std::vector<int> > MapData;
-	
-	//!行
-	int m_row = 0;
-	//!列
-	int m_colunm = 0;
+	const int ANIMETION_TIME = 20;
 
-	const float CELL_SIZE = 40.f;
-	static const int ArrayLong = 64;
+	static const int ARRAY_LONG = 64;
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
@@ -134,8 +120,5 @@ protected:
 
 private:
 	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };
-	CUSTOMVERTEX m_DisplayCoordinate[4];
-	CUSTOMVERTEX m_WorldCoordinate[4];
-	int MapChara[5];
 
 };

@@ -16,7 +16,6 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 	:m_CurrentScene(SCENE_NONE), m_NextScene(TITLE_SCENE)
 {
 	m_pDirectX = pDirectX;
-	m_pScene = new TitleScene(m_pDirectX, m_pSoundOperater);
 	m_pSoundOperater = pSoundOperater;
 
 	//ゲームシーンへショートカットする
@@ -26,6 +25,7 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 SceneManager::~SceneManager()
 {
 	m_pSoundOperater->AllStop();
+	m_pScene->Finalize();
 	delete m_pScene;
 	m_pScene = NULL;
 }
@@ -78,12 +78,9 @@ int SceneManager::Update()
 			m_pScene = new  ResultScene(m_pDirectX, m_pSoundOperater);
 			break;
 		}
-		m_NextScene = m_pScene->GetNextScene();
-
 	}
 	if (!isThreadActive) {
 		m_NextScene = m_pScene->Update();
-		//m_NextScene = m_pScene->GetNextScene();
 	}
 	else LoadAction();
 

@@ -88,7 +88,7 @@
 //extern int m_TitleOrWisdom;
 //extern int g_scene;
 //
-//extern FLOAT g_PCSpeed;
+//extern FLOAT MOVE_SPEED;
 //extern DWORD g_cursolColor;
 ////ヤス子のステータス
 //extern CHARACTER_STATE g_yasukoSta;

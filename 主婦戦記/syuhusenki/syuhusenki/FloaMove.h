@@ -1,25 +1,8 @@
 ﻿#ifndef FLOAMOVE_H
 #define FLOAMOVE_H
 
-#include "Scene.h"
+#include "GameScene.h"
 
-enum SALESPOSITION
-{
-	POS_MEET,
-	POS_VEGETABLE1,
-	POS_VEGETABLE2,
-	POS_SEAFOOD1,
-	POS_SEAFOOD2,
-	POS_SWEET1,
-	POS_SWEET2,
-	POS_SWEET3,
-	POS_DRINK1,
-	POS_DRINK2,
-	POS_FRUIT1,
-	POS_FRUIT2,
-	POS_FRUIT3,
-	POS_NOTING
-};
 
 enum SCENE_NUM;
 class Scene;
@@ -28,14 +11,18 @@ class TitleCursol;
 class FloaMove : public Scene
 {
 public:
-	FloaMove(DirectX* pDirectX, SoundOperater* pSoundOperater);
+	FloaMove(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* pYasuko);
 	~FloaMove();
 	SCENE_NUM Update();
 	void Render();
+	void ObjectRendering();
 	void LoadResouce();
 
 private:
-
+	Object * m_pYasuko;
+	Object* m_pSalesman;
+	void leachedGondolaCheck(int * leschgondola, SALESMAN * popSales, int whergondola);
+	
 
 };
 
@@ -62,7 +49,7 @@ private:
 //extern CENTRAL_STATE mobCentralFloa[4];
 //extern CENTRAL_STATE mobCentralBlowOff[5];
 //
-//extern CENTRAL_STATE g_PCSta;
+//extern CENTRAL_STATE m_Center;
 //extern CENTRAL_STATE g_startCountSta;
 //extern CENTRAL_STATE g_startSta;
 //extern int effectCount;

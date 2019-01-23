@@ -1,6 +1,6 @@
 ﻿#include "Goods.h"
+#include <stdlib.h>
 
-SALESMAN popSales[3];
 //商品情報
 GOODSPARAMETER foodGoods[GOODS_MAX]
 {
@@ -560,4 +560,8 @@ void selectGoods(SALESMAN* popSales)
 		break;
 	}
 	}
+}
+
+std::string GetFoodGoodsTexID(int ArrayNum) {
+	return foodGoods[ArrayNum].textureID;
 }

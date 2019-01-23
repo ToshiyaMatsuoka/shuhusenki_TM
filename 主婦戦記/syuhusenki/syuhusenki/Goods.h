@@ -1,8 +1,7 @@
 ﻿#ifndef GOODS_H
 #define GOODS_H
 
-//#include "Main.h"
-#include "Scene.h"
+#include "GAMEMANAGER.h"
 
 const int RARE1 = 100;
 const int RARE2 = 300;
@@ -96,8 +95,8 @@ struct SALESMAN {
 
 extern GOODSPARAMETER foodGoods[GOODS_MAX];
 extern COMBOPARAMETER foodCombo[COMBOMAX];
-extern SALESMAN popSales[3];
 extern int selectedGoods[3];
+std::string GetFoodGoodsTexID(int ArrayNum);
 
 int addPrice(int num, int nomalOrSale);
 int comboSucceceCheck(void);

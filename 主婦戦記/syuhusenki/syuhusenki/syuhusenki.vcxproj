@@ -32,6 +32,7 @@
     <ClCompile Include="PickGoods.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="Salesman.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SoundOperater.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="Salesman.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SoundOperater.h" />

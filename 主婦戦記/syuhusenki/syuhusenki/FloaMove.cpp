@@ -24,13 +24,13 @@
 //	{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
 //
 //};
-//CUSTOMVERTEX PC[4];
+//CUSTOMVERTEX Vertex[4];
 //
 //static bool mobMovedRight[4];
-//static bool isRight = false;
+//static bool m_isRight = false;
 //
-//static int PCtu = 0;
-//static int PCtv = 0;
+//static int m_TurningAnimetion = 0;
+//static int m_ChangeAnimetion = 0;
 //static int mobtu[4] = {0,0,0,0};
 //static int mobtv[4] = {0,0,0,0};
 //int effectCount = 0;
@@ -50,12 +50,12 @@
 //void mobToPCContact(CENTRAL_STATE* charctor, CENTRAL_STATE mobCentralFloa[]);
 //
 //
-//CENTRAL_STATE g_PCSta = { 900.f, 580.f, 32.f, 53.f };
+//CENTRAL_STATE m_Center = { 900.f, 580.f, 32.f, 53.f };
 //
 //CENTRAL_STATE g_startCountSta = { WIDTH / 2, HEIGHT / 2, 150.f, 150.f };
 //CENTRAL_STATE g_startSta = { WIDTH / 2, HEIGHT / 2, 200.f, 96.25f };
 //
-//FLOAT g_PCSpeed = 2.f;
+//FLOAT MOVE_SPEED = 2.f;
 //
 //void floaMove() {
 //
@@ -99,11 +99,11 @@
 //		}
 //#endif
 //	}
-//	if (isRight)
+//	if (m_isRight)
 //	{
-//		CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
+//		CreateSquareVertex(Vertex, m_Center, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
 //	}
-//	else CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
+//	else CreateSquareVertex(Vertex, m_Center, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, YASUKO_TU, YASUKO_TV);
 //
 //}
 //void playerControl(int* onceSound)
@@ -111,40 +111,40 @@
 //	GetControl(0);
 //	BottonCheck();
 //
-//	static int animeCount = 0;
-//	animeCount++;
+//	static int m_AnimeCount = 0;
+//	m_AnimeCount++;
 //
 //	if (InputKEY(DIK_RETURN) || InputKEY(DIK_NUMPADENTER) || (PadState[ButtonA] == PadRelease))
 //	{
-//		leachedGondolaCheck(&salesChoice, popSales, salesmanToPCCollision(g_PCSta, popSales));
+//		leachedGondolaCheck(&salesChoice, popSales, salesmanToPCCollision(m_Center, popSales));
 //	}
 //	if ( 0 < GetAnalogLValue(ANALOG_Y))
 //		{
-//			isRight = false;
+//			m_isRight = false;
 //			if (!g_pause && !g_isTimeUp)
 //			{
 //				if (GetAnalogLValue(ANALOG_Y) >= 6000 && GetAnalogLValue(ANALOG_Y) <= 10000)
 //				{
-//					g_PCSta.y -= g_PCSpeed / 4;
+//					m_Center.y -= MOVE_SPEED / 4;
 //				}
 //				else if (GetAnalogLValue(ANALOG_Y) >= 10000 && GetAnalogLValue(ANALOG_Y) <= 18000)
 //				{
-//					g_PCSta.y -= g_PCSpeed / 2;
+//					m_Center.y -= MOVE_SPEED / 2;
 //				}
 //				else if (GetAnalogLValue(ANALOG_Y) >= 18000)
 //				{
-//					g_PCSta.y -= g_PCSpeed;
+//					m_Center.y -= MOVE_SPEED;
 //				}
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu >= 3)
+//				if (m_TurningAnimetion >= 3)
 //				{
-//					PCtu = 1;
+//					m_TurningAnimetion = 1;
 //				}
-//				PCtv = 1;
+//				m_ChangeAnimetion = 1;
 //
 //
 //			}
@@ -152,111 +152,111 @@
 //
 //	if ( 0 > GetAnalogLValue(ANALOG_Y))
 //		{
-//			isRight = false;
+//			m_isRight = false;
 //			if (!g_pause && !g_isTimeUp)
 //			{
 //				if (GetAnalogLValue(ANALOG_Y) <= -6000 && GetAnalogLValue(ANALOG_Y) >= -10000)
 //				{
-//					g_PCSta.y += g_PCSpeed / 4;
+//					m_Center.y += MOVE_SPEED / 4;
 //				}
 //				else if (GetAnalogLValue(ANALOG_Y) <= -10000 && GetAnalogLValue(ANALOG_Y) >= -18000)
 //				{
-//					g_PCSta.y += g_PCSpeed / 2;
+//					m_Center.y += MOVE_SPEED / 2;
 //				}
 //				else if (GetAnalogLValue(ANALOG_Y) <= -18000)
 //				{
-//					g_PCSta.y += g_PCSpeed;
+//					m_Center.y += MOVE_SPEED;
 //				}
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu >= 3)
+//				if (m_TurningAnimetion >= 3)
 //				{
-//					PCtu = 1;
+//					m_TurningAnimetion = 1;
 //				}
-//				PCtv = 0;
+//				m_ChangeAnimetion = 0;
 //
 //			}
 //		}
 //
 //	if ( 0 < GetAnalogLValue(ANALOG_X) )
 //		{
-//			isRight = true;
+//			m_isRight = true;
 //			if (!g_pause && !g_isTimeUp)
 //			{
 //				if (GetAnalogLValue(ANALOG_X) >= 6000 && GetAnalogLValue(ANALOG_X) <= 10000)
 //				{
-//					g_PCSta.x += g_PCSpeed / 4;
+//					m_Center.x += MOVE_SPEED / 4;
 //				}
 //				else if (GetAnalogLValue(ANALOG_X) >= 10000 && GetAnalogLValue(ANALOG_X) <= 18000)
 //				{
-//					g_PCSta.x += g_PCSpeed / 2;
+//					m_Center.x += MOVE_SPEED / 2;
 //				}
 //				else if (GetAnalogLValue(ANALOG_X) >= 18000)
 //				{
-//					g_PCSta.x += g_PCSpeed;
+//					m_Center.x += MOVE_SPEED;
 //				}
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu > 4)
+//				if (m_TurningAnimetion > 4)
 //				{
-//					PCtu = 1;
+//					m_TurningAnimetion = 1;
 //				}
-//				PCtv = 2;
+//				m_ChangeAnimetion = 2;
 //			}
 //		}
 //
 //	if ( 0 > GetAnalogLValue(ANALOG_X))
 //		{
-//			isRight = false;
+//			m_isRight = false;
 //			if (!g_pause && !g_isTimeUp)
 //			{
 //				if (GetAnalogLValue(ANALOG_X) <= -6000 && GetAnalogLValue(ANALOG_X) >= -10000)
 //				{
-//					g_PCSta.x -= g_PCSpeed / 4;
+//					m_Center.x -= MOVE_SPEED / 4;
 //				}
 //				else if (GetAnalogLValue(ANALOG_X) <= -10000 && GetAnalogLValue(ANALOG_X) >= -18000)
 //				{
-//					g_PCSta.x -= g_PCSpeed / 2;
+//					m_Center.x -= MOVE_SPEED / 2;
 //				}
 //				else if (GetAnalogLValue(ANALOG_X) <= -18000)
 //				{
-//					g_PCSta.x -= g_PCSpeed;
+//					m_Center.x -= MOVE_SPEED;
 //				}
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu > 3)
+//				if (m_TurningAnimetion > 3)
 //				{
-//					PCtu = 0;
+//					m_TurningAnimetion = 0;
 //				}
-//				PCtv = 2;
+//				m_ChangeAnimetion = 2;
 //			}
 //		}
 //		/////////////////////////////////////////
 //	if (InputKEY(DIK_W) || (PadState[ButtonUP] == PadOn))
 //	{
-//		isRight = false;
+//		m_isRight = false;
 //		if (!g_pause && !g_isTimeUp)
 //		{
-//			g_PCSta.y -= g_PCSpeed;
-//			if (animeCount >= ANIMETIONTIME)
+//			m_Center.y -= MOVE_SPEED;
+//			if (m_AnimeCount >= ANIMETIONTIME)
 //			{
-//				PCtu++;
-//				animeCount = 0;
+//				m_TurningAnimetion++;
+//				m_AnimeCount = 0;
 //			}
-//			if (PCtu >= 3)
+//			if (m_TurningAnimetion >= 3)
 //			{
-//				PCtu = 1;
+//				m_TurningAnimetion = 1;
 //			}
-//			PCtv = 1;
+//			m_ChangeAnimetion = 1;
 //
 //
 //		}
@@ -264,69 +264,69 @@
 //
 //	if (InputKEY(DIK_S) || (PadState[ButtonDOWN] == PadOn))
 //	{
-//		isRight = false;
+//		m_isRight = false;
 //		if (!g_pause && !g_isTimeUp)
 //		{
-//			g_PCSta.y += g_PCSpeed;
-//			if (animeCount >= ANIMETIONTIME)
+//			m_Center.y += MOVE_SPEED;
+//			if (m_AnimeCount >= ANIMETIONTIME)
 //			{
-//				PCtu++;
-//				animeCount = 0;
+//				m_TurningAnimetion++;
+//				m_AnimeCount = 0;
 //			}
-//			if (PCtu >= 3)
+//			if (m_TurningAnimetion >= 3)
 //			{
-//				PCtu = 1;
+//				m_TurningAnimetion = 1;
 //			}
-//			PCtv = 0;
+//			m_ChangeAnimetion = 0;
 //
 //		}
 //	}
 //
 //	if (InputKEY(DIK_D) || (PadState[ButtonRIGHT] == PadOn))
 //		{
-//			isRight = true;
+//			m_isRight = true;
 //			if (!g_pause && !g_isTimeUp)
 //			{
-//				g_PCSta.x += g_PCSpeed;
+//				m_Center.x += MOVE_SPEED;
 //
-//				if (PCtu == 0)
+//				if (m_TurningAnimetion == 0)
 //				{
-//					PCtu = 1;
+//					m_TurningAnimetion = 1;
 //				}
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu > 4)
+//				if (m_TurningAnimetion > 4)
 //				{
-//					PCtu = 1;
+//					m_TurningAnimetion = 1;
 //				}
-//				PCtv = 2;
+//				m_ChangeAnimetion = 2;
 //			}
 //		}
 //
 //	if (InputKEY(DIK_A) || (PadState[ButtonLEFT] == PadOn))
 //		{
-//			isRight = false;
+//			m_isRight = false;
 //			if (!g_pause && !g_isTimeUp)
 //			{
-//				g_PCSta.x -= g_PCSpeed;
+//				m_Center.x -= MOVE_SPEED;
 //
-//				if (animeCount >= ANIMETIONTIME)
+//				if (m_AnimeCount >= ANIMETIONTIME)
 //				{
-//					PCtu++;
-//					animeCount = 0;
+//					m_TurningAnimetion++;
+//					m_AnimeCount = 0;
 //				}
-//				if (PCtu > 3)
+//				if (m_TurningAnimetion > 3)
 //				{
-//					PCtu = 0;
+//					m_TurningAnimetion = 0;
 //				}
-//				PCtv = 2;
+//				m_ChangeAnimetion = 2;
 //			}
 //		}
-//	mobToPCContact(&g_PCSta, mobCentralFloa);
-//	collision(&g_PCSta);
+//	mobToPCContact(&m_Center, mobCentralFloa);
+//	collision(&m_Center);
 //}
 
 ////当たり判定処理
@@ -457,10 +457,10 @@
 //	floaMoveRenderSta();
 //#ifdef _DEBUG
 //	char debugPC[10];
-//	sprintf_s(debugPC, 10, "%.2f", g_PCSta.x);
+//	sprintf_s(debugPC, 10, "%.2f", m_Center.x);
 //	RECT DEBUGTextA = { 100 ,500,900,600 };
 //	WriteWord(debugPC, DEBUGTextA, "DEBUG_FONT", DT_LEFT, 0xff000000);
-//	sprintf_s(debugPC, 10, "%.2f", g_PCSta.y);
+//	sprintf_s(debugPC, 10, "%.2f", m_Center.y);
 //	DEBUGTextA = { 100 ,550,900,600 };
 //	WriteWord(debugPC, DEBUGTextA, "DEBUG_FONT", DT_LEFT, 0xff000000);
 //
@@ -478,7 +478,7 @@
 //	CUSTOMVERTEX start[4];
 //	CUSTOMVERTEX salesmans[4];
 //	CUSTOMVERTEX effectPC[4];
-//	CENTRAL_STATE effectCentral = { g_PCSta.x-2,g_PCSta.y-14,60,75 };
+//	CENTRAL_STATE effectCentral = { m_Center.x-2,m_Center.y-14,60,75 };
 //
 //	CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
 //	CreateSquareVertex(startCount, g_startCountSta);
@@ -538,7 +538,7 @@
 //	}
 //	//プレイヤーキャラクターのテクスチャの描画
 //	SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
-//	SetUpTexture(PC, "YASUKO_TEX");
+//	SetUpTexture(Vertex, "YASUKO_TEX");
 //
 //	timerRender();
 //
@@ -568,139 +568,13 @@
 //		EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "PAUSE_TEX");
 //	}
 //}
-//void salesmanPoping(SALESMAN popSales[])
-//{
-//	for (int i = 0; i < 3; i++)
-//	{
-//		switch (popSales[i].goodsSorting)
-//		{
-//		case MEET_SORT:
-//			popSales[i].popPositionCentral = { 285,120,75,75 };
-//			popSales[i].popPosition = POS_MEET;
-//			break;
-//		case VEGETABLE_SORT:
-//			switch (i)
-//			{
-//			case 0:
-//				popSales[i].popPositionCentral = { 1190,360,75,75 };
-//				popSales[i].popPosition = POS_VEGETABLE1;
-//				break;
-//			case 1:
-//				popSales[i].popPositionCentral = { 1095,400,90,75 };
-//				popSales[i].popPosition = POS_VEGETABLE2;
-//				break;
-//			case 2:
-//				if (rand() % 2)
-//				{
-//					popSales[i].popPositionCentral = { 1095,400,90,75 };
-//					popSales[i].popPosition = POS_VEGETABLE2;
-//				}
-//				else
-//				{
-//					popSales[i].popPositionCentral = { 1190,360,75,75 };
-//					popSales[i].popPosition = POS_VEGETABLE1;
-//				}
-//				break;
-//			}
-//			continue;
-//		case SEAFOOD_SORT:
-//			switch (i)
-//			{
-//			case 0:
-//				popSales[i].popPositionCentral = { 800,120,75,75 };
-//				popSales[i].popPosition = POS_SEAFOOD1;
-//				break;
-//			case 1:
-//				popSales[i].popPositionCentral = { 875,210,75,75 };
-//				popSales[i].popPosition = POS_SEAFOOD2;
-//				break;
-//			case 2:
-//				if (rand() % 2)
-//				{
-//					popSales[i].popPositionCentral = { 875,210,75,75 };
-//					popSales[i].popPosition = POS_SEAFOOD2;
-//				}
-//				else
-//				{
-//					popSales[i].popPositionCentral = { 800,120,75,75 };
-//					popSales[i].popPosition = POS_SEAFOOD1;
-//				}
-//				break;
-//			}
-//			continue;
-//		case SWEET_SORT:
-//			switch (i)
-//			{
-//			case 0:
-//				popSales[i].popPositionCentral = { 410,230,75,90 };
-//				popSales[i].popPosition = POS_SWEET1;
-//				break;
-//			case 1:
-//				popSales[i].popPositionCentral = { 270,360,60,60 };
-//				popSales[i].popPosition = POS_SWEET2;
-//				break;
-//			case 2:
-//				popSales[i].popPositionCentral = { 270,530,100,100 };
-//				popSales[i].popPosition = POS_SWEET3;
-//				break;
-//			}
-//			continue;
-//		case FRUIT_SORT:
-//			switch (i)
-//			{
-//			case 0:
-//				popSales[i].popPositionCentral = { 610,540,170,80 };
-//				popSales[i].popPosition = POS_FRUIT1;
-//				break;
-//			case 1:
-//				popSales[i].popPositionCentral = { 917,512,100,100 };
-//				popSales[i].popPosition = POS_FRUIT2;
-//				break;
-//			case 2:
-//				if (rand() % 2) {
-//					popSales[i].popPositionCentral = { 917,512,100,100 };
-//					popSales[i].popPosition = POS_FRUIT2;
-//				}
-//				else
-//				{
-//					popSales[i].popPositionCentral = { 610,540,170,80 };
-//					popSales[i].popPosition = POS_FRUIT1;
-//				}
-//				break;
-//			}
-//			continue;
-//		case DRINK_SORT:
-//			switch (i)
-//			{
-//			case 0:
-//				popSales[i].popPositionCentral = { 65,450,75,100 };
-//				popSales[i].popPosition = POS_DRINK1;
-//				break;
-//			case 1:
-//				popSales[i].popPositionCentral = { 820,360,100,100 };
-//				popSales[i].popPosition = POS_DRINK2;
-//				break;
-//			case 2:
-//				if (rand() % 2) {
-//					popSales[i].popPositionCentral = { 820,360,100,100 };
-//					popSales[i].popPosition = POS_DRINK2;
-//				}
-//				else
-//				{
-//					popSales[i].popPositionCentral = { 70,450,75,75 };
-//					popSales[i].popPosition = POS_DRINK1;
-//				}
-//				break;
-//			}
-//			continue;
-//		}
-//	}
-//}
+
+
 //void mobControler(CENTRAL_STATE mobCentralFloa[])
 //{
 //	static int collisionCount[4] = { 0,0,0,0};
 //	static int mobAnimeCount[4] = { 0,0,0,0 };
-//	if (!BtoBContact(&mobCentralFloa[0], &g_PCSta))
+//	if (!BtoBContact(&mobCentralFloa[0], &m_Center))
 //	{
 //		if (mobCentralFloa[0].x <= 120)
 //		{
@@ -783,7 +657,7 @@
 //	}
 //
 //
-//	if (!BtoBContact(&mobCentralFloa[1], &g_PCSta))
+//	if (!BtoBContact(&mobCentralFloa[1], &m_Center))
 //	{
 //		switch (rand() % 4)
 //		{
@@ -835,7 +709,7 @@
 //		mobtu[1] = 1;
 //	}
 //
-//	if (!BtoBContact(&mobCentralFloa[2], &g_PCSta))
+//	if (!BtoBContact(&mobCentralFloa[2], &m_Center))
 //	{
 //		switch (rand() % 5)
 //		{
@@ -873,7 +747,7 @@
 //			collisionCount[2] = 0;
 //		}
 //	}
-//	if (!BtoBContact(&mobCentralFloa[3], &g_PCSta))
+//	if (!BtoBContact(&mobCentralFloa[3], &m_Center))
 //	{
 //		switch (rand() % 5)
 //		{
@@ -945,16 +819,37 @@
 //	}
 //}
 
-FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater) :Scene(pDirectX, pSoundOperater)
+FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater, Object* pYasuko) :Scene(pDirectX, pSoundOperater)
 {
+	m_pYasuko = pYasuko;
+
+	m_pSalesman = new Salesman(pDirectX, pSoundOperater);
+
 }
 
 FloaMove::~FloaMove()
 {
+	delete m_pSalesman;
+	m_pSalesman = NULL;
 }
 
 SCENE_NUM FloaMove::Update()
 {
+	if (m_pDirectX->GetKeyStatus(DIK_RIGHT) || m_pDirectX->GetKeyStatus(DIK_D) || m_pXinputDevice->GetButton(ButtonRIGHT) || m_pXinputDevice->GetAnalogL(ANALOGRIGHT)){
+		m_pYasuko->KeyOperation(RIGHT);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_LEFT) || m_pDirectX->GetKeyStatus(DIK_A) || m_pXinputDevice->GetButton(ButtonLEFT) || m_pXinputDevice->GetAnalogL(ANALOGLEFT)){
+		m_pYasuko->KeyOperation(LEFT);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_UP) || m_pDirectX->GetKeyStatus(DIK_W) || m_pXinputDevice->GetButton(ButtonUP) || m_pXinputDevice->GetAnalogL(ANALOGUP)) {
+		m_pYasuko->KeyOperation(UP);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pDirectX->GetKeyStatus(DIK_S) || m_pXinputDevice->GetButton(ButtonDOWN) || m_pXinputDevice->GetAnalogL(ANALOGDOWN)) {
+		m_pYasuko->KeyOperation(DOWN);
+	}
+	if (m_pDirectX->GetKeyStatus(DIK_RETURN) || m_pDirectX->GetKeyStatus(DIK_S) || m_pXinputDevice->GetButton(ButtonA)) {
+		leachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->salesmanToPCCollision(m_pYasuko->GetCentral()));
+	}
 	//	static int onceSound = 0;
 	//
 	//	timerControl();
@@ -988,21 +883,136 @@ SCENE_NUM FloaMove::Update()
 	//		}
 	//#endif
 	//	}
-	//	if (isRight)
-	//	{
-	//		CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
-	//	}
-	//	else CreateSquareVertex(PC, g_PCSta, WHITE, PCtu*YASUKO_TU, PCtv*YASUKO_TV, YASUKO_TU, YASUKO_TV);
-
+	m_pYasuko->Update();
+	m_pSalesman->Update();
 	return SCENE_NUM();
 }
 
 void FloaMove::Render()
 {
+
+	//ゲーム画面のテクスチャの設定
+	ObjectRendering();
+
+}
+
+//ゲーム画面のテクスチャ
+void FloaMove::ObjectRendering()
+{
+	CUSTOMVERTEX Vertex[4];
+	RECT Background = { 0,100,DISPLAY_WIDTH ,700 };
+	CreateSquareVertex(Vertex, Background);
+	m_pDirectX->DrawTexture("FLOAMOVE_BG_TEX", Vertex);
+
+	CUSTOMVERTEX startCount[4];
+	CUSTOMVERTEX start[4];
+	CUSTOMVERTEX salesmans[4];
+	CUSTOMVERTEX effectPC[4];
+	//CENTRAL_STATE effectCentral = { m_Center.x-2,m_Center.y-14,60,75 };
+
+	//CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+	//CreateSquareVertex(startCount, g_startCountSta);
+	//CreateSquareVertex(start, g_startSta);
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	if (i == 0 || i == 1)
+	//	{
+	//		if (mobMovedRight[i])
+	//		{
+	//			CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
+	//		}
+	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
+	//	}
+	//	else {
+	//		if (mobMovedRight[i])
+	//		{
+	//			CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
+	//		}
+	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
+	//	}
+	//	if (i >= 2)
+	//	{
+	//		SetUpTexture(salesmans, mobTexNum);
+	//	}
+	//	else SetUpTexture(salesmans, "BOY_TEX");
+	//}
+
+	m_pSalesman->Render();
+	//goodsScoreShow();
+	//if (g_isGameStart)
+	//{
+	//	static int saleAnimeCount = 0;
+	//	int saleAnimeTv;
+	//	static bool saleAnimeChainger = false;
+	//	saleAnimeCount++;
+	//	if (saleAnimeCount > ANIMETIONTIME && !saleAnimeChainger)
+	//	{
+	//		saleAnimeCount = 0;
+	//		saleAnimeChainger = true;
+	//	}
+	//	if(saleAnimeCount > ANIMETIONTIME && saleAnimeChainger)
+	//	{
+	//		saleAnimeCount = 0;
+	//		saleAnimeChainger = false;
+	//	}
+	//	if (saleAnimeChainger)
+	//	{
+	//		saleAnimeTv = 1;
+	//	}
+	//	else saleAnimeTv = 0;
+	//	for (int i = 0; i < 3; i++)
+	//	{
+	//		CreateSquareVertex(salesmans, popSales[i].popPositionCentral, WHITE, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
+	//		SetUpTexture(salesmans, "SALESMAN_TEX");
+	//	}
+	//}
+	////プレイヤーキャラクターのテクスチャの描画
+	//SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
+	m_pYasuko->Render();
+	//timerRender();
+
+	//if ((g_timerCount > ZERO_SECOND) && (g_timerCount <= ONE_SECOND))
+	//{
+	//	//スタートカウントのテクスチャの描画
+	//	SetUpTexture(startCount, "STARTCOUNT_3_TEX");
+	//}
+	//else if ((g_timerCount > ONE_SECOND) && (g_timerCount <= TWO_SECOND))
+	//{
+	//	//スタートカウントのテクスチャの描画
+	//	SetUpTexture(startCount, "STARTCOUNT_2_TEX");
+	//}
+	//else if ((g_timerCount > TWO_SECOND) && (g_timerCount <= THREE_SECOND))
+	//{
+	//	//スタートカウントのテクスチャの描画
+	//	SetUpTexture(startCount, "STARTCOUNT_1_TEX");
+	//}
+	//else if ((g_timerCount > THREE_SECOND) && (g_timerCount <= FOUR_SECOND))
+	//{
+	//	//スタートカウントのテクスチャの描画
+	//	SetUpTexture(start, "START_TEX");
+	//}
+
+	//if (g_pause && !(g_isTimeUp))
+	//{
+	//	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "PAUSE_TEX");
+	//}
+
 }
 
 void FloaMove::LoadResouce()
 {
+}
+
+void FloaMove::leachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int whergondola)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (popSales[i].popPosition == whergondola)
+		{
+			*leschgondola = i;
+			//g_gameScene = CHOSEGOODS;
+		}
+	}
 }
 
 

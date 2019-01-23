@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include "Scene.h"
 #include "Goods.h"
+#include "Yasuko.h"
+#include "Salesman.h"
 
 class FloaMove;
+class Object;
 
 enum GAMESCENE {
 	FLOAMOVE,
@@ -46,8 +49,6 @@ public:
 	std::string priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, int nomalOrSale);
 
 
-	int editMerchandise(int seleChoice, int arrayNum);
-
 	CENTRAL_STATE mobCentralFloa[4]
 	{
 		{ 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
@@ -56,6 +57,10 @@ public:
 		{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
 	
 	};
+protected:
+	static Object* m_pYasuko;
+	static bool isFirst;
+	static FloaMove* m_pFloaMove;
 
 private:
 	const float MOB_FLOA_SCALE = 50;
@@ -68,12 +73,10 @@ private:
 	int effectIntervalPrev;
 	int blowOffEffectIntervalPrev;
 	std::string texturePC;
-	int m_GameScene;
+	int m_GameScene = FLOAMOVE;
 	int m_EffectCount;
 	int m_BlowOffPCEffectCount;
 	bool m_isBlowOff;
-	int m_SalesChoice;
-
 	int m_Turn;
 	float mobRad;
 	std::string mobTexNum;

@@ -31,6 +31,7 @@ ResultScene::ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scen
 
 ResultScene::~ResultScene()
 {
+	Finalize();
 }
 
 SCENE_NUM ResultScene::Update()
@@ -193,19 +194,19 @@ void ResultScene::resultRenderOne(void)
 	CUSTOMVERTEX comboTextResultTex[4];
 
 
-	CreateSquareVertex(saleTResultTex, saleTResult);
-	CreateSquareVertex(nomalTResultTex, nomalTResult);
-	CreateSquareVertex(comboTResultTex, comboTResult);
-	CreateSquareVertex(comboStarResultTex, comboStarResult);
+	CreateSquareVertex(saleTResultTex, &saleTResult);
+	CreateSquareVertex(nomalTResultTex, &nomalTResult);
+	CreateSquareVertex(comboTResultTex, &comboTResult);
+	CreateSquareVertex(comboStarResultTex, &comboStarResult);
 
-	CreateSquareVertex(resultBaseTex1, BaseTexCentral1);
-	CreateSquareVertex(resultBaseTex2, BaseTexCentral2);
-	CreateSquareVertex(resultBaseTex3, BaseTexCentral3);
-	CreateSquareVertex(resultSeleTex1, SeleTexCentral1);
-	CreateSquareVertex(resultSeleTex2, SeleTexCentral2);
-	CreateSquareVertex(resultSeleTex3, SeleTexCentral3);
-	CreateSquareVertex(resultComboTex, comboTexCentral);
-	CreateSquareVertex(comboTextResultTex, comboTextResult);
+	CreateSquareVertex(resultBaseTex1, &BaseTexCentral1);
+	CreateSquareVertex(resultBaseTex2, &BaseTexCentral2);
+	CreateSquareVertex(resultBaseTex3, &BaseTexCentral3);
+	CreateSquareVertex(resultSeleTex1, &SeleTexCentral1);
+	CreateSquareVertex(resultSeleTex2, &SeleTexCentral2);
+	CreateSquareVertex(resultSeleTex3, &SeleTexCentral3);
+	CreateSquareVertex(resultComboTex, &comboTexCentral);
+	CreateSquareVertex(comboTextResultTex, &comboTextResult);
 
 	m_pDirectX->DrawTexture("RESULT_SALE_TEX", saleTResultTex);
 	m_pDirectX->DrawTexture("RESULT_NOMAL_TEX", nomalTResultTex);
@@ -303,7 +304,7 @@ void ResultScene::resultRenderTwo(void)
 	RECT resultTotal{ 0,235,435,400 };
 	m_pDirectX->DrawWord( resultTotal,resulttantValue, "LAST_SCORE_FONT", DT_RIGHT, BLACK);
 	CENTRAL_STATE resultPC{ 1050,350,200,300 };
-	CreateSquareVertex(result, resultPC);
+	CreateSquareVertex(result, &resultPC);
 	if ((nomalSum - saleSale + foodCombo[comboSucceceCheck()].comboBonus) < LOW_SCORE)
 	{
 		m_pDirectX->DrawTexture("YASUKO_EMOTION3_TEX", result);
@@ -324,7 +325,7 @@ void ResultScene::resultRenderThree(void)
 	CUSTOMVERTEX cursor[4];
 	CreateSquareVertex(cursor,50.f, 450.f, 500.f, 600.f);
 	m_pDirectX->DrawTexture("RESULT_END_TEX", cursor);
-	CreateSquareVertex(cursor, cursorResult, m_Color);
+	CreateSquareVertex(cursor, &cursorResult, m_Color);
 
 	m_pDirectX->DrawTexture( "TITLEICON_TEX", cursor);
 }

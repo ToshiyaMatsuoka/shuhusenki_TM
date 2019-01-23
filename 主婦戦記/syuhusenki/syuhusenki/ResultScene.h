@@ -43,18 +43,18 @@ private:
 	void ApperResult(int* resultCounter);
 
 
-	const CENTRAL_STATE BaseTexCentral1{ 100,150,50,50 };
-	const CENTRAL_STATE BaseTexCentral2{ 100,250,50,50 };
-	const CENTRAL_STATE BaseTexCentral3{ 100,350,50,50 };
-	const CENTRAL_STATE SeleTexCentral1{ 850,150,50,50 };
-	const CENTRAL_STATE SeleTexCentral2{ 850,250,50,50 };
-	const CENTRAL_STATE SeleTexCentral3{ 850,350,50,50 };
-	const CENTRAL_STATE comboTexCentral{ 640,315,100,100 };
-	const CENTRAL_STATE nomalTResult{ 200,30,100,25 };
-	const CENTRAL_STATE saleTResult{ 1020,30,100,25 };
-	const CENTRAL_STATE comboTResult{ 640,30,100,25 };
-	const CENTRAL_STATE comboStarResult{ 640,150,100,25 };
-	const CENTRAL_STATE comboTextResult{ 640,650,300,25 };
+	CENTRAL_STATE BaseTexCentral1{ 100,150,50,50 };
+	CENTRAL_STATE BaseTexCentral2{ 100,250,50,50 };
+	CENTRAL_STATE BaseTexCentral3{ 100,350,50,50 };
+	CENTRAL_STATE SeleTexCentral1{ 850,150,50,50 };
+	CENTRAL_STATE SeleTexCentral2{ 850,250,50,50 };
+	CENTRAL_STATE SeleTexCentral3{ 850,350,50,50 };
+	CENTRAL_STATE comboTexCentral{ 640,315,100,100 };
+	CENTRAL_STATE nomalTResult{ 200,30,100,25 };
+	CENTRAL_STATE saleTResult{ 1020,30,100,25 };
+	CENTRAL_STATE comboTResult{ 640,30,100,25 };
+	CENTRAL_STATE comboStarResult{ 640,150,100,25 };
+	CENTRAL_STATE comboTextResult{ 640,650,300,25 };
 
 };
 

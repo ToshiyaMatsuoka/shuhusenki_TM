@@ -15,6 +15,10 @@
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
 
+struct CENTRAL_STATE
+{
+	float x, y, scaleX, scaleY;
+};
 
 class SceneManager;
 

@@ -5,6 +5,9 @@
 */
 #include "SCENE.h"
 
+int Scene::m_SalesChoice = 0;
+XinputDevice* Scene::m_pXinputDevice = NULL;
+
 Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
 	m_pDirectX = pDirectX;
@@ -12,24 +15,27 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 	m_pSoundOperater = pSoundOperater;
 	m_pDirectX->LoadTexture("Texture/nowloading.png", "LOAD_TEX");
 
-	m_pDirectX->SetFont(75, 75, "LOAD_FONT");
 }
 
 Scene::~Scene()
 {
-	if (m_pSoundOperater) {
-		m_pSoundOperater->AllStop();
-	}
+
+}
+void Scene::Finalize() {
+
 	delete m_pXinputDevice;
 	m_pXinputDevice = NULL;
+
+	m_pDirectX->ClearTexture();
+	m_pDirectX->ClearFont();
+
 }
 
-
-void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
-	Vertex[0] = { Central.x - Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu, tv };
-	Vertex[1] = { Central.x + Central.scaleX, Central.y - Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv };
-	Vertex[2] = { Central.x + Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
-	Vertex[3] = { Central.x - Central.scaleX, Central.y + Central.scaleY, 1.f, 1.f, color, tu, tv + scaleTv };
+void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
+	Vertex[0] = { Central->x - Central->scaleX, Central->y - Central->scaleY, 1.f, 1.f, color, tu, tv };
+	Vertex[1] = { Central->x + Central->scaleX, Central->y - Central->scaleY, 1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { Central->x + Central->scaleX, Central->y + Central->scaleY, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { Central->x - Central->scaleX, Central->y + Central->scaleY, 1.f, 1.f, color, tu, tv + scaleTv };
 }
 void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { 0,  0, 1.f, 1.f, color, tu, tv };
@@ -42,6 +48,14 @@ void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, float xSc
 	Vertex[1] = { xScale, y, 1.f, 1.f, color, tu + scaleTu, tv };
 	Vertex[2] = { xScale, yScale, 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
 	Vertex[3] = { x,  yScale, 1.f, 1.f, color, tu, tv + scaleTv };
+}
+void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, RECT rect, DWORD color, float tu, float tv, float scaleTu, float scaleTv) {
+
+	Vertex[0] = { static_cast<float>(rect.left), static_cast<float>(rect.top),    1.f, 1.f, color, tu, tv };
+	Vertex[1] = { static_cast<float>(rect.right),static_cast<float>(rect.top),    1.f, 1.f, color, tu + scaleTu, tv };
+	Vertex[2] = { static_cast<float>(rect.right),static_cast<float>(rect.bottom), 1.f, 1.f, color, tu + scaleTu, tv + scaleTv };
+	Vertex[3] = { static_cast<float>(rect.left), static_cast<float>(rect.bottom), 1.f, 1.f, color, tu, tv + scaleTv };
+
 }
 
 void Scene::LoadAnimation() {
@@ -64,33 +78,33 @@ void Scene::LoadAnimation() {
 }
 
 
-void Scene::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
+void Scene::RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE* Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 
 	float CharVertexX[4];
 	float CharVertexY[4];
 
-	CharVertexX[0] = Central.x - Central.scaleX;
-	CharVertexX[1] = Central.x + Central.scaleX;
-	CharVertexX[2] = Central.x + Central.scaleX;
-	CharVertexX[3] = Central.x - Central.scaleX;
+	CharVertexX[0] = Central->x - Central->scaleX;
+	CharVertexX[1] = Central->x + Central->scaleX;
+	CharVertexX[2] = Central->x + Central->scaleX;
+	CharVertexX[3] = Central->x - Central->scaleX;
 
-	CharVertexY[0] = Central.y - Central.scaleY;
-	CharVertexY[1] = Central.y - Central.scaleY;
-	CharVertexY[2] = Central.y + Central.scaleY;
-	CharVertexY[3] = Central.y + Central.scaleY;
+	CharVertexY[0] = Central->y - Central->scaleY;
+	CharVertexY[1] = Central->y - Central->scaleY;
+	CharVertexY[2] = Central->y + Central->scaleY;
+	CharVertexY[3] = Central->y + Central->scaleY;
 
 	for (int RoteCnt = 0; RoteCnt < 4; RoteCnt++) {
 
-		CharVertexX[RoteCnt] -= Central.x;
-		CharVertexY[RoteCnt] -= Central.y;
+		CharVertexX[RoteCnt] -= Central->x;
+		CharVertexY[RoteCnt] -= Central->y;
 
 		float KEEPER = CharVertexX[RoteCnt];
 
 		CharVertexX[RoteCnt] = (CharVertexX[RoteCnt] * cos(-Rad)) - (CharVertexY[RoteCnt] * sin(-Rad));
 		CharVertexY[RoteCnt] = (CharVertexY[RoteCnt] * cos(-Rad)) + (KEEPER * sin(-Rad));
 
-		CharVertexX[RoteCnt] += Central.x;
-		CharVertexY[RoteCnt] += Central.y;
+		CharVertexX[RoteCnt] += Central->x;
+		CharVertexY[RoteCnt] += Central->y;
 
 	}
 
@@ -117,7 +131,7 @@ void Scene::showPressA()
 
 	CUSTOMVERTEX showA[4];
 	CENTRAL_STATE centralAButton = { 1200,600,50,50 };
-	CreateSquareVertex(showA, centralAButton, Color);
+	CreateSquareVertex(showA, &centralAButton, Color);
 	m_pDirectX->DrawTexture("A_TEX", showA);
 }
 

@@ -11,8 +11,7 @@ bool TitleScene::m_isRuningTeamlogo = true;
 
 TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
-	m_pScene = this;
-	m_pCursor = new TitleCursol(m_pDirectX, m_pSoundOperater);
+	m_pCursor = new TitleCursol(pDirectX, pSoundOperater);
 
 	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
@@ -20,8 +19,8 @@ TitleScene::TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(
 TitleScene::~TitleScene()
 {
 	delete m_pCursor;
-	m_pDirectX->ClearTexture();
-	m_pDirectX->ClearFont();
+	m_pCursor = NULL;
+	Finalize();
 }
 
 SCENE_NUM  TitleScene::Update()
@@ -163,16 +162,16 @@ void TitleScene::Render()
 	//m_pCursor->Render();
 
 	CUSTOMVERTEX MenuVertex[4];
-	CreateSquareVertex(MenuVertex, m_Menu);
+	CreateSquareVertex(MenuVertex, &m_Menu);
 	//m_pDirectX->DrawTexture("TITLE_UI_TEX", MenuVertex);
 	CreateSquareVertex(m_TitleBackground, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	m_pDirectX->DrawTexture("TITLE_BG_TEX", m_TitleBackground);
 	CENTRAL_STATE titleUICentral = { DISPLAY_WIDTH / 2, 550, 200.f, 100.f };
 	CUSTOMVERTEX titleUI[4];
-	CreateSquareVertex(titleUI, titleUICentral);
+	CreateSquareVertex(titleUI, &titleUICentral);
 
 	CUSTOMVERTEX selectArrow[4];
-	CreateSquareVertex(selectArrow, m_Cursor, m_Color);
+	CreateSquareVertex(selectArrow, &m_Cursor, m_Color);
 
 	//タイトル矢印テクスチャの生成
 	if (m_canApperMenu)
@@ -259,7 +258,7 @@ void TitleScene::TeamlogoRender(void) {
 	CreateSquareVertex(teamlogo, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 	m_pDirectX->DrawTexture( "BLANK", teamlogo);
 
-	CreateSquareVertex(teamlogo, logo, logoColor);
+	CreateSquareVertex(teamlogo, &logo, logoColor);
 	m_pDirectX->DrawTexture("TEAMLOGO_TEX", teamlogo);
 
 

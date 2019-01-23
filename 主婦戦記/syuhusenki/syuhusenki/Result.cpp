@@ -163,7 +163,7 @@
 //		}
 //		case PAGE3:
 //			resultPage = PAGE1;
-//			g_PCSta = { 900.f, 580.f, 32.f, 53.f };
+//			m_Center = { 900.f, 580.f, 32.f, 53.f };
 //			mobCentralFloa[0] = { 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };
 //			mobCentralFloa[1] = { 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };			
 //			mobCentralFloa[1] = { 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };
@@ -256,7 +256,7 @@
 //		}
 //		case PAGE3:
 //			resultPage = PAGE1;
-//			g_PCSta = { 900.f, 580.f, 32.f, 53.f };
+//			m_Center = { 900.f, 580.f, 32.f, 53.f };
 //			mobCentralFloa[0] = { 1200,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };
 //			mobCentralFloa[1] = { 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };
 //			mobCentralFloa[1] = { 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE };

@@ -1,37 +1,36 @@
 ﻿#pragma once
 #include "Object.h"
-#include "Goods.h"
 
 class Yasuko :
 	public Object
 {
 public:
-	bool MoveOutToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom, int direction);
-	int salesmanToPCCollision(CENTRAL_STATE central, SALESMAN* popSales);
-	void collision(CENTRAL_STATE * charctor);
-	void leachedGondolaCheck(int * leschgondola, SALESMAN* popSales, int whergondola);
-
 	Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Yasuko();
-	void FloaMoveControl(KeyInput vec);
+	bool MoveOutToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom, int direction);
+	void collision(CENTRAL_STATE * charctor);
+	void Update();
+	void Render();
+	void KeyOperation(KeyInput key);
+	void FloaMoveUpdate();
 
-	void FloaMoveLeft(int * onceSound);
+	void FloaMoveLeft();
 
-	void FloaMoveRight(int * onceSound);
+	void FloaMoveRight();
 
-	void FloaMoveUp(int * onceSound);
+	void FloaMoveUp();
 
-	void FloaMoveDown(int * onceSound);
-
+	void FloaMoveDown();
 
 private:
-	CENTRAL_STATE g_PCSta = { 900.f, 580.f, 32.f, 53.f };
-	float g_PCSpeed = 2.f;
-	bool isRight = false;
-	int animeCount = 0;
+
+	const float MOVE_SPEED = 2.f;
+	bool m_isRight = false;
+	int m_AnimeCount = 0;
 	int salesChoice;
-	int PCtu = 0;
-	int PCtv = 0;
-	const int ANIMETION_TIME = 20;
+	int m_TurningAnimetion = 0;
+	int m_ChangeAnimetion = 0;
+	const float YASUKO_TU = (350.f / 2048.f);
+	const float YASUKO_TV = (679.f / 2048.f);
 };
 
