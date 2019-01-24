@@ -312,6 +312,7 @@ void DirectX::ClearTexture() {
 */
 
 void DirectX::DrawWord(RECT rect, LPCSTR text, string FontNumber, int TextFormat, DWORD color) {
+	if (!m_pFont[FontNumber]) return;
 	m_pFont[FontNumber]->DrawText(
 		NULL,		// NULL
 		text,		// 描画テキスト

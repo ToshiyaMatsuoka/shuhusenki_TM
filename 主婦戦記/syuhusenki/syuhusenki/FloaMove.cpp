@@ -1,5 +1,4 @@
-﻿#include "GameScene.h"
-
+﻿
 #include "FloaMove.h"
 //#define ANIMETIONTIME 20
 ////モブの動く方向
@@ -26,13 +25,13 @@
 //};
 //CUSTOMVERTEX Vertex[4];
 //
-//static bool mobMovedRight[4];
+//static bool m_isRight[4];
 //static bool m_isRight = false;
 //
 //static int m_TurningAnimetion = 0;
 //static int m_ChangeAnimetion = 0;
-//static int mobtu[4] = {0,0,0,0};
-//static int mobtv[4] = {0,0,0,0};
+//static int m_Tu[4] = {0,0,0,0};
+//static int m_Tv[4] = {0,0,0,0};
 //int effectCount = 0;
 //int effectIntervalPrev = 0;
 //int blowOffEffectIntervalPrev = 0;
@@ -468,7 +467,7 @@
 //
 //	EndSetTexture();
 //}
-//
+
 ////ゲーム画面のテクスチャ
 //void floaMoveRenderSta()
 //{
@@ -487,18 +486,18 @@
 //	{
 //		if (i == 0 || i == 1)
 //		{
-//			if (mobMovedRight[i])
+//			if (m_isRight[i])
 //			{
-//				CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
+//				CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, -BOY_TU, BOY_TV);
 //			}
-//			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
+//			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, BOY_TU, BOY_TV);
 //		}
 //		else {
-//			if (mobMovedRight[i])
+//			if (m_isRight[i])
 //			{
-//				CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
+//				CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, m_Tv[i] * MOB_TV, -MOB_TU, MOB_TV);
 //			}
-//			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
+//			else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, m_Tv[i] * MOB_TV, MOB_TU, MOB_TV);
 //		}
 //		if (i >= 2)
 //		{
@@ -579,28 +578,28 @@
 //		if (mobCentralFloa[0].x <= 120)
 //		{
 //			mobCentralFloa[0].y -= 3;
-//			mobMovedRight[0] = false;
-//			mobtv[0] = 1;
+//			m_isRight[0] = false;
+//			m_Tv[0] = 1;
 //
 //		}
 //		if (mobCentralFloa[0].x >= 1190)
 //		{
 //			mobCentralFloa[0].y += 3;
-//			mobMovedRight[0] = false;
-//			mobtv[0] = 0;
+//			m_isRight[0] = false;
+//			m_Tv[0] = 0;
 //		}
 //		if (mobCentralFloa[0].y >= 630)
 //		{
 //			mobCentralFloa[0].x -= 4;
-//			mobMovedRight[0] = false;
-//			mobtv[0] = 2;
+//			m_isRight[0] = false;
+//			m_Tv[0] = 2;
 //
 //		}
 //		if (mobCentralFloa[0].y <= 165)
 //		{
 //			mobCentralFloa[0].x += 4;
-//			mobMovedRight[0] = true;
-//			mobtv[0] = 2;
+//			m_isRight[0] = true;
+//			m_Tv[0] = 2;
 //
 //		}
 //
@@ -613,29 +612,29 @@
 //			if (mobCentralFloa[0].x <= 120)
 //			{
 //				mobCentralFloa[0].y += 10;
-//				mobMovedRight[0] = false;
-//				mobtv[0] = 0;
+//				m_isRight[0] = false;
+//				m_Tv[0] = 0;
 //
 //			}
 //			if (mobCentralFloa[0].x >= 1190)
 //			{
 //				mobCentralFloa[0].y -= 10;
-//				mobMovedRight[0] = false;
-//				mobtv[0] = 1;
+//				m_isRight[0] = false;
+//				m_Tv[0] = 1;
 //			}
 //			if (mobCentralFloa[0].y >= 630)
 //			{
 //				mobCentralFloa[0].x += 6;
-//				mobMovedRight[0] = true;
-//				mobtv[0] = 2;
+//				m_isRight[0] = true;
+//				m_Tv[0] = 2;
 //
 //
 //			}
 //			if (mobCentralFloa[0].y <= 165)
 //			{
 //				mobCentralFloa[0].x -= 6;
-//				mobMovedRight[0] = false;
-//				mobtv[0] = 2;
+//				m_isRight[0] = false;
+//				m_Tv[0] = 2;
 //
 //			}
 //			collisionCount[0] = 0;
@@ -644,16 +643,16 @@
 //	mobAnimeCount[0]++;
 //	if (mobAnimeCount[0] >= ANIMETIONTIME)
 //	{
-//		mobtu[0]++;
+//		m_Tu[0]++;
 //		mobAnimeCount[0] = 0;
 //	}
-//	if (mobtu[0] > 1 && !mobMovedRight[0])
+//	if (m_Tu[0] > 1 && !m_isRight[0])
 //	{
-//		mobtu[0] = 0;
+//		m_Tu[0] = 0;
 //	}
-//	if (mobtu[0] > 2 && mobMovedRight[0])
+//	if (m_Tu[0] > 2 && m_isRight[0])
 //	{
-//		mobtu[0] = 1;
+//		m_Tu[0] = 1;
 //	}
 //
 //
@@ -663,23 +662,23 @@
 //		{
 //		case NORTH:
 //			mobCentralFloa[1].y -= 3;
-//			mobMovedRight[1] = false;
-//			mobtv[1] = 1;
+//			m_isRight[1] = false;
+//			m_Tv[1] = 1;
 //			break;
 //		case SOUTH:
 //			mobCentralFloa[1].y += 3;
-//			mobMovedRight[1] = false;
-//			mobtv[1] = 0;
+//			m_isRight[1] = false;
+//			m_Tv[1] = 0;
 //			break;
 //		case EAST:
 //			mobCentralFloa[1].x -= 3;
-//			mobMovedRight[1] = false;
-//			mobtv[1] = 2;
+//			m_isRight[1] = false;
+//			m_Tv[1] = 2;
 //			break;
 //		case WEST:
 //			mobCentralFloa[1].x += 3;
-//			mobMovedRight[1] = true;
-//			mobtv[1] = 2;
+//			m_isRight[1] = true;
+//			m_Tv[1] = 2;
 //			break;
 //		}
 //	}
@@ -697,16 +696,16 @@
 //	mobAnimeCount[1]++;
 //	if (mobAnimeCount[1] >= ANIMETIONTIME)
 //	{
-//		mobtu[1]++;
+//		m_Tu[1]++;
 //		mobAnimeCount[1] = 0;
 //	}
-//	if (mobtu[1] > 1 && !mobMovedRight[1])
+//	if (m_Tu[1] > 1 && !m_isRight[1])
 //	{
-//		mobtu[1] = 0;
+//		m_Tu[1] = 0;
 //	}
-//	if (mobtu[1] > 2 && mobMovedRight[1])
+//	if (m_Tu[1] > 2 && m_isRight[1])
 //	{
-//		mobtu[1] = 1;
+//		m_Tu[1] = 1;
 //	}
 //
 //	if (!BtoBContact(&mobCentralFloa[2], &m_Center))
@@ -715,23 +714,23 @@
 //		{
 //		case NORTH:
 //			mobCentralFloa[2].y -= 1.5f;
-//			mobMovedRight[2] = false;
-//			mobtv[2] = 1;
+//			m_isRight[2] = false;
+//			m_Tv[2] = 1;
 //			break;
 //		case SOUTH:
 //			mobCentralFloa[2].y += 1.5f;
-//			mobMovedRight[2] = false;
-//			mobtv[2] = 0;
+//			m_isRight[2] = false;
+//			m_Tv[2] = 0;
 //			break;
 //		case EAST:
 //			mobCentralFloa[2].x -= 2;
-//			mobMovedRight[2] = false;
-//			mobtv[2] = 2;
+//			m_isRight[2] = false;
+//			m_Tv[2] = 2;
 //			break;
 //		case WEST:
 //			mobCentralFloa[2].x += 2;
-//			mobMovedRight[2] = true;
-//			mobtv[2] = 2;
+//			m_isRight[2] = true;
+//			m_Tv[2] = 2;
 //			break;
 //		default:
 //			break;
@@ -753,23 +752,23 @@
 //		{
 //		case NORTH:
 //			mobCentralFloa[3].y -= 1.5f;
-//			mobMovedRight[3] = false;
-//			mobtv[3] = 1;
+//			m_isRight[3] = false;
+//			m_Tv[3] = 1;
 //			break;
 //		case SOUTH:
 //			mobCentralFloa[3].y += 1.5f;
-//			mobMovedRight[3] = false;
-//			mobtv[3] = 0;
+//			m_isRight[3] = false;
+//			m_Tv[3] = 0;
 //			break;
 //		case EAST:
 //			mobCentralFloa[3].x -= 2;
-//			mobMovedRight[3] = false;
-//			mobtv[3] = 2;
+//			m_isRight[3] = false;
+//			m_Tv[3] = 2;
 //			break;
 //		case WEST:
 //			mobCentralFloa[3].x += 2;
-//			mobMovedRight[3] = true;
-//			mobtv[3] = 2;
+//			m_isRight[3] = true;
+//			m_Tv[3] = 2;
 //			break;
 //		default:
 //			break;
@@ -819,21 +818,25 @@
 //	}
 //}
 
-FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater, Object* pYasuko) :Scene(pDirectX, pSoundOperater)
+FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater,turn,pYasuko)
 {
 	m_pYasuko = pYasuko;
+	m_pYasuko->DebugSetting();
 
 	m_pSalesman = new Salesman(pDirectX, pSoundOperater);
-
+	m_pSalesman->Update();
+	m_pFloaMob = new FloaMob(pDirectX, pSoundOperater,turn);
 }
 
 FloaMove::~FloaMove()
 {
 	delete m_pSalesman;
 	m_pSalesman = NULL;
+	delete m_pFloaMob;
+	m_pFloaMob = NULL;
 }
 
-SCENE_NUM FloaMove::Update()
+int FloaMove::Update()
 {
 	if (m_pDirectX->GetKeyStatus(DIK_RIGHT) || m_pDirectX->GetKeyStatus(DIK_D) || m_pXinputDevice->GetButton(ButtonRIGHT) || m_pXinputDevice->GetAnalogL(ANALOGRIGHT)){
 		m_pYasuko->KeyOperation(RIGHT);
@@ -884,20 +887,13 @@ SCENE_NUM FloaMove::Update()
 	//#endif
 	//	}
 	m_pYasuko->Update();
-	m_pSalesman->Update();
-	return SCENE_NUM();
+	m_pFloaMob->Update();
+	m_pYasuko->mobToPCContact(m_pFloaMob->GetCentral());
+
+	return m_GameScene;
 }
 
 void FloaMove::Render()
-{
-
-	//ゲーム画面のテクスチャの設定
-	ObjectRendering();
-
-}
-
-//ゲーム画面のテクスチャ
-void FloaMove::ObjectRendering()
 {
 	CUSTOMVERTEX Vertex[4];
 	RECT Background = { 0,100,DISPLAY_WIDTH ,700 };
@@ -906,7 +902,6 @@ void FloaMove::ObjectRendering()
 
 	CUSTOMVERTEX startCount[4];
 	CUSTOMVERTEX start[4];
-	CUSTOMVERTEX salesmans[4];
 	CUSTOMVERTEX effectPC[4];
 	//CENTRAL_STATE effectCentral = { m_Center.x-2,m_Center.y-14,60,75 };
 
@@ -917,18 +912,18 @@ void FloaMove::ObjectRendering()
 	//{
 	//	if (i == 0 || i == 1)
 	//	{
-	//		if (mobMovedRight[i])
+	//		if (m_isRight[i])
 	//		{
-	//			CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, -BOY_TU, BOY_TV);
+	//			CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, -BOY_TU, BOY_TV);
 	//		}
-	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, mobtu[i] * BOY_TU, mobtv[i] * BOY_TV, BOY_TU, BOY_TV);
+	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, BOY_TU, BOY_TV);
 	//	}
 	//	else {
-	//		if (mobMovedRight[i])
+	//		if (m_isRight[i])
 	//		{
-	//			CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, mobtv[i] * MOB_TV, -MOB_TU, MOB_TV);
+	//			CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, m_Tv[i] * MOB_TV, -MOB_TU, MOB_TV);
 	//		}
-	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, mobtv[i] * MOB_TV, MOB_TU, MOB_TV);
+	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, m_Tv[i] * MOB_TV, MOB_TU, MOB_TV);
 	//	}
 	//	if (i >= 2)
 	//	{
@@ -936,7 +931,7 @@ void FloaMove::ObjectRendering()
 	//	}
 	//	else SetUpTexture(salesmans, "BOY_TEX");
 	//}
-
+	m_pFloaMob->Render();
 	m_pSalesman->Render();
 	//goodsScoreShow();
 	//if (g_isGameStart)
@@ -997,7 +992,9 @@ void FloaMove::ObjectRendering()
 	//	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "PAUSE_TEX");
 	//}
 
+
 }
+
 
 void FloaMove::LoadResouce()
 {
@@ -1010,7 +1007,7 @@ void FloaMove::leachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int wh
 		if (popSales[i].popPosition == whergondola)
 		{
 			*leschgondola = i;
-			//g_gameScene = CHOSEGOODS;
+			SetGameScene(CHOSEGOODS);
 		}
 	}
 }

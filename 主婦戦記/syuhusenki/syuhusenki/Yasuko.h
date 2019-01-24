@@ -7,8 +7,7 @@ class Yasuko :
 public:
 	Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Yasuko();
-	bool MoveOutToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom, int direction);
-	void collision(CENTRAL_STATE * charctor);
+	void mobToPCContact(CENTRAL_STATE * mobCentralFloa);
 	void Update();
 	void Render();
 	void KeyOperation(KeyInput key);

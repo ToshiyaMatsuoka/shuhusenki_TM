@@ -1,26 +1,24 @@
 ﻿#ifndef FLOAMOVE_H
 #define FLOAMOVE_H
 
-#include "GameScene.h"
+#include "SubScene.h"
+#include "Salesman.h"
+#include "FloaMob.h"
 
 
-enum SCENE_NUM;
-class Scene;
-class TitleCursol;
 
-class FloaMove : public Scene
+class FloaMove : public SubScene
 {
 public:
-	FloaMove(DirectX* pDirectX, SoundOperater* pSoundOperater, Object* pYasuko);
+	FloaMove(DirectX* pDirectX, SoundOperater* pSoundOperater,int turn ,Yasuko* pYasuko);
 	~FloaMove();
-	SCENE_NUM Update();
+	int Update();
 	void Render();
-	void ObjectRendering();
 	void LoadResouce();
 
 private:
-	Object * m_pYasuko;
 	Object* m_pSalesman;
+	Object* m_pFloaMob;
 	void leachedGondolaCheck(int * leschgondola, SALESMAN * popSales, int whergondola);
 	
 

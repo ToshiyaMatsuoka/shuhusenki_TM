@@ -43,6 +43,7 @@ void Salesman::Update()
 {
 	for (int i = 0; i < 3; i++)
 	{
+		//‘å‚«‚³AÀ•W‚ÍŒ»•¨‡‚í‚¹
 		switch (popSales[i].goodsSorting)
 		{
 		case MEET_SORT:
