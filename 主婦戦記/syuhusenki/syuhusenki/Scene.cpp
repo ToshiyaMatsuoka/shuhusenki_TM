@@ -20,14 +20,8 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 Scene::~Scene()
 {
 
-}
-void Scene::Finalize() {
-
 	delete m_pXinputDevice;
 	m_pXinputDevice = NULL;
-
-	m_pDirectX->ClearTexture();
-	m_pDirectX->ClearFont();
 
 }
 

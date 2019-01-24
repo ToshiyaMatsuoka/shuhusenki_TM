@@ -26,6 +26,7 @@ GameScene::~GameScene()
 }
 
 SCENE_NUM GameScene::Update()
+int GameScene::Update()
 {
 
 	switch (m_GameScene)

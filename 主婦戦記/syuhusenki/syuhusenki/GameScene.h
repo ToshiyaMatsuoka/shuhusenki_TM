@@ -38,7 +38,7 @@ public:
 	friend FloaMove;
 	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~GameScene();
-	SCENE_NUM Update();
+	int Update();
 	void KeyOperation();
 
 	void Render();

@@ -27,6 +27,13 @@ enum SALESPOSITION
 	POS_NOTING
 };
 
+enum CONTACTDIRECTION
+{
+	SIDE,
+	UPPER,
+	UNDER
+};
+
 enum KeyInput
 {
 	PUSH_NONE,
@@ -90,13 +97,16 @@ public:
 
 	int editMerchandise(int seleChoice, int arrayNum);
 
+	void collision(CENTRAL_STATE * charctor);
+	bool MoveOutToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom, int direction);
+
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
 	SALESMAN* GetSalesman() {
 		return popSales;
 	}
-	CENTRAL_STATE* GetCentral() {
+	virtual CENTRAL_STATE* GetCentral() {
 		return &m_Center;
 	}
 protected:

@@ -14,7 +14,7 @@ class TitleScene : public Scene
 public:
 	TitleScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~TitleScene();
-	SCENE_NUM Update();
+	int Update();
 	void Render();
 	void LoadResouce();
 

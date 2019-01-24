@@ -75,8 +75,6 @@ GameManager::~GameManager()
 	pSceneManager = NULL;
 	delete pDirectX;
 	pDirectX = NULL;
-	delete pSoundOperater;
-	pSoundOperater = NULL;
 }
 
 

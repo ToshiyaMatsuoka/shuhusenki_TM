@@ -20,10 +20,12 @@ TitleScene::~TitleScene()
 {
 	delete m_pCursor;
 	m_pCursor = NULL;
-	Finalize();
+	m_pDirectX->ClearTexture();
+	m_pDirectX->ClearFont();
+
 }
 
-SCENE_NUM  TitleScene::Update()
+int  TitleScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
 

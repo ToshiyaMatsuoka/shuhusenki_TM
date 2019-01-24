@@ -7,7 +7,7 @@ public:
 	ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~ResultScene();
 
-	SCENE_NUM Update();
+	int Update();
 	void KeyOperation();
 
 	void Render();

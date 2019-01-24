@@ -25,7 +25,8 @@ SceneManager::SceneManager(DirectX* pDirectX, SoundOperater* pSoundOperater)
 SceneManager::~SceneManager()
 {
 	m_pSoundOperater->AllStop();
-	m_pScene->Finalize();
+	delete m_pSoundOperater;
+	m_pSoundOperater = NULL;
 	delete m_pScene;
 	m_pScene = NULL;
 }
@@ -59,28 +60,29 @@ int SceneManager::Update()
 		case TITLE_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
+
+				isThreadActive = true;
+				m_pScene = new  TitleScene(m_pDirectX, m_pSoundOperater);
 			}
-			isThreadActive = true;
-			m_pScene = new  TitleScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case GAME_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
+				isThreadActive = true;
+				m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater);
 			}
-			isThreadActive = true;
-			m_pScene = new  GameScene(m_pDirectX, m_pSoundOperater);
 			break;
 		case RESULT_SCENE:
 			if (!isRunOnce) {
 				delete m_pScene;
+				isThreadActive = true;
+				m_pScene = new  ResultScene(m_pDirectX, m_pSoundOperater);
 			}
-			isThreadActive = true;
-			m_pScene = new  ResultScene(m_pDirectX, m_pSoundOperater);
 			break;
 		}
 	}
 	if (!isThreadActive) {
-		m_NextScene = m_pScene->Update();
+		m_NextScene = static_cast<SCENE_NUM>(m_pScene->Update());
 	}
 	else LoadAction();
 

@@ -31,11 +31,14 @@ ResultScene::ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scen
 
 ResultScene::~ResultScene()
 {
-	Finalize();
+	m_pDirectX->ClearTexture();
+	m_pDirectX->ClearFont();
+
 }
 
-SCENE_NUM ResultScene::Update()
+int ResultScene::Update()
 {
+	m_pXinputDevice->DeviceUpdate();
 	++resultCounter;
 	ApperResult(&resultCounter);
 

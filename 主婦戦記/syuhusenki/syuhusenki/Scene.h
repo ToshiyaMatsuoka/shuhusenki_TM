@@ -41,8 +41,7 @@ public:
 	}
 	Scene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~Scene();
-	void Finalize();
-	virtual SCENE_NUM Update() = 0;
+	virtual int Update() = 0;
 	virtual void LoadResouce() = 0;
 	virtual void Render() = 0;
 	void EndGame() {
@@ -52,10 +51,6 @@ public:
 
 	void LoadAnimation();
 
-	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, float xScale, float yScale, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
-	void CreateSquareVertex(CUSTOMVERTEX* Vertex, RECT rect, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 
 	int GetGameState() {
@@ -66,6 +61,10 @@ protected:
 	DirectX* m_pDirectX = NULL;
 	static XinputDevice* m_pXinputDevice;
 	SoundOperater* m_pSoundOperater = NULL;
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, float xScale, float yScale, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
+	void CreateSquareVertex(CUSTOMVERTEX* Vertex, RECT rect, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	int m_StageNum = 0;
 	int m_GameState = WM_NULL;
