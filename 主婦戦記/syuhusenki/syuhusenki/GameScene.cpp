@@ -1,9 +1,13 @@
 ﻿#include "GameScene.h"
 #include "FloaMove.h"
+#include "Goods.h"
+#include "ChoseGoods.h"
+#include "BlowOff.h"
+#include "PickGoods.h"
 
-Object* GameScene::m_pYasuko = NULL;
+Yasuko* GameScene::m_pYasuko = NULL;
 bool GameScene::isFirst = false;
-FloaMove* GameScene::m_pFloaMove = NULL;
+
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
 	if (!m_pYasuko) {
@@ -11,7 +15,7 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	}
 
 	if (!isFirst) {
-		m_pFloaMove = new FloaMove(pDirectX, pSoundOperater, m_pYasuko);
+		m_pSubScene = new FloaMove(pDirectX, pSoundOperater, m_Turn, m_pYasuko);
 		isFirst = true;
 	}
 }
@@ -20,39 +24,47 @@ GameScene::~GameScene()
 {
 	delete m_pYasuko;
 	m_pYasuko = NULL;
-	delete m_pFloaMove;
-	m_pFloaMove = NULL;
-	Finalize();
+	delete m_pSubScene;
+	m_pSubScene = NULL;
+	m_pDirectX->ClearTexture();
+	m_pDirectX->ClearFont();
+
 }
 
-SCENE_NUM GameScene::Update()
 int GameScene::Update()
 {
+	m_pXinputDevice->DeviceUpdate();
 
+	if (m_CurrentGameScene != m_GameScene)
+	{
+		m_CurrentGameScene = m_GameScene;
+		switch (m_GameScene)
+		{
+		case FLOAMOVE:
+				delete m_pSubScene;
+				m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+			break;
+		case CHOSEGOODS:
+				delete m_pSubScene;
+				m_pSubScene = new ChoseGoods(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+			break;
+		case BLOWOFF:
+				delete m_pSubScene;
+				m_pSubScene = new BlowOff(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+			break;
+		case PICKGOODS:
+				delete m_pSubScene;
+				m_pSubScene = new PickGoods(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+			break;
+		}
+	}
 	switch (m_GameScene)
 	{
 	case FLOAMOVE:
 	{
-		switch (m_Turn)
-		{
-		case 0:
-			mobTexNum = "ISOKO_TEX";
-			break;
-		case 1:
-			mobTexNum = "MOB_TEX";
-			break;
-		case 2:
-			mobTexNum = "MITUKO_TEX";
-			break;
-		}
 
-		for (int i = 0; i < 5; i++)
-		{
-			comandInput[i] = 10;
-		}
 		m_isBlowOff = false;
 
-		//floaMove();
 
 		if (m_pDirectX->GetKeyStatus(DIK_0) == KeyRelease)
 		{
@@ -70,14 +82,12 @@ int GameScene::Update()
 		{
 			m_SalesChoice = 2;
 		}
-		m_pFloaMove->Update();
+		m_pSubScene->Update();
 		break;
 	}
 	case CHOSEGOODS:
-
-		//choseGoods();
 		break;
-	case PUSHENEMY:
+	case BLOWOFF:
 		if (!m_isBlowOff)
 		{
 
@@ -96,12 +106,9 @@ int GameScene::Update()
 	case PICKGOODS:
 		//pickGoods();
 		//comandMake();
-		for (int i = 0; i < 5; i++)
-		{
-			comandInput[i] = 10;
-		}
 		break;
 	}
+	m_GameScene = m_pSubScene->Update();
 
 	return SCENE_NONE;
 }
@@ -114,19 +121,7 @@ void GameScene::KeyOperation()
 
 void GameScene::Render()
 {
-	switch (m_GameScene)
-	{
-	case FLOAMOVE:
-		m_pFloaMove->Render();
-		break;
-	case CHOSEGOODS:
-		break;
-	case PUSHENEMY:
-		break;
-	case PICKGOODS:
-		break;
-	}
-
+	m_pSubScene->Render();
 	goodsScoreShow();
 }
 
@@ -291,7 +286,7 @@ void GameScene::goodsScoreShow()
 			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(m_SalesChoice, 1), 1), GoodsShow);
 
 			break;
-		case PUSHENEMY:
+		case BLOWOFF:
 		{
 			CreateSquareVertex(GoodsShow, 310.f, 10.f, 400.f, 80.f);
 			m_pDirectX->DrawTexture(GetFoodGoodsTexID(selectedGoods[m_Turn]), GoodsShow);

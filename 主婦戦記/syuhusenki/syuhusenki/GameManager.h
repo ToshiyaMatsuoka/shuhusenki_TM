@@ -4,7 +4,7 @@
 * @author Toshiya Matsuoka
 */
 #pragma once
-
+#include <time.h>
 #include "DirectX.h"
 #include "SceneManager.h"
 #include "SoundOperater.h"

@@ -1,18 +1,11 @@
 ﻿#pragma once
 #include "Scene.h"
-#include "Goods.h"
-#include "Yasuko.h"
-#include "Salesman.h"
+#include "SubScene.h"
+
 
 class FloaMove;
 class Object;
 
-enum GAMESCENE {
-	FLOAMOVE,
-	CHOSEGOODS,
-	PUSHENEMY,
-	PICKGOODS,
-};
 
 struct SoundEffect {
 	char SE1[20];
@@ -57,15 +50,15 @@ public:
 		{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
 	
 	};
-protected:
-	static Object* m_pYasuko;
-	static bool isFirst;
-	static FloaMove* m_pFloaMove;
-
+	void SetGameScene(GAMESCENE gamescene) {
+		m_GameScene = gamescene;
+	}
 private:
+	static Yasuko* m_pYasuko;
+	static bool isFirst;
+	SubScene* m_pSubScene;
+
 	const float MOB_FLOA_SCALE = 50;
-	int comandInput[5];
-	int comandPresentment[5];
 	int comandCount;
 	int checkedComand;
 	int rushButtonShow;
@@ -76,13 +69,11 @@ private:
 	int m_GameScene = FLOAMOVE;
 	int m_EffectCount;
 	int m_BlowOffPCEffectCount;
-	bool m_isBlowOff;
-	int m_Turn;
+	int m_Turn = 0;
 	float mobRad;
-	std::string mobTexNum;
 	bool m_TimeDeadline = false;
-	bool m_isGameStart = false;
-
+	bool m_isGameStart = true;
+	int m_CurrentGameScene;
 	SoundEffect Button;
 	SoundEffect Pick;
 };

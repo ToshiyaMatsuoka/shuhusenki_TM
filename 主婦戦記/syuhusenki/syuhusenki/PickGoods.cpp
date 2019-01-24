@@ -1,4 +1,5 @@
-﻿//#include "Main.h"
+﻿#include "PickGoods.h"
+//#include "Main.h"
 //#include "FloaMove.h"
 //#include "GameMain.h"
 //#include "Goods.h"
@@ -280,3 +281,26 @@
 //	else g_SoundSuccess = soundsManager.Start("MISS", false) && g_SoundSuccess;
 //
 //}
+
+
+PickGoods::PickGoods(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater, turn, pYasuko)
+{
+}
+
+
+PickGoods::~PickGoods()
+{
+}
+
+int PickGoods::Update()
+{
+	return m_GameScene;
+}
+
+void PickGoods::LoadResouce()
+{
+}
+
+void PickGoods::Render()
+{
+}
