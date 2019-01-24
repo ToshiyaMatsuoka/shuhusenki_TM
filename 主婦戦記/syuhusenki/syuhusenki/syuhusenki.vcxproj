@@ -22,6 +22,7 @@
     <ClCompile Include="BlowOff.cpp" />
     <ClCompile Include="ChoseGoods.cpp" />
     <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="FloaMob.cpp" />
     <ClCompile Include="FloaMove.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SoundOperater.cpp" />
+    <ClCompile Include="SubScene.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitleCursol.cpp" />
@@ -47,6 +49,7 @@
     <ClInclude Include="BlowOff.h" />
     <ClInclude Include="ChoseGoods.h" />
     <ClInclude Include="DirectX.h" />
+    <ClInclude Include="FloaMob.h" />
     <ClInclude Include="FloaMove.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="GameManager.h" />
@@ -62,6 +65,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SoundOperater.h" />
+    <ClInclude Include="SubScene.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitleCursol.h" />
