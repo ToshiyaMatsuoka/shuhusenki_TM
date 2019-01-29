@@ -13,6 +13,7 @@
 #define CENTRAL_X (DISPLAY_WIDTH / 2)
 
 struct CENTRAL_STATE;
+class Goods;
 
 enum SCENE_NUM
 {
@@ -48,19 +49,20 @@ public:
 		m_GameState = WM_QUIT;
 	}
 
-
 	void LoadAnimation();
-
-
-
+	
 	int GetGameState() {
 		return m_GameState;
 	}
+	void Debug();
+
 
 protected:
 	DirectX* m_pDirectX = NULL;
 	static XinputDevice* m_pXinputDevice;
 	SoundOperater* m_pSoundOperater = NULL;
+	static Goods* m_pGoods;
+
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 	void CreateSquareVertex(CUSTOMVERTEX* Vertex, float x, float y, float xScale, float yScale, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
@@ -82,6 +84,7 @@ protected:
 	void RevolveZ(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE* Central, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	void showPressA();
+
 
 	const DWORD BLACK = 0xff000000;
 	const DWORD  HARFCLEAR = 0x8a000000;

@@ -23,6 +23,8 @@ public:
 
 	std::string priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, int nomalOrSale);
 
+	void DebugSetting();
+
 
 	CENTRAL_STATE mobCentralFloa[4]
 	{
@@ -38,7 +40,7 @@ public:
 private:
 	static Yasuko* m_pYasuko;
 	static bool isFirst;
-	SubScene* m_pSubScene;
+	SubScene* m_pSubScene = NULL;
 	const float MOB_FLOA_SCALE = 50;
 	int comandCount;
 	int checkedComand;

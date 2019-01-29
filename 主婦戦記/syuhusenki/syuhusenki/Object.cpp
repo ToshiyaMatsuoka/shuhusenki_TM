@@ -180,15 +180,6 @@ int Object::salesmanToPCCollision(CENTRAL_STATE* central)
 	return POS_NOTING;
 }
 
-void Object::DebugSetting() {
-	for (int i = 0; i < 3; i++)
-	{
-		popSales[i].goodsSorting = rand() % 6;//フロア移動で決めたものを入れる
-	}
-	selectGoods(&popSales[0]);
-	selectGoods(&popSales[1]);
-	selectGoods(&popSales[2]);
-}
 
 int Object::editMerchandise(int seleChoice, int arrayNum)
 {

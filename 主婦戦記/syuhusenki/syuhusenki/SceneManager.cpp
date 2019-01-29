@@ -33,25 +33,12 @@ SceneManager::~SceneManager()
 
 int SceneManager::Update()
 {
-	#ifdef _DEBUG
-		if (m_pDirectX->GetKeyStatus(DIK_F4) == KeyRelease && m_pDirectX->GetKeyStatus(DIK_LSHIFT))
-		{
-			m_pSoundOperater->Stop("FOOD");
-			m_pSoundOperater->Stop("HURRY_UP");
-			m_pSoundOperater->SetVolume("HURRY_UP", 100);
-	
-			m_pSoundOperater->Stop("TIME_LIMIT");
-	
-	
-			selectedGoods[0] = POTATO;
-			selectedGoods[1] = BEEF;
-			selectedGoods[2] = ONION;
-			for (int i = 0; i < 3; i++) {
-				foodGoods[selectedGoods[i]].haveValue += 300;
-			}
-			m_NextScene = RESULT_SCENE;
-		}
-	#endif
+#ifdef _DEBUG
+	if (m_pDirectX->GetKeyStatus(DIK_F4) == KeyRelease && m_pDirectX->GetKeyStatus(DIK_LSHIFT))
+	{
+		m_pScene->Debug();
+	}
+#endif
 
 	if (m_CurrentScene != m_NextScene)
 	{

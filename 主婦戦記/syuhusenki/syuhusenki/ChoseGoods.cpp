@@ -117,12 +117,12 @@ int ChoseGoods::Update()
 {
 	if (m_pDirectX->GetKeyStatus(DIK_Q) == KeyRelease|| m_pXinputDevice->GetButton(ButtonX) == PadRelease)
 	{
-		selectedGoods[m_Turn] = m_pYasuko->editMerchandise(m_SalesChoice, 0);
+		m_pGoods->SetselectedGoods(m_Turn,m_pYasuko->editMerchandise(m_SalesChoice, 0));
 		SetGameScene(BLOWOFF);
 	}
 	if (m_pDirectX->GetKeyStatus(DIK_E) == KeyRelease|| m_pXinputDevice->GetButton(ButtonB) == PadRelease)
 	{
-		selectedGoods[m_Turn] = m_pYasuko->editMerchandise(m_SalesChoice, 1);
+		m_pGoods->SetselectedGoods(m_Turn,m_pYasuko->editMerchandise(m_SalesChoice, 1));
 		SetGameScene(BLOWOFF);
 	}
 
@@ -159,9 +159,9 @@ void ChoseGoods::Render()
 	m_pDirectX->DrawTexture("YASUKO_EFFECT_TEX",vertex);
 	m_pDirectX->DrawTexture("YASUKO_TEX",playerHit );
 	CreateSquareVertex(vertex,350.f, 150.f, 600.f, 400.f);
-	m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice,0)), vertex);
+	m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice,0)), vertex);
 	CreateSquareVertex(vertex, 660.f, 150.f, 910.f, 400.f);
-	m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice,1)), vertex);
+	m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice,1)), vertex);
 	CreateSquareVertex(vertex, 350.f, 350.f, 600.f, 500.f);
 	m_pDirectX->DrawTexture("X_TEX", vertex);
 	CreateSquareVertex(vertex, 660.f, 350.f, 910.f, 500.f);

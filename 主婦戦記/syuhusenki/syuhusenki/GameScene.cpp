@@ -1,6 +1,6 @@
 ﻿#include "GameScene.h"
-#include "FloaMove.h"
 #include "Goods.h"
+#include "FloaMove.h"
 #include "ChoseGoods.h"
 #include "BlowOff.h"
 #include "PickGoods.h"
@@ -13,11 +13,10 @@ GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pD
 	if (!m_pYasuko) {
 		m_pYasuko = new Yasuko(pDirectX, pSoundOperater);
 	}
-
-	if (!isFirst) {
-		m_pSubScene = new FloaMove(pDirectX, pSoundOperater, m_Turn, m_pYasuko);
-		isFirst = true;
+	if (!m_pSubScene) {
+		m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
 	}
+	m_pGoods = new Goods(pDirectX, pSoundOperater);
 }
 
 GameScene::~GameScene()
@@ -26,6 +25,8 @@ GameScene::~GameScene()
 	m_pYasuko = NULL;
 	delete m_pSubScene;
 	m_pSubScene = NULL;
+	delete m_pGoods;
+	m_pGoods = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 
@@ -43,6 +44,7 @@ int GameScene::Update()
 		case FLOAMOVE:
 				delete m_pSubScene;
 				m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+				DebugSetting();
 			break;
 		case CHOSEGOODS:
 				delete m_pSubScene;
@@ -57,57 +59,54 @@ int GameScene::Update()
 				m_pSubScene = new PickGoods(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
 			break;
 		}
+		return SCENE_NONE;
 	}
-	switch (m_GameScene)
-	{
-	case FLOAMOVE:
-	{
-
-		//m_isBlowOff = false;
-
-
-		if (m_pDirectX->GetKeyStatus(DIK_0) == KeyRelease)
-		{
-			m_pYasuko->DebugSetting();
-		}
-		if (m_pDirectX->GetKeyStatus(DIK_1) == KeyRelease)
-		{
-			m_SalesChoice = 0;
-		}
-		if (m_pDirectX->GetKeyStatus(DIK_2) == KeyRelease)
-		{
-			m_SalesChoice = 1;
-		}
-		if (m_pDirectX->GetKeyStatus(DIK_3) == KeyRelease)
-		{
-			m_SalesChoice = 2;
-		}
-		m_pSubScene->Update();
-		break;
-	}
-	case CHOSEGOODS:
-		break;
-	case BLOWOFF:
-		//if (!m_isBlowOff)
-		//{
-
-		//	//mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-		//	//mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-		//	//mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-		//	//mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-		//	//mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-		//	//
-		//	//effectExplosionCentral = { 900,750,300,300 };
-		//	//g_effectCount = 0;
-		//	//playerCutinCentral.x = 1200;
-		//}
-		//blowOff();
-		break;
-	case PICKGOODS:
-		//pickGoods();
-		//comandMake();
-		break;
-	}
+	//switch (m_GameScene)
+	//{
+	//case FLOAMOVE:
+	//{
+	//	//m_isBlowOff = false;
+	//	if (m_pDirectX->GetKeyStatus(DIK_0) == KeyRelease)
+	//	{
+	//		DebugSetting();
+	//	}
+	//	if (m_pDirectX->GetKeyStatus(DIK_1) == KeyRelease)
+	//	{
+	//		m_SalesChoice = 0;
+	//	}
+	//	if (m_pDirectX->GetKeyStatus(DIK_2) == KeyRelease)
+	//	{
+	//		m_SalesChoice = 1;
+	//	}
+	//	if (m_pDirectX->GetKeyStatus(DIK_3) == KeyRelease)
+	//	{
+	//		m_SalesChoice = 2;
+	//	}
+	//	m_pSubScene->Update();
+	//	break;
+	//}
+	//case CHOSEGOODS:
+	//	break;
+	//case BLOWOFF:
+	//	//if (!m_isBlowOff)
+	//	//{
+	//	//	//mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	//	//	//mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	//	//	//mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	//	//	//mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	//	//	//mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	//	//	//
+	//	//	//effectExplosionCentral = { 900,750,300,300 };
+	//	//	//g_effectCount = 0;
+	//	//	//playerCutinCentral.x = 1200;
+	//	//}
+	//	//blowOff();
+	//	break;
+	//case PICKGOODS:
+	//	//pickGoods();
+	//	//comandMake();
+	//	break;
+	//}
 	m_GameScene = m_pSubScene->Update();
 
 	return SCENE_NONE;
@@ -296,7 +295,7 @@ void GameScene::goodsScoreShow()
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
 			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
 
-			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetfoodGoods()[m_pGoods->GetselectedGoods(m_Turn)].haveValue);
+			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -311,7 +310,7 @@ void GameScene::goodsScoreShow()
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
 			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
-			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetfoodGoods()[m_pGoods->GetselectedGoods(m_Turn)].haveValue);
+			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -370,7 +369,7 @@ void GameScene::goodsScoreShow()
 	}
 }
 
-std::string GameScene::priceEdit(GOODSPARAMETER* foodGoods,int goodsselector,int nomalOrSale)
+std::string GameScene::priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, int nomalOrSale)
 {
 	if (!nomalOrSale)
 	{
@@ -419,8 +418,18 @@ std::string GameScene::priceEdit(GOODSPARAMETER* foodGoods,int goodsselector,int
 		case 30:
 			return "S_THRTY_TEX";
 		}
+		return "BLANK";
+	}
 	return "BLANK";
 }
-	}
 
+void GameScene::DebugSetting() {
+	for (int i = 0; i < 3; i++)
+	{
+		m_pYasuko->SetgoodsSorting(i,(rand() % 6));//フロア移動で決めたものを入れる
+	}
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+}
 

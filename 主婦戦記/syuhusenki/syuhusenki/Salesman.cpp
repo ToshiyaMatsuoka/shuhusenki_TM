@@ -1,4 +1,5 @@
 #include "Salesman.h"
+#include "Goods.h"
 
 
 

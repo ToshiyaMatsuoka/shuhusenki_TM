@@ -2,59 +2,9 @@
 #include <stdlib.h>
 
 //商品情報
-GOODSPARAMETER foodGoods[GOODS_MAX]
-{
-{BLANKGOODS,"BLANK",0,0,0},
-//肉
-{ BEEF,"BEEF_TEX",300,200,0 },
-{ PORK,"PORK_TEX",200,150,0 },
-{ CHICKEN,"CHICKEN_TEX",100,80,0 },
-{ VIENNESE,"VIENNESE_TEX",200,100,0 },
-{ MINCE,"MINCE_TEX",150,100,0 },
-//魚
-{ SHRIMP,"SHRIMP_TEX",250,200,0 },
-{ OCTOPUS,"OCTOPUS_TEX",300,180,0 },
-{ INKFISH,"INKFISH_TEX",200,180,0 },
-{ FISH,"FISH_TEX",200,150,0 },
-//野菜
-{ GINESENG,"GINESENG_TEX",50,30,0 },
-{ ONION,"ONION_TEX",60,40,0 },
-{ POTATO,"POTATO_TEX",65,40,0 },
-{ TOMATO,"TOMATO_TEX",100,50,0 },
-{ RADISH,"RADISH_TEX",200,150,0 },
-//お菓子
-{ POTATOCHIPS,"POTATOCHIPS_TEX",100,80,0 },
-{ CHOCOLATE,"CHOCOLATE_TEX",100,50,0 },
-{ ICE,"ICE_TEX",150,50,0 },
-{ RICECRACKER,"RICECRACKER_TEX",100,60,0 },
-//果物
-{ APPLE,"APPLE_TEX",100,80,0 },
-{ ORANGE,"ORANGE_TEX",200,150,0 },
-{ BANANA,"BANANA_TEX",100,80,0 },
-//飲み物
-{ TEA,"TEA_TEX",100,70,0 },
-{ JUICE,"JUICE_TEX",150,80,0 },
-{ BEER,"BEER_TEX",200,100,0 },
-
-{ MEET,"BLANK",0,0,0 },
-{ FRUIT,"BLANK",0,0,0 },
-
-};
-//コンボ情報
-COMBOPARAMETER foodCombo[COMBOMAX]{
-{ BURIDAIKON,"BURIDAIKON_TEX",RARE1, FISH,RADISH,BLANKGOODS,false },
-{ RELISH,"RELISH_TEX",RARE1,BEER,VIENNESE, BLANKGOODS,false },
-{ TEATIME,"TEATIME_TEX", RARE1, TEA, RICECRACKER , BLANKGOODS,false },
-{ CURRY, "CURRY_TEX",RARE2, POTATO, ONION, MEET,false },
-{ HAMBERG,"HAMBERG_TEX", RARE2, MINCE, ONION, GINESENG ,false },
-{ ASSORTEDSASHIMI,"ASSORTEDSASHIMI_TEX", RARE2, SHRIMP, OCTOPUS, INKFISH ,false },
-{ AFTERNOONREFRESHMENT,"AFTERNOONREFRESHMENT_TEX",RARE2,ICE,JUICE,FRUIT,false },
-{ SOUP,"SOUP_TEX",RARE3,VIENNESE,TOMATO,ONION ,false },
-{ NIMONO,"NIMONO_TEX",RARE3,RADISH,FISH,OCTOPUS ,false },
-{ PARFAIT,"PARFAIT_TEX",RARE3,ICE,FRUIT,FRUIT,false },
-{ BLANK_COMBO,"BLANK",0,BLANKGOODS,BLANKGOODS,BLANKGOODS,false },
-
-};
+using COMBO_RARE::RARE1;
+using COMBO_RARE::RARE2;
+using COMBO_RARE::RARE3;
 
 struct COMBO_OK {
 	bool one;
@@ -62,9 +12,17 @@ struct COMBO_OK {
 	bool three;
 };
 COMBO_OK checkOk{false,false,false};
-int selectedGoods[3];
 
-int addPrice(int num, int nomalOrSale)
+Goods::Goods(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)
+{
+}
+
+
+Goods::~Goods()
+{
+}
+
+int Goods::addPrice(int num, int nomalOrSale)
 {
 	switch (nomalOrSale)
 	{
@@ -77,7 +35,7 @@ int addPrice(int num, int nomalOrSale)
 	}
 }
 
-void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
+void Goods::comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 {
 	if (foodGoods[goodsId1].haveValue)
 	{
@@ -297,7 +255,7 @@ void comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 		}
 	}
 }
-int comboSucceceCheck(void)
+int Goods::comboSucceceCheck(void)
 {
 	for (int i = 0; i < COMBOMAX; i++) 
 	{
@@ -308,7 +266,7 @@ int comboSucceceCheck(void)
 	}
 	return BLANK_COMBO;
 }
-void selectGoods(SALESMAN* popSales)
+void Goods::selectGoods(SALESMAN* popSales)
 {
 	int randBuff[2];
 	switch (popSales->goodsSorting)
@@ -562,6 +520,56 @@ void selectGoods(SALESMAN* popSales)
 	}
 }
 
-std::string GetFoodGoodsTexID(int ArrayNum) {
-	return foodGoods[ArrayNum].textureID;
-}
+GOODSPARAMETER Goods::foodGoods[GOODS_MAX]
+{
+{ BLANKGOODS,"BLANK",0,0,0 },
+	//肉
+{ BEEF,"BEEF_TEX",300,200,0 },
+{ PORK,"PORK_TEX",200,150,0 },
+{ CHICKEN,"CHICKEN_TEX",100,80,0 },
+{ VIENNESE,"VIENNESE_TEX",200,100,0 },
+{ MINCE,"MINCE_TEX",150,100,0 },
+//魚
+{ SHRIMP,"SHRIMP_TEX",250,200,0 },
+{ OCTOPUS,"OCTOPUS_TEX",300,180,0 },
+{ INKFISH,"INKFISH_TEX",200,180,0 },
+{ FISH,"FISH_TEX",200,150,0 },
+//野菜
+{ GINESENG,"GINESENG_TEX",50,30,0 },
+{ ONION,"ONION_TEX",60,40,0 },
+{ POTATO,"POTATO_TEX",65,40,0 },
+{ TOMATO,"TOMATO_TEX",100,50,0 },
+{ RADISH,"RADISH_TEX",200,150,0 },
+//お菓子
+{ POTATOCHIPS,"POTATOCHIPS_TEX",100,80,0 },
+{ CHOCOLATE,"CHOCOLATE_TEX",100,50,0 },
+{ ICE,"ICE_TEX",150,50,0 },
+{ RICECRACKER,"RICECRACKER_TEX",100,60,0 },
+//果物
+{ APPLE,"APPLE_TEX",100,80,0 },
+{ ORANGE,"ORANGE_TEX",200,150,0 },
+{ BANANA,"BANANA_TEX",100,80,0 },
+//飲み物
+{ TEA,"TEA_TEX",100,70,0 },
+{ JUICE,"JUICE_TEX",150,80,0 },
+{ BEER,"BEER_TEX",200,100,0 },
+
+{ MEET,"BLANK",0,0,0 },
+{ FRUIT,"BLANK",0,0,0 },
+
+};
+//コンボ情報
+COMBOPARAMETER Goods::foodCombo[COMBOMAX]{
+{ BURIDAIKON,"BURIDAIKON_TEX",RARE1, FISH,RADISH,BLANKGOODS,false },
+{ RELISH,"RELISH_TEX",RARE1,BEER,VIENNESE, BLANKGOODS,false },
+{ TEATIME,"TEATIME_TEX", RARE1, TEA, RICECRACKER , BLANKGOODS,false },
+{ CURRY, "CURRY_TEX",RARE2, POTATO, ONION, MEET,false },
+{ HAMBERG,"HAMBERG_TEX", RARE2, MINCE, ONION, GINESENG ,false },
+{ ASSORTEDSASHIMI,"ASSORTEDSASHIMI_TEX", RARE2, SHRIMP, OCTOPUS, INKFISH ,false },
+{ AFTERNOONREFRESHMENT,"AFTERNOONREFRESHMENT_TEX",RARE2,ICE,JUICE,FRUIT,false },
+{ SOUP,"SOUP_TEX",RARE3,VIENNESE,TOMATO,ONION ,false },
+{ NIMONO,"NIMONO_TEX",RARE3,RADISH,FISH,OCTOPUS ,false },
+{ PARFAIT,"PARFAIT_TEX",RARE3,ICE,FRUIT,FRUIT,false },
+{ BLANK_COMBO,"BLANK",0,BLANKGOODS,BLANKGOODS,BLANKGOODS,false },
+
+};

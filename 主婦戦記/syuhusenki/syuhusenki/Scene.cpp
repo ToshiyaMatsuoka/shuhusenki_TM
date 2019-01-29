@@ -4,9 +4,11 @@
 * @author Toshiya Matsuoka
 */
 #include "SCENE.h"
+#include "Goods.h"
 
 int Scene::m_SalesChoice = 0;
 XinputDevice* Scene::m_pXinputDevice = NULL;
+Goods* Scene::m_pGoods = NULL;
 
 Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDirectX), m_pSoundOperater(pSoundOperater)
 {
@@ -128,4 +130,26 @@ void Scene::showPressA()
 	CreateSquareVertex(showA, &centralAButton, Color);
 	m_pDirectX->DrawTexture("A_TEX", showA);
 }
+
+void Scene::Debug() {
+#ifdef _DEBUG
+		m_pSoundOperater->Stop("FOOD");
+		m_pSoundOperater->Stop("HURRY_UP");
+		m_pSoundOperater->SetVolume("HURRY_UP", 100);
+
+		m_pSoundOperater->Stop("TIME_LIMIT");
+
+
+		m_pGoods->SetselectedGoods(0, POTATO);
+		m_pGoods->SetselectedGoods(1, BEEF);
+		m_pGoods->SetselectedGoods(2, ONION);
+
+		for (int i = 0; i < 3; i++) {
+			m_pGoods->AddHaveValue(300, m_pGoods->GetselectedGoods(i));
+		}
+		m_NextScene = RESULT_SCENE;
+#endif
+
+}
+
 

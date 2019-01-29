@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "Scene.h"
-#include "Goods.h"
 
 enum SALESPOSITION
 {
@@ -45,6 +44,13 @@ enum KeyInput
 	MOVE_RIGHT,
 	SPACE,
 	ACTION,
+};
+
+struct SALESMAN {
+	CENTRAL_STATE popPositionCentral;
+	int popPosition;
+	int goodsSorting;
+	int merchandise[2];
 };
 
 class Object
@@ -93,7 +99,6 @@ public:
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
 	int salesmanToPCCollision(CENTRAL_STATE* central);
 
-	void DebugSetting();
 
 	int editMerchandise(int seleChoice, int arrayNum);
 
@@ -106,6 +111,17 @@ public:
 	SALESMAN* GetSalesman() {
 		return popSales;
 	}
+	SALESMAN* GetSalesman(int ArrayNum) {
+		return &popSales[ArrayNum];
+	}
+
+	int GetgoodsSorting(int ArrayNum) {
+		return popSales[ArrayNum].goodsSorting;
+	}
+	int SetgoodsSorting(int ArrayNum,int Value) {
+		return popSales[ArrayNum].goodsSorting = Value;
+	}
+
 	virtual CENTRAL_STATE* GetCentral() {
 		return &m_Center;
 	}

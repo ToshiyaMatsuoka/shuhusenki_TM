@@ -821,7 +821,6 @@
 FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater,turn,pYasuko)
 {
 	m_pYasuko = pYasuko;
-	m_pYasuko->DebugSetting();
 
 	m_pSalesman = new Salesman(pDirectX, pSoundOperater);
 	m_pSalesman->Update();
