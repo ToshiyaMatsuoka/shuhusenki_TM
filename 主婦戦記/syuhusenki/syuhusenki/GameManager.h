@@ -12,8 +12,8 @@
 #define _CRTDBG_MAP_ALLOC
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
-#define DISPLAY_WIDTH 1280
-#define DISPLAY_HEIGHT 720
+#define DISPLAY_WIDTH 1280.f
+#define DISPLAY_HEIGHT 720.f
 
 struct CENTRAL_STATE
 {

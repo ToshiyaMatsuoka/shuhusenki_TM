@@ -63,7 +63,7 @@ int GameScene::Update()
 	case FLOAMOVE:
 	{
 
-		m_isBlowOff = false;
+		//m_isBlowOff = false;
 
 
 		if (m_pDirectX->GetKeyStatus(DIK_0) == KeyRelease)
@@ -88,19 +88,19 @@ int GameScene::Update()
 	case CHOSEGOODS:
 		break;
 	case BLOWOFF:
-		if (!m_isBlowOff)
-		{
+		//if (!m_isBlowOff)
+		//{
 
-			//mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			//mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			//mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			//mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			//mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-			//
-			//effectExplosionCentral = { 900,750,300,300 };
-			//g_effectCount = 0;
-			//playerCutinCentral.x = 1200;
-		}
+		//	//mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+		//	//mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+		//	//mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+		//	//mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+		//	//mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+		//	//
+		//	//effectExplosionCentral = { 900,750,300,300 };
+		//	//g_effectCount = 0;
+		//	//playerCutinCentral.x = 1200;
+		//}
 		//blowOff();
 		break;
 	case PICKGOODS:
@@ -255,48 +255,48 @@ void GameScene::goodsScoreShow()
 				goodsInfoCount = 0;
 			}
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 0)), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 0)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(goodsInfoShowing, 0), 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 0), 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(goodsInfoShowing, 0), 1), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 0), 1), GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 1)), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 1)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(goodsInfoShowing, 1), 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 1), 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(goodsInfoShowing, 1), 1), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 1), 1), GoodsShow);
 
 			break;
 
 		case CHOSEGOODS:
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 0)), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 0)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(m_SalesChoice, 0), 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 0), 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(m_SalesChoice, 0), 1), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 0), 1), GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 1)), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 1)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(m_SalesChoice, 1), 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 1), 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, m_pYasuko->editMerchandise(m_SalesChoice, 1), 1), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 1), 1), GoodsShow);
 
 			break;
 		case BLOWOFF:
 		{
 			CreateSquareVertex(GoodsShow, 310.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(selectedGoods[m_Turn]), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(m_Turn)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 450.f, 10.f, 600.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, selectedGoods[m_Turn], 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 0), GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, selectedGoods[m_Turn], 1), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
 
-			sprintf_s(goodsNumBuff, 10, "%dコ", foodGoods[selectedGoods[m_Turn]].haveValue);
+			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetfoodGoods()[m_pGoods->GetselectedGoods(m_Turn)].haveValue);
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -305,13 +305,13 @@ void GameScene::goodsScoreShow()
 		case PICKGOODS:
 		{
 			CreateSquareVertex(GoodsShow, 310.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(GetFoodGoodsTexID(selectedGoods[m_Turn]), GoodsShow);
+			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(m_Turn)), GoodsShow);
 			CreateSquareVertex(GoodsShow, 450.f, 10.f, 600.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, selectedGoods[m_Turn], 0), GoodsShow);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 0), GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(foodGoods, selectedGoods[m_Turn], 1), GoodsShow);
-			sprintf_s(goodsNumBuff, 10, "%dコ", foodGoods[selectedGoods[m_Turn]].haveValue);
+			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
+			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetfoodGoods()[m_pGoods->GetselectedGoods(m_Turn)].haveValue);
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -353,7 +353,7 @@ void GameScene::goodsScoreShow()
 			timmerTexture = "T_5";
 			break;
 		}
-		sprintf_s(goodsNumBuff, 10, "%dコ", foodGoods[selectedGoods[m_Turn]].haveValue);
+		sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 		RECT GoodsNUM = { 850 ,10,1100,80 };
 		m_pDirectX->DrawWord( GoodsNUM,goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 

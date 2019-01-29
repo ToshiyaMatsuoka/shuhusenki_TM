@@ -9,23 +9,21 @@ public:
 	BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko);
 	~BlowOff();
 	int Update();
+	void BlowOffKeyOperation();
 	void LoadResouce();
 	void Render();
-	std::string comandButtonTexture(int comand);
 	char comandButton(int comand);
 	void comandMake();
-	void madamBlowOff();
-	int comandCheck(int comand[], int inputComand[], int count);
+	int comandCheck();
 private:
 	int comandInput[5];
 	int comandPresentment[5];
-	CENTRAL_STATE mobCentralBlowOff[5];
-	int m_EffectCount = 0;
-	int comandCount;
+	int comandCount = 0;
 	int checkedComand;
-	bool m_isBlowOff;
+	bool m_isBlowOff = false;
 	CUSTOMVERTEX effectExplosion[4];
-	CENTRAL_STATE effectExplosionCentral = { 1000,800,300,300 };
+	CENTRAL_STATE effectExplosionCentral;
+	std::string m_mobTexKey;
 
 };
 

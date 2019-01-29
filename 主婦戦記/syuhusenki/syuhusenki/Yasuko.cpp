@@ -5,6 +5,7 @@
 Yasuko::Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)
 {
 	m_Center = { 900.f, 580.f, 32.f, 53.f };
+	effectCentral = { m_Center.x - 2,m_Center.y - 14,60,75 };
 }
 
 
@@ -14,11 +15,21 @@ Yasuko::~Yasuko()
 
 void Yasuko::Update()
 {
+	effectCentral.x = m_Center.x - 2.f;
+	effectCentral.y = m_Center.y - 14.f;
+	static int AnimeCount = 0;
+	++AnimeCount;
+	if (AnimeCount > 2) {
+		TurnTheAnimation(4);
+		AnimeCount = 0;
+	}
 	FloaMoveUpdate();
 }
 
 void Yasuko::Render()
 {
+	CreateSquareVertex(m_EffectVertex, effectCentral, WHITE, (m_EffectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
+	m_pDirectX->DrawTexture("YASUKO_EFFECT_TEX", m_EffectVertex);
 
 	if (m_isRight)
 	{
@@ -26,6 +37,7 @@ void Yasuko::Render()
 	}
 	else CreateSquareVertex(Vertex, m_Center, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, YASUKO_TU, YASUKO_TV);
 	m_pDirectX->DrawTexture("YASUKO_TEX", Vertex);
+
 
 #ifdef _DEBUG
 	char debugPC[10];
@@ -62,6 +74,13 @@ void Yasuko::KeyOperation(KeyInput key)
 	}
 }
 
+void Yasuko::TurnTheAnimation(int AnimationPage)
+{
+	if (m_EffectCount < AnimationPage - 1) {
+		m_EffectCount += 1.f;
+	}
+	else m_EffectCount = 0;
+}
 
 
 void Yasuko::FloaMoveUpdate()

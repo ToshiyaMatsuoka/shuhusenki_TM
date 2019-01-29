@@ -12,6 +12,17 @@ public:
 	void LoadResouce();
 	void Render();
 
+	void PickGoodsKeyOperation(int * rushInput);
+
+	void RushButtonCheck(int rushInput, int rushShow);
+private:
+	int rushButtonShow;
+	float cutinAnimeCount = 0;
+	float cutinAnime = 0.5f; 
+	bool canCutin = true;
+
+	CENTRAL_STATE playerCutinCentral = { 1200,350,320,280 };
+	std::string m_mobTexKey;
 };
 
 

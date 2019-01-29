@@ -902,7 +902,7 @@ void FloaMove::Render()
 
 	CUSTOMVERTEX startCount[4];
 	CUSTOMVERTEX start[4];
-	CUSTOMVERTEX effectPC[4];
+	CUSTOMVERTEX m_EffectVertex[4];
 	//CENTRAL_STATE effectCentral = { m_Center.x-2,m_Center.y-14,60,75 };
 
 	//CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
