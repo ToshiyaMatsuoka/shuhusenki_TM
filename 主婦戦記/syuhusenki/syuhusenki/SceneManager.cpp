@@ -27,6 +27,7 @@ SceneManager::~SceneManager()
 	m_pSoundOperater->AllStop();
 	delete m_pSoundOperater;
 	m_pSoundOperater = NULL;
+	m_pScene->Finalize();
 	delete m_pScene;
 	m_pScene = NULL;
 }
@@ -36,7 +37,7 @@ int SceneManager::Update()
 #ifdef _DEBUG
 	if (m_pDirectX->GetKeyStatus(DIK_F4) == KeyRelease && m_pDirectX->GetKeyStatus(DIK_LSHIFT))
 	{
-		m_pScene->Debug();
+		m_NextScene = m_pScene->Debug();
 	}
 #endif
 

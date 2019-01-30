@@ -320,6 +320,7 @@ int PickGoods::Update()
 	playerCutinCentral.x -= 5;
 	if (playerCutinCentral.x < 50)
 	{
+		m_GameScene = BLOWOFF;
 	}
 	PickGoodsKeyOperation(&rushInput);
 	madamBlowOff();

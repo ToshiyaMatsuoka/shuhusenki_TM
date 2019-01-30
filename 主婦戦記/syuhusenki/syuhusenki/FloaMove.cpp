@@ -821,10 +821,18 @@
 FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater,turn,pYasuko)
 {
 	m_pYasuko = pYasuko;
-
+	m_pYasuko->Initialize();
 	m_pSalesman = new Salesman(pDirectX, pSoundOperater);
 	m_pSalesman->Update();
 	m_pFloaMob = new FloaMob(pDirectX, pSoundOperater,turn);
+	for (int i = 0; i < 3; i++)
+	{
+		m_pYasuko->SetgoodsSorting(i, (rand() % 6));//フロア移動で決めたものを入れる
+	}
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+
 }
 
 FloaMove::~FloaMove()

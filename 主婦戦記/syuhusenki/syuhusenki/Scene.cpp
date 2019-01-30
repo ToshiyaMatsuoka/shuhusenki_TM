@@ -16,7 +16,9 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundOperater = pSoundOperater;
 	m_pDirectX->LoadTexture("Texture/nowloading.png", "LOAD_TEX");
-
+	if (!m_pGoods) {
+		m_pGoods = new Goods(pDirectX, pSoundOperater);
+	}
 }
 
 Scene::~Scene()
@@ -26,7 +28,11 @@ Scene::~Scene()
 	m_pXinputDevice = NULL;
 
 }
+void Scene::Finalize() {
+	delete m_pGoods;
+	m_pGoods = NULL;
 
+}
 void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, CENTRAL_STATE* Central, DWORD  color, float tu, float tv, float scaleTu, float scaleTv) {
 	Vertex[0] = { Central->x - Central->scaleX, Central->y - Central->scaleY, 1.f, 1.f, color, tu, tv };
 	Vertex[1] = { Central->x + Central->scaleX, Central->y - Central->scaleY, 1.f, 1.f, color, tu + scaleTu, tv };
@@ -131,7 +137,7 @@ void Scene::showPressA()
 	m_pDirectX->DrawTexture("A_TEX", showA);
 }
 
-void Scene::Debug() {
+SCENE_NUM Scene::Debug() {
 #ifdef _DEBUG
 		m_pSoundOperater->Stop("FOOD");
 		m_pSoundOperater->Stop("HURRY_UP");
@@ -147,7 +153,7 @@ void Scene::Debug() {
 		for (int i = 0; i < 3; i++) {
 			m_pGoods->AddHaveValue(300, m_pGoods->GetselectedGoods(i));
 		}
-		m_NextScene = RESULT_SCENE;
+		return RESULT_SCENE;
 #endif
 
 }

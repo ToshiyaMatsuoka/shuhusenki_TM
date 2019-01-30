@@ -42,6 +42,7 @@ public:
 	}
 	Scene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	virtual ~Scene();
+	void Finalize();
 	virtual int Update() = 0;
 	virtual void LoadResouce() = 0;
 	virtual void Render() = 0;
@@ -54,7 +55,7 @@ public:
 	int GetGameState() {
 		return m_GameState;
 	}
-	void Debug();
+	SCENE_NUM Debug();
 
 
 protected:
@@ -100,7 +101,7 @@ protected:
 	const float  EFFECT_TV = (700.f / 2048.f);
 	static int m_SalesChoice;
 
-	SCENE_NUM m_NextScene;	//次のシーン
+	SCENE_NUM m_NextScene = SCENE_NONE;	//次のシーン
 private:
 
 	DWORD m_Color = 0xffffffff;

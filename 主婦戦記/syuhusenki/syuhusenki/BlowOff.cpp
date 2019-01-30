@@ -251,7 +251,9 @@ int BlowOff::Update()
 		checkedComand = comandCheck();
 		if (1 == checkedComand)
 		{
-			m_pSoundOperater->Start("ATTACK", false);
+			if (m_EffectCount < 1) {
+				m_pSoundOperater->Start("ATTACK", false);
+			}
 			m_isBlowOff = true;
 			checkedComand = 2;
 
@@ -270,7 +272,8 @@ int BlowOff::Update()
 		effectExplosionCentral.scaleX++;
 		effectExplosionCentral.scaleY++;
 		playerCentralHit.x += 30;
-		if (m_EffectCount >= 180) {
+		if (m_EffectCount >= 90) {
+			m_pSoundOperater->Stop("ATTACK");
 			m_GameScene = PICKGOODS;
 			playerCentralHit.x = 200;
 			comandCount = 0;

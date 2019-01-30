@@ -4,19 +4,22 @@
 #include "ChoseGoods.h"
 #include "BlowOff.h"
 #include "PickGoods.h"
+#include "Timer.h"
 
 Yasuko* GameScene::m_pYasuko = NULL;
 bool GameScene::isFirst = false;
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
+	srand((unsigned int)time(NULL));
+
 	if (!m_pYasuko) {
 		m_pYasuko = new Yasuko(pDirectX, pSoundOperater);
 	}
 	if (!m_pSubScene) {
 		m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
 	}
-	m_pGoods = new Goods(pDirectX, pSoundOperater);
+	m_pTimer = new Timer(pDirectX, pSoundOperater);
 }
 
 GameScene::~GameScene()
@@ -25,8 +28,6 @@ GameScene::~GameScene()
 	m_pYasuko = NULL;
 	delete m_pSubScene;
 	m_pSubScene = NULL;
-	delete m_pGoods;
-	m_pGoods = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 
@@ -35,7 +36,7 @@ GameScene::~GameScene()
 int GameScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
-
+	m_pTimer->Update();
 	if (m_CurrentGameScene != m_GameScene)
 	{
 		m_CurrentGameScene = m_GameScene;
@@ -44,7 +45,6 @@ int GameScene::Update()
 		case FLOAMOVE:
 				delete m_pSubScene;
 				m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
-				DebugSetting();
 			break;
 		case CHOSEGOODS:
 				delete m_pSubScene;
@@ -59,7 +59,7 @@ int GameScene::Update()
 				m_pSubScene = new PickGoods(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
 			break;
 		}
-		return SCENE_NONE;
+		return m_NextScene;
 	}
 	//switch (m_GameScene)
 	//{
@@ -107,9 +107,24 @@ int GameScene::Update()
 	//	//comandMake();
 	//	break;
 	//}
-	m_GameScene = m_pSubScene->Update();
-
-	return SCENE_NONE;
+	if (m_pTimer->GetGameStart()) {
+		m_GameScene = m_pSubScene->Update();
+	}
+	else if(m_pTimer->GetTimeUp()){
+		static int BehindCount = 0;
+		++BehindCount;
+		if (BehindCount > 120) {
+			m_pTimer->Initialize();
+			++m_Turn;
+			if (m_Turn > 2) {
+				return RESULT_SCENE;
+			}
+			delete m_pSubScene;
+			m_pSubScene = new FloaMove(m_pDirectX, m_pSoundOperater, m_Turn, m_pYasuko);
+			BehindCount = 0;
+		}
+	}
+	return m_NextScene;
 }
 
 void GameScene::KeyOperation()
@@ -122,6 +137,7 @@ void GameScene::Render()
 {
 	m_pSubScene->Render();
 	goodsScoreShow();
+	m_pTimer->Render();
 }
 
 void GameScene::LoadResouce()
@@ -218,7 +234,7 @@ void GameScene::LoadResouce()
 	m_pDirectX->LoadTexture("Texture/merchandise/beer.png", "BEER_TEX");
 
 	m_pDirectX->SetFont(25, 25, "DEBUG_FONT", NULL);
-
+	m_pDirectX->SetFont(70, 50, "HAVEGOODS_FONT", NULL);
 }
 
 void GameScene::goodsScoreShow()
@@ -226,11 +242,11 @@ void GameScene::goodsScoreShow()
 	static int goodsInfoShowing;
 	static int goodsInfoCount = 0;
 	CUSTOMVERTEX GoodsShow[4];
-	char goodsNumBuff[10];
+	char goodsNumBuff[ARRAY_NUM];
 	CreateSquareVertex(GoodsShow,10.f, 0, 1260.f, 90.f);
 	m_pDirectX->DrawTexture("FRAME_TEX", GoodsShow);
 
-	if (!m_TimeDeadline && m_isGameStart) 
+	if (!m_pTimer->GetDeadline() && m_pTimer->GetGameStart())
 	{
 		switch (m_GameScene)
 		{
@@ -295,7 +311,7 @@ void GameScene::goodsScoreShow()
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
 			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
 
-			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
+			sprintf_s(goodsNumBuff, ARRAY_NUM, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -310,7 +326,7 @@ void GameScene::goodsScoreShow()
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
 			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
-			sprintf_s(goodsNumBuff, 10, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
+			sprintf_s(goodsNumBuff, ARRAY_NUM, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
 
@@ -318,13 +334,13 @@ void GameScene::goodsScoreShow()
 		}
 		}
 	}
-	if (m_TimeDeadline)
+	if (m_pTimer->GetDeadline())
 	{
 		float scaleTimmer = 0;
 		float posYTimmer = 0;
 		std::string timmerTexture;
 
-		switch (0/*timeShow()*/)
+		switch (m_pTimer->TimeShow())
 		{
 		case 0:
 			posYTimmer = 200;

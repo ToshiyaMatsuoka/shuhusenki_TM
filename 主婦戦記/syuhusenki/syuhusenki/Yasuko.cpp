@@ -4,8 +4,6 @@
 
 Yasuko::Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)
 {
-	m_Center = { 900.f, 580.f, 32.f, 53.f };
-	effectCentral = { m_Center.x - 2,m_Center.y - 14,60,75 };
 }
 
 
@@ -43,12 +41,10 @@ void Yasuko::Render()
 	char debugPC[10];
 	sprintf_s(debugPC, 10, "%.2f", m_Center.x);
 	RECT DEBUGTextA = { 100 ,500,900,600 };
-	m_pDirectX->DrawWord( DEBUGTextA,debugPC, "DEBUG_FONT", DT_LEFT, 0xffDDDDDD);
+	m_pDirectX->DrawWord( DEBUGTextA,debugPC, "DEBUG_FONT", DT_LEFT, 0xffDDFFDD);
 	sprintf_s(debugPC, 10, "%.2f", m_Center.y);
 	DEBUGTextA = { 100 ,550,900,600 };
-	m_pDirectX->DrawWord( DEBUGTextA,debugPC, "DEBUG_FONT", DT_LEFT, 0xffDDDDDD
-	);
-
+	m_pDirectX->DrawWord( DEBUGTextA,debugPC, "DEBUG_FONT", DT_LEFT, 0xffDDFFDD);
 #endif
 
 }
@@ -153,6 +149,15 @@ void Yasuko::FloaMoveDown() {
 			m_TurningAnimetion = 1;
 		}
 		m_ChangeAnimetion = 0;
+}
+
+void Yasuko::Initialize()
+{
+	m_Center = { 900.f, 580.f, 32.f, 53.f };
+	effectCentral = { m_Center.x - 2,m_Center.y - 14,60,75 };
+	m_TurningAnimetion = 0;
+	m_ChangeAnimetion = 0;
+	m_isRight = false;
 }
 
 

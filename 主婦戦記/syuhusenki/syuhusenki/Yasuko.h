@@ -22,6 +22,7 @@ public:
 
 	void FloaMoveDown();
 
+	void  Initialize();
 private:
 	CUSTOMVERTEX m_EffectVertex[4];
 	CENTRAL_STATE effectCentral;

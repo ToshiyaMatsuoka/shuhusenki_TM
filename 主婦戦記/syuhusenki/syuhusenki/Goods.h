@@ -148,7 +148,7 @@ private:
 	static GOODSPARAMETER foodGoods[GOODS_MAX];
 	static COMBOPARAMETER foodCombo[COMBOMAX];
 
-	int selectedGoods[3];
+	int selectedGoods[3] = { 0,0,0 };
 
 
 

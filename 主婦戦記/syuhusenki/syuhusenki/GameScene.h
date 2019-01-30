@@ -5,7 +5,7 @@
 
 class FloaMove;
 class Object;
-
+class Timer;
 
 class GameScene :public Scene
 {
@@ -41,6 +41,8 @@ private:
 	static Yasuko* m_pYasuko;
 	static bool isFirst;
 	SubScene* m_pSubScene = NULL;
+	Timer* m_pTimer = NULL;
+
 	const float MOB_FLOA_SCALE = 50;
 	int comandCount;
 	int checkedComand;
@@ -56,5 +58,6 @@ private:
 	bool m_TimeDeadline = false;
 	bool m_isGameStart = true;
 	int m_CurrentGameScene;
+	static const int ARRAY_NUM = 64;
 };
 
