@@ -118,9 +118,7 @@ public:
 	int GetgoodsSorting(int ArrayNum) {
 		return popSales[ArrayNum].goodsSorting;
 	}
-	int SetgoodsSorting(int ArrayNum,int Value) {
-		return popSales[ArrayNum].goodsSorting = Value;
-	}
+	void DrawLotsgoodsSorting();
 
 	virtual CENTRAL_STATE* GetCentral() {
 		return &m_Center;
@@ -130,6 +128,7 @@ protected:
 	SoundOperater* m_pSoundOperater = NULL;
 	CUSTOMVERTEX Vertex[4];
 	const DWORD WHITE = 0xFFFFFFFF;
+	const DWORD  HARFCLEAR = 0x8a000000;
 	static SALESMAN popSales[3];
 	CENTRAL_STATE m_Center;
 
@@ -141,6 +140,8 @@ protected:
 	void RevolveZEX(CUSTOMVERTEX* Vertex, float Rad, CENTRAL_STATE Central, float 	RevolvingShaftX, float 	RevolvingShaftY, DWORD  color = 0xffffffff, float tu = 0, float tv = 0, float scaleTu = 1, float scaleTv = 1);
 
 	bool BtoBContact(CENTRAL_STATE * central1, CENTRAL_STATE * central2);
+
+	bool toBoxContact(CENTRAL_STATE * central1, CENTRAL_STATE * central2);
 
 	void MoveInToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom);
 

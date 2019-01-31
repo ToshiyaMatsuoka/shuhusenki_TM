@@ -15,7 +15,7 @@ public:
 	int Update();
 	void Render();
 	void LoadResouce();
-
+	void DebugAction();
 private:
 	Object* m_pSalesman;
 	Object* m_pFloaMob;

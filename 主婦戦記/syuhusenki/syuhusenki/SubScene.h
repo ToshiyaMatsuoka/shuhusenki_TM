@@ -41,11 +41,15 @@ public:
 
 	void madamBlowOff();
 
+	void TurnEffectAnimation();
+	virtual void DebugAction(){}
+
 protected:
 	static CENTRAL_STATE mobCentralBlowOff[5];
 	const float CHARCTOR_BLOWOFF_SCALE = 150.f;
 	int m_Turn = 0;
 	int m_EffectCount = 0;
+	CENTRAL_STATE m_EffectCentral;
 
 	static int m_GameScene;
 	Yasuko* m_pYasuko;
@@ -53,11 +57,10 @@ protected:
 		m_GameScene = gamescene;
 	}
 	const DWORD WHITE = 0xFFFFFFFF;
-	int m_effectCount = 0;
 	CUSTOMVERTEX playerHit[4];
-	CENTRAL_STATE playerCentralHit;
+	CENTRAL_STATE playerCentralHit = { 200,550,(CHARCTOR_BLOWOFF_SCALE - 50.f),CHARCTOR_BLOWOFF_SCALE };
 	SoundEffect Button = { "BUTTON1","BUTTON2","BUTTON3" };
 	SoundEffect Pick = { "PICK1", "PICK2","PICK3", "PICK4","PICK5", "PICK6" , "PICK7" ,"PICK8","PICK9","PICK10","PICK11", "PICK12","PICK13", "PICK14","PICK15" };
-
+	int m_BlowOffEffectCount = 0;
 };
 

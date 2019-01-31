@@ -5,6 +5,7 @@ CENTRAL_STATE SubScene::mobCentralBlowOff[5];
 
 SubScene::SubScene(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :Scene(pDirectX, pSoundOperater),m_Turn(turn)
 {
+	m_pYasuko = pYasuko;
 }
 
 
@@ -190,5 +191,13 @@ void SubScene::madamBlowOff() {
 		}
 	}
 
+}
+
+void SubScene::TurnEffectAnimation()
+{
+	if (m_EffectCount < 3) {
+		m_EffectCount += 1.f;
+	}
+	else m_EffectCount = 0;
 }
 

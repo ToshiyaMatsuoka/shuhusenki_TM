@@ -24,7 +24,8 @@ private:
 	CUSTOMVERTEX effectExplosion[4];
 	CENTRAL_STATE effectExplosionCentral;
 	std::string m_mobTexKey;
-
+	int m_TurningAnimetion = 0;
+	const float MobHeight = 550.f;
 };
 
 

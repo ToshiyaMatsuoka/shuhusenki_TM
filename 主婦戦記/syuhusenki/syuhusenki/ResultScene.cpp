@@ -42,7 +42,7 @@ int ResultScene::Update()
 	++resultCounter;
 	ApperResult(&resultCounter);
 
-	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease))
+	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush))
 	{
 
 		switch (resultPage)

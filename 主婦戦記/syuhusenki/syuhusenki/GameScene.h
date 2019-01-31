@@ -25,15 +25,6 @@ public:
 
 	void DebugSetting();
 
-
-	CENTRAL_STATE mobCentralFloa[4]
-	{
-		{ 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
-		{ 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
-		{ 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
-		{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
-	
-	};
 	void SetGameScene(GAMESCENE gamescene) {
 		m_GameScene = gamescene;
 	}
@@ -52,12 +43,26 @@ private:
 	int blowOffEffectIntervalPrev;
 	std::string texturePC;
 	int m_GameScene = FLOAMOVE;
-	int m_BlowOffPCEffectCount;
+	int m_BlowOffEffectCount;
 	int m_Turn = 0;
 	float mobRad;
 	bool m_TimeDeadline = false;
 	bool m_isGameStart = true;
 	int m_CurrentGameScene;
 	static const int ARRAY_NUM = 64;
+
+	void DrawFoodTexture( int arrayNum, CUSTOMVERTEX* vertex);
+
+	void DrawPriceTexture(int arrayNum, int NomalOrSale, CUSTOMVERTEX * vertex);
+
+
+	CENTRAL_STATE mobCentralFloa[4]
+	{
+		{ 620,630 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 600,300 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 120,500 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE },
+	{ 1030,230 ,MOB_FLOA_SCALE,MOB_FLOA_SCALE }
+
+	};
 };
 

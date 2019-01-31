@@ -8,8 +8,11 @@ public:
 	Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Yasuko();
 	void mobToPCContact(CENTRAL_STATE * mobCentralFloa);
-	void Update();
-	void Render();
+	void FloaUpdate();
+	void BlowOffUpdate(bool isAttack);
+	void FloaRender();
+	void BlowOffRender();
+	void InitBlowoff();
 	void KeyOperation(KeyInput key);
 	void TurnTheAnimation(int AnimationPage);
 	void FloaMoveUpdate();
@@ -25,7 +28,9 @@ public:
 	void  Initialize();
 private:
 	CUSTOMVERTEX m_EffectVertex[4];
-	CENTRAL_STATE effectCentral;
+	CENTRAL_STATE m_EffectCentral;
+	const float CHARCTOR_BLOWOFF_SCALE = 150.f;
+	CENTRAL_STATE m_BOCenter = { 200, 550, (CHARCTOR_BLOWOFF_SCALE - 50.f), CHARCTOR_BLOWOFF_SCALE };
 
 	const float MOVE_SPEED = 2.f;
 	bool m_isRight = false;

@@ -38,6 +38,8 @@ void Salesman::Render() {
 	{
 		CreateSquareVertex(Vertex, popSales[i].popPositionCentral, WHITE, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
 		m_pDirectX->DrawTexture("SALESMAN_TEX", Vertex);
+		CreateSquareVertex(Vertex, popSales[i].popPositionCentral, HARFCLEAR, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
+		m_pDirectX->DrawTexture("BLANK", Vertex);
 	}
 }
 void Salesman::Update()
@@ -48,7 +50,7 @@ void Salesman::Update()
 		switch (popSales[i].goodsSorting)
 		{
 		case MEET_SORT:
-			popSales[i].popPositionCentral = { 285,120,75,75 };
+			popSales[i].popPositionCentral = { 285,125,75,75 };
 			popSales[i].popPosition = POS_MEET;
 			break;
 		case VEGETABLE_SORT:
@@ -80,7 +82,7 @@ void Salesman::Update()
 			switch (i)
 			{
 			case 0:
-				popSales[i].popPositionCentral = { 800,120,75,75 };
+				popSales[i].popPositionCentral = { 800,125,75,75 };
 				popSales[i].popPosition = POS_SEAFOOD1;
 				break;
 			case 1:

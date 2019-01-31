@@ -148,6 +148,14 @@ bool Object::BtoBContact(CENTRAL_STATE* central1, CENTRAL_STATE* central2) {
 	}
 	else return false;
 }
+bool Object::toBoxContact(CENTRAL_STATE* central1, CENTRAL_STATE* central2) {
+	if ((central1->x <= central2->x + central2->scaleX) && (central1->x >= central2->x - central2->scaleX)
+		&& (central1->y <= central2->y + central2->scaleY) && (central1->y >= central2->y - central2->scaleY)) {
+		return true;
+	}
+	else return false;
+}
+
 ////矩形が指定範囲外に出ないようにする
 void Object::MoveInToErea(CENTRAL_STATE* central, float Left, float Top, float Right, float Bottom) {
 	if (Left >= central->x - central->scaleX || central->x + central->scaleX >= Right
@@ -172,7 +180,7 @@ int Object::salesmanToPCCollision(CENTRAL_STATE* central)
 {
 	for (int i = 0; i < 3; i++)
 	{
-		if (BtoBContact(central, &popSales[i].popPositionCentral))
+		if (toBoxContact(central, &popSales[i].popPositionCentral))
 		{
 			return popSales[i].popPosition;
 		}
@@ -223,6 +231,17 @@ bool Object::MoveOutToErea(CENTRAL_STATE* central, float Left, float Top, float 
 	}
 }
 
+void Object::DrawLotsgoodsSorting(){
+	popSales[0].goodsSorting = rand() % 6;
+	while (popSales[0].goodsSorting == popSales[1].goodsSorting) {
+		popSales[1].goodsSorting = rand() % 6;
+	}
+	while ((popSales[0].goodsSorting == popSales[2].goodsSorting) || (popSales[1].goodsSorting == popSales[2].goodsSorting)) {
+
+		popSales[2].goodsSorting = rand() % 6;
+	}
+}
+
 void Object::collision(CENTRAL_STATE* charctor)
 {
 	MoveInToErea(charctor, 0.f, 145.f, 1280.f, 690.f);
@@ -250,9 +269,9 @@ void Object::collision(CENTRAL_STATE* charctor)
 	MoveOutToErea(charctor, 786, 568, 1016, 575, UNDER);//下
 
 														//野菜2
-	MoveOutToErea(charctor, 1035, 218, 1152, 558, SIDE);//左右
-	MoveOutToErea(charctor, 1035, 213, 1152, 217, UPPER);//上
-	MoveOutToErea(charctor, 1035, 557, 1152, 565, UNDER);//下
+	MoveOutToErea(charctor, 1040, 218, 1152, 558, SIDE);//左右
+	MoveOutToErea(charctor, 1040, 213, 1152, 217, UPPER);//上
+	MoveOutToErea(charctor, 1040, 557, 1152, 565, UNDER);//下
 														 //魚2
 	MoveOutToErea(charctor, 640, 178, 1152, 246, SIDE);//左右
 	MoveOutToErea(charctor, 640, 170, 1152, 177, UPPER);//上

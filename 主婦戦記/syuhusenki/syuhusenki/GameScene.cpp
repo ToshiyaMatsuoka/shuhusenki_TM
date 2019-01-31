@@ -35,6 +35,11 @@ GameScene::~GameScene()
 
 int GameScene::Update()
 {
+#ifdef _DEBUG
+	if (m_pDirectX->GetKeyStatus(DIK_0)) {
+		DebugSetting();
+	}
+#endif
 	m_pXinputDevice->DeviceUpdate();
 	m_pTimer->Update();
 	if (m_CurrentGameScene != m_GameScene)
@@ -129,7 +134,6 @@ int GameScene::Update()
 
 void GameScene::KeyOperation()
 {
-	//m_pFloaMove->KeyOperation();
 
 }
 
@@ -270,46 +274,46 @@ void GameScene::goodsScoreShow()
 				goodsInfoCount = 0;
 			}
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 0)), GoodsShow);
+			DrawFoodTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 0), 0), GoodsShow);
+			DrawPriceTexture( m_pYasuko->editMerchandise(goodsInfoShowing, 0), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 0), 1), GoodsShow);
-
+			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 0), 1, GoodsShow);
+			//TODO:関数化
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(goodsInfoShowing, 1)), GoodsShow);
+			DrawFoodTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 1), 0), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(goodsInfoShowing, 1), 1), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), 1, GoodsShow);
 
 			break;
 
 		case CHOSEGOODS:
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 0)), GoodsShow);
+			DrawFoodTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 0), 0), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 0), 1), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), 1, GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pYasuko->editMerchandise(m_SalesChoice, 1)), GoodsShow);
+			DrawFoodTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 1), 0), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pYasuko->editMerchandise(m_SalesChoice, 1), 1), GoodsShow);
+			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), 1, GoodsShow);
 
 			break;
 		case BLOWOFF:
 		{
 			CreateSquareVertex(GoodsShow, 310.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(m_Turn)), GoodsShow);
+			DrawFoodTexture(m_pGoods->GetselectedGoods(m_Turn), GoodsShow);
 			CreateSquareVertex(GoodsShow, 450.f, 10.f, 600.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 0), GoodsShow);
+			DrawPriceTexture(m_pGoods->GetselectedGoods(m_Turn), 0, GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
+			DrawPriceTexture(m_pGoods->GetselectedGoods(m_Turn), 1, GoodsShow);
 
 			sprintf_s(goodsNumBuff, ARRAY_NUM, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
@@ -320,12 +324,12 @@ void GameScene::goodsScoreShow()
 		case PICKGOODS:
 		{
 			CreateSquareVertex(GoodsShow, 310.f, 10.f, 400.f, 80.f);
-			m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(m_Turn)), GoodsShow);
+			DrawFoodTexture(m_pGoods->GetselectedGoods(m_Turn), GoodsShow);
 			CreateSquareVertex(GoodsShow, 450.f, 10.f, 600.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 0), GoodsShow);
+			DrawPriceTexture(m_pGoods->GetselectedGoods(m_Turn), 0, GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 650.f, 10.f, 800.f, 80.f);
-			m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), m_pGoods->GetselectedGoods(m_Turn), 1), GoodsShow);
+			DrawPriceTexture(m_pGoods->GetselectedGoods(m_Turn), 1, GoodsShow);
 			sprintf_s(goodsNumBuff, ARRAY_NUM, "%dコ", m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(m_Turn)));
 			RECT GoodsNUM = { 850 ,10,1100,80 };
 			m_pDirectX->DrawWord(GoodsNUM, goodsNumBuff, "HAVEGOODS_FONT", DT_RIGHT, BLACK);
@@ -440,12 +444,14 @@ std::string GameScene::priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, i
 }
 
 void GameScene::DebugSetting() {
-	for (int i = 0; i < 3; i++)
-	{
-		m_pYasuko->SetgoodsSorting(i,(rand() % 6));//フロア移動で決めたものを入れる
-	}
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+	m_pSubScene->DebugAction();
+}
+
+void GameScene::DrawFoodTexture(int arrayNum ,CUSTOMVERTEX* vertex) {
+	m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(arrayNum), vertex);
+}
+void GameScene::DrawPriceTexture(int arrayNum,int NomalOrSale, CUSTOMVERTEX* vertex) {
+	m_pDirectX->DrawTexture(priceEdit(m_pGoods->GetfoodGoods(), arrayNum, NomalOrSale), vertex);
+
 }
 

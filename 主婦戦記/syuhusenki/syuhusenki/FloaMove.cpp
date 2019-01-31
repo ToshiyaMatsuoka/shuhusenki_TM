@@ -820,15 +820,11 @@
 
 FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater,turn,pYasuko)
 {
-	m_pYasuko = pYasuko;
 	m_pYasuko->Initialize();
 	m_pSalesman = new Salesman(pDirectX, pSoundOperater);
 	m_pSalesman->Update();
 	m_pFloaMob = new FloaMob(pDirectX, pSoundOperater,turn);
-	for (int i = 0; i < 3; i++)
-	{
-		m_pYasuko->SetgoodsSorting(i, (rand() % 6));//フロア移動で決めたものを入れる
-	}
+		m_pYasuko->DrawLotsgoodsSorting();//フロア移動で決めたものを入れる
 	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
 	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
 	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
@@ -857,43 +853,11 @@ int FloaMove::Update()
 	if (m_pDirectX->GetKeyStatus(DIK_DOWN) || m_pDirectX->GetKeyStatus(DIK_S) || m_pXinputDevice->GetButton(ButtonDOWN) || m_pXinputDevice->GetAnalogL(ANALOGDOWN)) {
 		m_pYasuko->KeyOperation(DOWN);
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_RETURN) || m_pDirectX->GetKeyStatus(DIK_S) || m_pXinputDevice->GetButton(ButtonA)) {
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA)) {
 		leachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->salesmanToPCCollision(m_pYasuko->GetCentral()));
 	}
-	//	static int onceSound = 0;
-	//
-	//	timerControl();
-	//	if (g_timerCount < THREE_SECOND)
-	//	{
-	//		salesmanPoping(popSales);
-	//	}
-	//	if (g_isTimeUp)
-	//	{
-	//		for (onceSound; onceSound < 2; onceSound++)
-	//		{
-	//			soundsManager.Start("GONG", false);
-	//			
-	//		}
-	//	}
-	//
-	//	if (g_isGameStart)
-	//	{
-	//		playerControl(&onceSound);
-	//		mobControler(mobCentralFloa);
-	//		for (int i = 0; i < 4; i++)
-	//		{
-	//			collision(&mobCentralFloa[i]);
-	//;		}
-	//#ifdef _DEBUG
-	//		CheckKeyState(DIK_SPACE);
-	//		if (KeyState[DIK_SPACE] == KeyRelease)
-	//		{
-	//			g_gameScene = CHOSEGOODS;
-	//			onceSound = 0;
-	//		}
-	//#endif
-	//	}
-	m_pYasuko->Update();
+
+	m_pYasuko->FloaUpdate();
 	m_pFloaMob->Update();
 	m_pYasuko->mobToPCContact(m_pFloaMob->GetCentral());
 
@@ -910,101 +874,24 @@ void FloaMove::Render()
 	CUSTOMVERTEX startCount[4];
 	CUSTOMVERTEX start[4];
 	CUSTOMVERTEX m_EffectVertex[4];
-	//CENTRAL_STATE effectCentral = { m_Center.x-2,m_Center.y-14,60,75 };
-
-	//CreateSquareVertex(effectPC, effectCentral, WHITE, (effectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
-	//CreateSquareVertex(startCount, g_startCountSta);
-	//CreateSquareVertex(start, g_startSta);
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	if (i == 0 || i == 1)
-	//	{
-	//		if (m_isRight[i])
-	//		{
-	//			CreateSquareVertex(salesmans, mobCentralFloa[i],WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, -BOY_TU, BOY_TV);
-	//		}
-	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, m_Tu[i] * BOY_TU, m_Tv[i] * BOY_TV, BOY_TU, BOY_TV);
-	//	}
-	//	else {
-	//		if (m_isRight[i])
-	//		{
-	//			CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, MOB_TU, m_Tv[i] * MOB_TV, -MOB_TU, MOB_TV);
-	//		}
-	//		else CreateSquareVertex(salesmans, mobCentralFloa[i], WHITE, 0, m_Tv[i] * MOB_TV, MOB_TU, MOB_TV);
-	//	}
-	//	if (i >= 2)
-	//	{
-	//		SetUpTexture(salesmans, mobTexNum);
-	//	}
-	//	else SetUpTexture(salesmans, "BOY_TEX");
-	//}
 	m_pFloaMob->Render();
 	m_pSalesman->Render();
-	//goodsScoreShow();
-	//if (g_isGameStart)
-	//{
-	//	static int saleAnimeCount = 0;
-	//	int saleAnimeTv;
-	//	static bool saleAnimeChainger = false;
-	//	saleAnimeCount++;
-	//	if (saleAnimeCount > ANIMETIONTIME && !saleAnimeChainger)
-	//	{
-	//		saleAnimeCount = 0;
-	//		saleAnimeChainger = true;
-	//	}
-	//	if(saleAnimeCount > ANIMETIONTIME && saleAnimeChainger)
-	//	{
-	//		saleAnimeCount = 0;
-	//		saleAnimeChainger = false;
-	//	}
-	//	if (saleAnimeChainger)
-	//	{
-	//		saleAnimeTv = 1;
-	//	}
-	//	else saleAnimeTv = 0;
-	//	for (int i = 0; i < 3; i++)
-	//	{
-	//		CreateSquareVertex(salesmans, popSales[i].popPositionCentral, WHITE, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
-	//		SetUpTexture(salesmans, "SALESMAN_TEX");
-	//	}
-	//}
-	////プレイヤーキャラクターのテクスチャの描画
-	//SetUpTexture(effectPC, "YASUKO_EFFECT_TEX");
-	m_pYasuko->Render();
-	//timerRender();
-
-	//if ((g_timerCount > ZERO_SECOND) && (g_timerCount <= ONE_SECOND))
-	//{
-	//	//スタートカウントのテクスチャの描画
-	//	SetUpTexture(startCount, "STARTCOUNT_3_TEX");
-	//}
-	//else if ((g_timerCount > ONE_SECOND) && (g_timerCount <= TWO_SECOND))
-	//{
-	//	//スタートカウントのテクスチャの描画
-	//	SetUpTexture(startCount, "STARTCOUNT_2_TEX");
-	//}
-	//else if ((g_timerCount > TWO_SECOND) && (g_timerCount <= THREE_SECOND))
-	//{
-	//	//スタートカウントのテクスチャの描画
-	//	SetUpTexture(startCount, "STARTCOUNT_1_TEX");
-	//}
-	//else if ((g_timerCount > THREE_SECOND) && (g_timerCount <= FOUR_SECOND))
-	//{
-	//	//スタートカウントのテクスチャの描画
-	//	SetUpTexture(start, "START_TEX");
-	//}
-
-	//if (g_pause && !(g_isTimeUp))
-	//{
-	//	EasyCreateSquareVertex(0, 0, WIDTH, HEIGHT, "PAUSE_TEX");
-	//}
-
+	m_pYasuko->FloaRender();
 
 }
 
 
 void FloaMove::LoadResouce()
 {
+}
+
+void FloaMove::DebugAction()
+{
+	m_pYasuko->DrawLotsgoodsSorting();//フロア移動で決めたものを入れる
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
+	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+	m_pSalesman->Update();
 }
 
 void FloaMove::leachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int whergondola)
