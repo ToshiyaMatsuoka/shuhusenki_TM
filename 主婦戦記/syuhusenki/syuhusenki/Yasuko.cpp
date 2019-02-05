@@ -37,6 +37,11 @@ void Yasuko::BlowOffUpdate(bool isAttack)
 
 void Yasuko::FloaRender()
 {
+	if (POS_NOTING > salesmanToPCCollision(&m_Center)) {
+		m_ReachedSalesman = true;
+	}
+	else m_ReachedSalesman = false;
+
 	CreateSquareVertex(m_EffectVertex, m_EffectCentral, WHITE, (m_EffectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
 	m_pDirectX->DrawTexture("YASUKO_EFFECT_TEX", m_EffectVertex);
 
@@ -46,6 +51,9 @@ void Yasuko::FloaRender()
 	}
 	else CreateSquareVertex(Vertex, m_Center, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, YASUKO_TU, YASUKO_TV);
 	m_pDirectX->DrawTexture("YASUKO_TEX", Vertex);
+	if (m_ReachedSalesman) {
+		ShowA();
+	}
 
 
 #ifdef _DEBUG
@@ -64,11 +72,12 @@ void Yasuko::BlowOffRender()
 {
 	m_EffectCentral = { m_BOCenter.x - 2,m_BOCenter.y - 14,m_BOCenter.scaleX*2.03f,m_BOCenter.scaleY*1.4f };
 	TurnTheAnimation(3);
+	m_AnimeCount++;
 	if (m_TurningAnimetion == 0)
 	{
 		m_TurningAnimetion = 1;
 	}
-	if (m_AnimeCount >= ANIMETION_TIME)
+	if (m_AnimeCount >= ANIMETION_TIME/2)
 	{
 		m_TurningAnimetion++;
 		m_AnimeCount = 0;
@@ -81,9 +90,8 @@ void Yasuko::BlowOffRender()
 	CreateSquareVertex(m_EffectVertex, m_EffectCentral, WHITE, (m_EffectCount * EFFECT_TU), 0, EFFECT_TU, EFFECT_TV);
 	m_pDirectX->DrawTexture("YASUKO_EFFECT_TEX", m_EffectVertex);
 
-		CreateSquareVertex(Vertex, m_BOCenter, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
+	CreateSquareVertex(Vertex, m_BOCenter, WHITE, m_TurningAnimetion*YASUKO_TU, m_ChangeAnimetion*YASUKO_TV, -1 * YASUKO_TU, YASUKO_TV);
 	m_pDirectX->DrawTexture("YASUKO_TEX", Vertex);
-
 }
 
 void Yasuko::InitBlowoff()
@@ -128,8 +136,6 @@ void Yasuko::FloaMoveUpdate()
 
 	collision(&m_Center);
 }
-
-
 void Yasuko::FloaMoveLeft() {
 	m_isRight = false;
 		m_Center.x -= MOVE_SPEED;
@@ -202,7 +208,25 @@ void Yasuko::Initialize()
 	m_isRight = false;
 }
 
+void Yasuko::ShowA() {
+	static DWORD Color = 0xffffffff;
+	static int CursorAnimeInterval = 0;
+	++CursorAnimeInterval;
+	static bool CursorColorOn = false;
+	if (CursorAnimeInterval > 40) {
 
+		Color += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+
+		CursorColorOn = !CursorColorOn;
+		CursorAnimeInterval = 0;
+	}
+
+	CUSTOMVERTEX showA[4];
+	CENTRAL_STATE centralAButton = { m_Center.x - 5.f,m_Center.y - 100.f,50.f,50.f };
+	CreateSquareVertex(showA, centralAButton, Color);
+	m_pDirectX->DrawTexture("A_TEX", showA);
+
+}
 
 void Yasuko::mobToPCContact(CENTRAL_STATE* mobCentralFloa)
 {

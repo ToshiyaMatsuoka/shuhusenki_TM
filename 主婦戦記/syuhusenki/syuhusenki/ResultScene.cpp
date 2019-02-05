@@ -68,50 +68,20 @@ int ResultScene::Update()
 	}
 #ifdef _DEBUG
 
-	if (m_pDirectX->GetKeyStatus(DIK_SPACE) == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_SPACE) == KeyPush)
 	{
 		//g_scene = SCENE_TITLE;
 	}
 #endif
 
 	if (resultPage == PAGE3) {
-		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease)
+		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyPush|| m_pDirectX->GetKeyStatus(DIK_UP) == KeyPush || m_pXinputDevice->GetButton(ButtonUP) == PadPush || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 		{
 			m_pSoundOperater->Stop("CURSOR");
 			m_pSoundOperater->Start("CURSOR", false);
 			cursorResult.y = 490;
 		}
-		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease)
-		{
-			m_pSoundOperater->Stop("CURSOR");
-			m_pSoundOperater->Start("CURSOR", false);
-			cursorResult.y = 560;
-
-		}
-		if (m_pXinputDevice->GetButton(ButtonUP) == PadRelease)
-		{
-			m_pSoundOperater->Stop("CURSOR");
-			m_pSoundOperater->Start("CURSOR", false);
-			cursorResult.y = 490;
-
-		}
-
-		if (m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease)
-		{
-			m_pSoundOperater->Stop("CURSOR");
-			m_pSoundOperater->Start("CURSOR", false);
-			cursorResult.y = 560;
-
-		}
-		if (m_pXinputDevice->GetAnalogL(ANALOGDOWN))
-		{
-			m_pSoundOperater->Stop("CURSOR");
-			m_pSoundOperater->Start("CURSOR", false);
-			cursorResult.y = 490;
-
-		}
-
-		if (m_pXinputDevice->GetAnalogL(ANALOGUP))
+		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyPush || m_pDirectX->GetKeyStatus(DIK_DOWN) == KeyPush || m_pXinputDevice->GetButton(ButtonDOWN) == PadPush || PadPush == m_pXinputDevice->GetAnalogLState(ANALOGUP))
 		{
 			m_pSoundOperater->Stop("CURSOR");
 			m_pSoundOperater->Start("CURSOR", false);
@@ -405,7 +375,7 @@ void ResultScene::LoadResouce()
 
 void ResultScene::PageOneKeyOperation()
 {
-	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 	{
 		m_pSoundOperater->Start("DRUM", false);
 		SyncOld = timeGetTime();
@@ -417,7 +387,7 @@ void ResultScene::PageOneKeyOperation()
 
 void ResultScene::PageTwoKeyOperation()
 {
-	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 	{
 			resultPage = PAGE3;
 	}
@@ -426,7 +396,7 @@ void ResultScene::PageTwoKeyOperation()
 
 void ResultScene::PageThreeKeyOperation()
 {
-	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 	{
 			if (cursorResult.y < 500) {
 				SetNextScene(GAME_SCENE);
@@ -434,20 +404,20 @@ void ResultScene::PageThreeKeyOperation()
 			else SetNextScene(TITLE_SCENE);
 	}
 
-	if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_W) == KeyPush)
 	{
 		m_pSoundOperater->Stop("CURSOR");
 		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 490;
 	}
-	if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease)
+	if (m_pDirectX->GetKeyStatus(DIK_S) == KeyPush)
 	{
 		m_pSoundOperater->Stop("CURSOR");
 		m_pSoundOperater->Start("CURSOR", false);
 		cursorResult.y = 560;
 
 	}
-	if (m_pXinputDevice->GetButton(ButtonUP) == PadRelease)
+	if (m_pXinputDevice->GetButton(ButtonUP) == PadPush)
 	{
 		m_pSoundOperater->Stop("CURSOR");
 		m_pSoundOperater->Start("CURSOR", false);
@@ -455,7 +425,7 @@ void ResultScene::PageThreeKeyOperation()
 
 	}
 
-	if (m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease)
+	if (m_pXinputDevice->GetButton(ButtonDOWN) == PadPush)
 	{
 		m_pSoundOperater->Stop("CURSOR");
 		m_pSoundOperater->Start("CURSOR", false);

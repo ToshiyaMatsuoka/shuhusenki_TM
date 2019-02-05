@@ -29,6 +29,11 @@ int  TitleScene::Update()
 {
 	m_pXinputDevice->DeviceUpdate();
 
+	if (m_isRuningTeamlogo) {
+		TeamlogoControl();
+		return GetNextScene();
+	}
+
 	static int CursorAnimeInterval = 0;
 	++CursorAnimeInterval;
 	static bool CursorColorOn = false;
@@ -56,7 +61,7 @@ int  TitleScene::Update()
 
 	if (m_canApperMenu)
 	{
-		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyRelease || m_pXinputDevice->GetButton(ButtonUP) == PadRelease || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) >= 6000)
+		if (m_pDirectX->GetKeyStatus(DIK_W) == KeyPush || m_pDirectX->GetKeyStatus(DIK_UP) == KeyPush || m_pXinputDevice->GetButton(ButtonUP) == PadPush || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) >= 6000)
 		{
 			if (m_Cursor.y == ARROWHIGH)
 			{
@@ -77,7 +82,7 @@ int  TitleScene::Update()
 
 		}
 
-		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyRelease || m_pXinputDevice->GetButton(ButtonDOWN) == PadRelease || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) <= -6000)
+		if (m_pDirectX->GetKeyStatus(DIK_S) == KeyPush || m_pDirectX->GetKeyStatus(DIK_DOWN) == KeyPush || m_pXinputDevice->GetButton(ButtonDOWN) == PadPush || m_pXinputDevice->GetAnalogLValue(ANALOG_Y) <= -6000)
 		{
 
 			if (m_Cursor.y == ARROWHIGH)
@@ -98,7 +103,7 @@ int  TitleScene::Update()
 
 		}
 
-		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWHIGH && (!entry[0]))
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush) && m_Cursor.y == ARROWHIGH && (!entry[0]))
 		{
 			m_pSoundOperater->Start("GREETING", false);
 			m_pSoundOperater->Start("BUTTON1", false);
@@ -107,14 +112,14 @@ int  TitleScene::Update()
 			entry[0] = true;
 		}
 
-		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWMIDLE)
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush) && m_Cursor.y == ARROWMIDLE)
 		{
 			m_pSoundOperater->Start("BOW", false);
 			m_pSoundOperater->Stop("OP_BGM");
 
 			entry[1] = true;
 		}
-		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && m_Cursor.y == ARROWDOWN)
+		if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush) && m_Cursor.y == ARROWDOWN)
 		{
 			m_TitleOrWisdom = WISDOM;
 		}
@@ -141,7 +146,7 @@ int  TitleScene::Update()
 		}
 
 	}
-	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease) && (!m_canApperMenu))
+	if ((GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush) && (!m_canApperMenu))
 	{
 		m_canApperMenu = true;
 
@@ -156,12 +161,33 @@ void TitleScene::Render()
 		WisdomRender();
 		return;
 	}
+	if (m_isRuningTeamlogo) {
+		CUSTOMVERTEX teamlogo[4];
+		CENTRAL_STATE logo{ 640,320,400,400 };
+		static DWORD logoColor = 0x00ffffff;
+		static bool canCleared = false;
+		if (!canCleared) {
+			logoColor += 2 << 24;
+		}
+		if (canCleared && (logoColor > 0xfffffff)) {
+			logoColor -= 2 << 24;
+		}
+		if (canCleared && (logoColor > 0xffffff)) {
+			logoColor -= 1 << 24;
+		}
 
-	//CUSTOMVERTEX LogoVertex[4];
-	//CreateSquareVertex(LogoVertex, m_Logo);
-	//m_pDirectX->DrawTexture("LOGO", LogoVertex);
+		if (logoColor == (0xfeffffff))
+		{
+			canCleared = true;
+		}
 
-	//m_pCursor->Render();
+		CreateSquareVertex(teamlogo, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+		m_pDirectX->DrawTexture("BLANK", teamlogo);
+
+		CreateSquareVertex(teamlogo, &logo, logoColor);
+		m_pDirectX->DrawTexture( "TEAMLOGO_TEX",teamlogo);
+		return;
+	}
 
 	CUSTOMVERTEX MenuVertex[4];
 	CreateSquareVertex(MenuVertex, &m_Menu);
@@ -228,10 +254,13 @@ void TitleScene::ChoseMenu() {
 }
 
 void TitleScene::TeamlogoControl(void) {
-
+	
+	if (SoundLib::Playing != m_pSoundOperater->GetStatus("LOGO")) {
+		m_pSoundOperater->Start("LOGO", false);
+	}
 	static DWORD SyncOld = timeGetTime();
 	DWORD SyncNow = timeGetTime();
-	if (SyncNow - SyncOld > 4500 || GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	if (SyncNow - SyncOld > 4500 || GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 	{
 		m_isRuningTeamlogo = false;
 	}
@@ -271,7 +300,7 @@ void TitleScene::WisdomControl()
 {
 	static int wisdomPage = PAGE1;
 
-	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadRelease)
+	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 	{
 		switch (wisdomPage)
 		{

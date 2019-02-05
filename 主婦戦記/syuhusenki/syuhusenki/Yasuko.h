@@ -26,6 +26,7 @@ public:
 	void FloaMoveDown();
 
 	void  Initialize();
+	void ShowA();
 private:
 	CUSTOMVERTEX m_EffectVertex[4];
 	CENTRAL_STATE m_EffectCentral;
@@ -43,6 +44,6 @@ private:
 	const float YASUKO_TV = (679.f / 2048.f);
 	const float EFFECT_TU = (500.f / 2048.f);
 	const float EFFECT_TV = (700.f / 2048.f);
-
+	bool m_ReachedSalesman = false;
 };
 

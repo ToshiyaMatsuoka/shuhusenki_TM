@@ -232,6 +232,8 @@ bool Object::MoveOutToErea(CENTRAL_STATE* central, float Left, float Top, float 
 }
 
 void Object::DrawLotsgoodsSorting(){
+	srand((unsigned int)time(NULL));
+
 	popSales[0].goodsSorting = rand() % 6;
 	while (popSales[0].goodsSorting == popSales[1].goodsSorting) {
 		popSales[1].goodsSorting = rand() % 6;

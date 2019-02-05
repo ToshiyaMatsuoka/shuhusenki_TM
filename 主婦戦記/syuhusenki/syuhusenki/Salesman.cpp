@@ -38,8 +38,10 @@ void Salesman::Render() {
 	{
 		CreateSquareVertex(Vertex, popSales[i].popPositionCentral, WHITE, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
 		m_pDirectX->DrawTexture("SALESMAN_TEX", Vertex);
+#ifdef _DEBUG
 		CreateSquareVertex(Vertex, popSales[i].popPositionCentral, HARFCLEAR, 0, saleAnimeTv * SALE_TV, SALE_TU, SALE_TV);
 		m_pDirectX->DrawTexture("BLANK", Vertex);
+#endif
 	}
 }
 void Salesman::Update()

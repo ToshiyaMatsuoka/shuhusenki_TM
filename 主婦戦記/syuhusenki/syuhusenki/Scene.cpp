@@ -16,6 +16,8 @@ Scene::Scene(DirectX* pDirectX, SoundOperater* pSoundOperater) :m_pDirectX(pDire
 	m_pXinputDevice = new XinputDevice;
 	m_pSoundOperater = pSoundOperater;
 	m_pDirectX->LoadTexture("Texture/nowloading.png", "LOAD_TEX");
+	m_pDirectX->SetFont(40, 25, "LOAD_FONT","HG創英角ｺﾞｼｯｸUB",SHIFTJIS_CHARSET);
+
 	if (!m_pGoods) {
 		m_pGoods = new Goods(pDirectX, pSoundOperater);
 	}
@@ -61,21 +63,38 @@ void Scene::CreateSquareVertex(CUSTOMVERTEX* Vertex, RECT rect, DWORD color, flo
 }
 
 void Scene::LoadAnimation() {
+	static DWORD LoadingColor = 0xFFFF3333;
+	CUSTOMVERTEX LoadBg[4];
+	CreateSquareVertex(LoadBg, DISPLAY_WIDTH, DISPLAY_HEIGHT - 20);
+	m_pDirectX->DrawTexture("LOAD_TEX", LoadBg);
 
-	static int CursorAnimeInterval = 0;
-	++CursorAnimeInterval;
-	static bool CursorColorOn = false;
-	if (CursorAnimeInterval > 20) {
+	const char* Nowloading1 = "Now Loading.";
+	const char* Nowloading2 = "Now Loading..";
+	const char* Nowloading3 = "Now Loading...";
+	RECT LoadingPos = { 850,600,1240,700 };
 
-		m_Color += (0xFF << 24) * ((CursorColorOn) ? +1 : -1);
+	static int LoadAnimeInterval = 0;
+	++LoadAnimeInterval;
+	static bool ColorOn = false;
+	switch (LoadAnimeInterval % 3) {
+	case 0:
+		m_pDirectX->DrawWord(LoadingPos, Nowloading1, "LOAD_FONT", DT_LEFT, LoadingColor);
+		break;
+	case 1:
+		m_pDirectX->DrawWord(LoadingPos, Nowloading2, "LOAD_FONT", DT_LEFT, LoadingColor);
+		break;
+	case 2:
+		m_pDirectX->DrawWord(LoadingPos, Nowloading3, "LOAD_FONT", DT_LEFT, LoadingColor);
+		break;
+	}
+	if (LoadAnimeInterval > 20) {
 
-		CursorColorOn = !CursorColorOn;
-		CursorAnimeInterval = 0;
+		LoadingColor += (0xFF << 24) * ((ColorOn) ? +1 : -1);
+
+		ColorOn = !ColorOn;
+		LoadAnimeInterval = 0;
 	}
 
-	CUSTOMVERTEX LoadBg[4];
-	CreateSquareVertex(LoadBg, DISPLAY_WIDTH, DISPLAY_HEIGHT - 20, m_Color);
-	m_pDirectX->DrawTexture("LOAD_TEX", LoadBg);
 
 }
 

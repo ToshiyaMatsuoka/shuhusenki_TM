@@ -42,7 +42,6 @@ private:
 	DWORD m_Color = 0xffffffff;
 
 	int m_timecount = 0;
-
 	TitleCursol* m_pCursor = NULL;
 	static bool m_isRuningTeamlogo;
 	bool m_canApperMenu = false;

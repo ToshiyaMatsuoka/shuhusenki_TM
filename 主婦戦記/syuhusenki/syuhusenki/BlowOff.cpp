@@ -25,6 +25,7 @@ BlowOff::BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Y
 	mobCentralBlowOff[4] = { 1050,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
 
 	effectExplosionCentral = { 900,800,300,300 }; 
+	m_pYasuko->InitBlowoff();
 
 	comandMake();
 }
@@ -82,7 +83,6 @@ int BlowOff::Update()
 		++effectExplosionCentral.scaleY;
 		if (m_BlowOffEffectCount >= 60) {
 			m_pSoundOperater->Stop("ATTACK");
-			m_pYasuko->InitBlowoff();
 			m_GameScene = PICKGOODS;
 			comandCount = 0;
 		}
@@ -214,32 +214,6 @@ void BlowOff::Render()
 			m_pDirectX->DrawTexture(comandButtonTexture(comandInput[i]), Vertex);
 		}
 		m_pYasuko->BlowOffRender();
-	//#ifdef _DEBUG
-	//	char debugComandInput[10];
-	//	char debugComandOutput[10];
-	//	char DebugCounter[10];
-
-	//	for (int i = 0; i < 5; i++)
-	//	{
-	//		sprintf_s(debugComandInput, 10, "%c", comandButton(comandInput[i]));
-	//
-	//		RECT DEBUGText = { 100 + (i * 50),500,900,600 };
-	//		m_pDirectX->DrawWord( DEBUGText,debugComandInput, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
-	//	}
-	//	for (int i = 0; i < 5; i++)
-	//	{
-	//		sprintf_s(debugComandOutput, 10, "%c", comandButton(comandPresentment[i]));
-	//
-	//		RECT DEBUGText = { 100 + (i * 50),450,900,600 };
-	//		m_pDirectX->DrawWord( DEBUGText,debugComandOutput, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
-	//	}
-	//
-	//	sprintf_s(DebugCounter, 10, "%d", comandCount);
-	//	RECT DEBUGText = { 100 ,550,900,600 };
-	//	m_pDirectX->DrawWord( DEBUGText,DebugCounter, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
-	//#endif
-	//
-	//}
 }
 
 
