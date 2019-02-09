@@ -48,7 +48,7 @@ private:
 	float mobRad;
 	bool m_TimeDeadline = false;
 	bool m_isGameStart = true;
-	int m_CurrentGameScene;
+	int m_CurrentGameScene= DEFAULT;
 	static const int ARRAY_NUM = 64;
 
 	void DrawFoodTexture( int arrayNum, CUSTOMVERTEX* vertex);

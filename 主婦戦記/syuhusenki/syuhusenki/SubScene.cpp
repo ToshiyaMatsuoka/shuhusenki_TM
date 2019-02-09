@@ -13,6 +13,12 @@ SubScene::~SubScene()
 {
 }
 
+void SubScene::Finalize() {
+	m_GameScene = FLOAMOVE;
+
+}
+
+
 std::string SubScene::comandButtonTexture(int comand)
 {
 	switch (comand) {

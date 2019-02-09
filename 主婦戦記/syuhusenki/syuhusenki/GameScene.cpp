@@ -27,6 +27,8 @@ GameScene::~GameScene()
 	m_pYasuko = NULL;
 	delete m_pSubScene;
 	m_pSubScene = NULL;
+	delete m_pTimer;
+	m_pTimer = NULL;
 	m_pDirectX->ClearTexture();
 	m_pDirectX->ClearFont();
 
@@ -121,6 +123,10 @@ int GameScene::Update()
 			m_pTimer->Initialize();
 			++m_Turn;
 			if (m_Turn > 2) {
+				m_pSubScene->Finalize();
+				delete m_pSubScene;
+				m_pSubScene = NULL;
+				m_GameScene = FLOAMOVE;
 				return RESULT_SCENE;
 			}
 			delete m_pSubScene;
@@ -138,6 +144,7 @@ void GameScene::KeyOperation()
 
 void GameScene::Render()
 {
+	if (!m_pSubScene) return;
 	m_pSubScene->Render();
 	goodsScoreShow();
 	m_pTimer->Render();

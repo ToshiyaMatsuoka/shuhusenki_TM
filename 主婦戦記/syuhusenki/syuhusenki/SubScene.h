@@ -8,6 +8,7 @@ enum GAMESCENE {
 	CHOSEGOODS,
 	BLOWOFF,
 	PICKGOODS,
+	DEFAULT,
 };
 struct SoundEffect {
 	const char SE1[20];
@@ -34,6 +35,8 @@ class SubScene :
 public:
 	SubScene(DirectX* pDirectX, SoundOperater* pSoundOperater, int turn, Yasuko* pYasuko);
 	virtual ~SubScene();
+
+	void Finalize();
 
 	std::string comandButtonTexture(int comand);
 
