@@ -56,7 +56,7 @@ enum COMBOMEUE
 	NIMONO,
 	PARFAIT,
 	BLANK_COMBO,
-	COMBOMAX
+	COMBO_MAX
 };
 
 enum GOODSSORTING
@@ -97,58 +97,59 @@ class Goods :public Object
 public:
 	Goods(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Goods();
-	int addPrice(int num, int nomalOrSale);
-	int comboSucceceCheck(void);
-	void comboCheck(int goodsId1, int goodsId2, int goodsId3);
-	void selectGoods(SALESMAN* popSales);
+	void Initialize();
+	int AddPrice(int num, int nomalOrSale);
+	int ComboSucceceCheck(void);
+	void ComboCheck(int goodsId1, int goodsId2, int goodsId3);
+	void SelectGoods(SALESMAN* popSales);
 
 	int GetselectedGoods(int ArrayNum) {
-		return selectedGoods[ArrayNum];
+		return m_SelectedGoods[ArrayNum];
 	}
 	int SetselectedGoods(int ArrayNum,int Value) {
-		return selectedGoods[ArrayNum] = Value;
+		return m_SelectedGoods[ArrayNum] = Value;
 	}
 
 	
 	int GetHaveValue(int ArrayNum) {
-		return foodGoods[ArrayNum].haveValue;
+		return m_FoodGoods[ArrayNum].haveValue;
 	}
 	GOODSPARAMETER* GetfoodGoods() {
-		return foodGoods;
+		return m_FoodGoods;
 	}
 	COMBOPARAMETER* GetfoodCombo() {
-		return foodCombo;
+		return m_FoodCombo;
 	}
 	void SetHaveValue(int ArrayNum, int Value) {
-		foodGoods[ArrayNum].haveValue = Value;
+		m_FoodGoods[ArrayNum].haveValue = Value;
 	}
 	int GetComboBonus(int ArrayNum) {
-		return foodCombo[ArrayNum].comboBonus;
+		return m_FoodCombo[ArrayNum].comboBonus;
 	}
 	std::string GetFoodGoodsTexID(int ArrayNum) {
-		return foodGoods[ArrayNum].textureID;
+		return m_FoodGoods[ArrayNum].textureID;
 	}
 	std::string GetFoodComboTexID(int ArrayNum) {
-		return foodCombo[ArrayNum].textureID;
+		return m_FoodCombo[ArrayNum].textureID;
 	}
 	void AddHaveValue(int Add, int ArrayNum) {
-		foodGoods[ArrayNum].haveValue += Add;
+		m_FoodGoods[ArrayNum].haveValue += Add;
 	}
 	int GetnominalCost(int ArrayNum) {
-		return foodGoods[ArrayNum].nominalCost;
+		return m_FoodGoods[ArrayNum].nominalCost;
 	}
 	int GetselePrice(int ArrayNum) {
-		return foodGoods[ArrayNum].selePrice;
+		return m_FoodGoods[ArrayNum].selePrice;
 	}
 	bool GetFoodComboSucceed(int ArrayNum) {
-		return foodCombo[ArrayNum].comboSucceed;
+		return m_FoodCombo[ArrayNum].comboSucceed;
 	}
 
 private:
-	static GOODSPARAMETER foodGoods[GOODS_MAX];
-	static COMBOPARAMETER foodCombo[COMBOMAX];
+	static GOODSPARAMETER m_FoodGoods[GOODS_MAX];
+	static COMBOPARAMETER m_FoodCombo[COMBO_MAX];
 
-	int selectedGoods[3] = { 0,0,0 };
+	int m_SelectedGoods[3] = { 0,0,0 };
 
 
 

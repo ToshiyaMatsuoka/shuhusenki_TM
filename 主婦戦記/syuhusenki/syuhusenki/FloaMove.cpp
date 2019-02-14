@@ -9,11 +9,11 @@ FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, 
 	m_pYasuko->DrawLotsgoodsSorting();
 	m_pYasuko->DrawLotsgoodsSorting();
 	m_pYasuko->DrawLotsgoodsSorting();
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(0));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(1));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(2));
 	m_pSalesman->Update();
-
+	m_GameScene = FLOAMOVE;
 }
 
 FloaMove::~FloaMove()
@@ -39,7 +39,7 @@ int FloaMove::Update()
 		m_pYasuko->KeyOperation(DOWN);
 	}
 	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA)) {
-		leachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->salesmanToPCCollision(m_pYasuko->GetCentral()));
+		LeachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->salesmanToPCCollision(m_pYasuko->GetCentral()));
 	}
 
 	m_pYasuko->FloaUpdate();
@@ -52,13 +52,10 @@ int FloaMove::Update()
 void FloaMove::Render()
 {
 	CUSTOMVERTEX Vertex[4];
-	RECT Background = { 0,100,DISPLAY_WIDTH ,700 };
+	RECT Background = { 0,100,static_cast<long>(DISPLAY_WIDTH) ,700 };
 	CreateSquareVertex(Vertex, Background);
 	m_pDirectX->DrawTexture("FLOAMOVE_BG_TEX", Vertex);
 
-	CUSTOMVERTEX startCount[4];
-	CUSTOMVERTEX start[4];
-	CUSTOMVERTEX m_EffectVertex[4];
 	m_pFloaMob->Render();
 	m_pSalesman->Render();
 	m_pYasuko->FloaRender();
@@ -73,13 +70,13 @@ void FloaMove::LoadResouce()
 void FloaMove::DebugAction()
 {
 	m_pYasuko->DrawLotsgoodsSorting();//フロア移動で決めたものを入れる
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(0));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(1));
-	m_pGoods->selectGoods(m_pYasuko->GetSalesman(2));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(0));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(1));
+	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(2));
 	m_pSalesman->Update();
 }
 
-void FloaMove::leachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int whergondola)
+void FloaMove::LeachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int whergondola)
 {
 	for (int i = 0; i < 3; i++)
 	{

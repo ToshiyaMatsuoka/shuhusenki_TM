@@ -5,8 +5,8 @@
 
 ResultScene::ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
-	m_pGoods->comboCheck(m_pGoods->GetselectedGoods(0), m_pGoods->GetselectedGoods(1), m_pGoods->GetselectedGoods(2));
-	succeedCombo = m_pGoods->comboSucceceCheck();
+	m_pGoods->ComboCheck(m_pGoods->GetselectedGoods(0), m_pGoods->GetselectedGoods(1), m_pGoods->GetselectedGoods(2));
+	succeedCombo = m_pGoods->ComboSucceceCheck();
 
 
 	if (m_pGoods->GetselectedGoods(0) == m_pGoods->GetselectedGoods(1) && m_pGoods->GetselectedGoods(0) == m_pGoods->GetselectedGoods(2)) {
@@ -21,8 +21,8 @@ ResultScene::ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scen
 
 	for (int i = 0; i < 3; i++)
 	{
-		nomalSum += m_pGoods->addPrice(i, 0);
-		saleSale +=m_pGoods->addPrice(i, 1);
+		nomalSum += m_pGoods->AddPrice(i, 0);
+		saleSale +=m_pGoods->AddPrice(i, 1);
 	}
 	memset(apperText, false, 10);
 
@@ -118,16 +118,16 @@ void ResultScene::Render()
 			if (canSound)
 			{
 				canSound = false;
-				if ((nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) < LOW_SCORE)
+				if ((nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) < LOW_SCORE)
 				{
 					m_pSoundOperater->Start("LOW_SCORE", false);
 				}
-				if (LOW_SCORE <= (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) && (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) <= HIGH_SCORE)
+				if (LOW_SCORE <= (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) && (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) <= HIGH_SCORE)
 				{
 					m_pSoundOperater->Start("MIDLE_SCORE", false);
 
 				}
-				if (HIGH_SCORE < (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())))
+				if (HIGH_SCORE < (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())))
 				{
 					m_pSoundOperater->Start("HIGH_SCORE", false);
 
@@ -191,34 +191,34 @@ void ResultScene::resultRenderOne(void)
 	if (apperText[0])
 	{
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultBaseTex1);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->addPrice(0, 0));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 0));
 		RECT resultBase1{ 160,125,600,275 };
 		m_pDirectX->DrawWord( resultBase1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultSeleTex1);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->addPrice(0, 1));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 1));
 		RECT resultSele1{ 930,125,1240,275 };
 		m_pDirectX->DrawWord( resultSele1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[1])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultBaseTex2);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->addPrice(1, 0));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 0));
 		RECT resultBase2{ 160,225,600,275 };
 		m_pDirectX->DrawWord( resultBase2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultSeleTex2);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->addPrice(1, 1));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 1));
 		RECT resultSele2{ 930,225,1240,275 };
 		m_pDirectX->DrawWord( resultSele2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[2])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultBaseTex3);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->addPrice(2, 0));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 0));
 		RECT resultBase3{ 160,325,600,475 };
 		m_pDirectX->DrawWord( resultBase3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultSeleTex3);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->addPrice(2, 1));
+		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 1));
 		RECT resultSele3{ 930,325,1240,475 };
 		m_pDirectX->DrawWord( resultSele3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
@@ -273,20 +273,20 @@ void ResultScene::resultRenderTwo(void)
 	m_pDirectX->DrawTexture("RESULT_POP_TEX", result);
 
 	char resulttantValue[32];
-	sprintf_s(resulttantValue, 32, "%d", nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck()));
+	sprintf_s(resulttantValue, 32, "%d", nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck()));
 	RECT resultTotal{ 0,235,435,400 };
 	m_pDirectX->DrawWord( resultTotal,resulttantValue, "LAST_SCORE_FONT", DT_RIGHT, BLACK);
 	CENTRAL_STATE resultPC{ 1050,350,200,300 };
 	CreateSquareVertex(result, &resultPC);
-	if ((nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) < LOW_SCORE)
+	if ((nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) < LOW_SCORE)
 	{
 		m_pDirectX->DrawTexture("YASUKO_EMOTION3_TEX", result);
 	}
-	if (LOW_SCORE <= (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) && (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())) <= HIGH_SCORE)
+	if (LOW_SCORE <= (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) && (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())) <= HIGH_SCORE)
 	{
 		m_pDirectX->DrawTexture("YASUKO_EMOTION2_TEX", result);
 	}
-	if (HIGH_SCORE < (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->comboSucceceCheck())))
+	if (HIGH_SCORE < (nomalSum - saleSale + m_pGoods->GetComboBonus(m_pGoods->ComboSucceceCheck())))
 	{
 		m_pDirectX->DrawTexture("YASUKO_EMOTION1_TEX", result);
 	}

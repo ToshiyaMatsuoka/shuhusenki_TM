@@ -4,30 +4,31 @@ BlowOff::BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Y
 {
 	for (int i = 0; i < 5; i++)
 	{
-		comandInput[i] = 10;
+		m_ComandInput[i] = 10;
 	}
 	switch (turn)
 	{
 	case 0:
-		m_mobTexKey = "ISOKO_TEX";
+		m_MobTexKey = "ISOKO_TEX";
 		break;
 	case 1:
-		m_mobTexKey = "MOB_TEX";
+		m_MobTexKey = "MOB_TEX";
 		break;
 	case 2:
-		m_mobTexKey = "MITUKO_TEX";
+		m_MobTexKey = "MITUKO_TEX";
 		break;
 	}
-	mobCentralBlowOff[0] = { 450,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[1] = { 600,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[2] = { 750,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[3] = { 900,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[4] = { 1050,MobHeight ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	mobCentralBlowOff[0] = { 450,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	mobCentralBlowOff[1] = { 600,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	mobCentralBlowOff[2] = { 750,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	mobCentralBlowOff[3] = { 900,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	mobCentralBlowOff[4] = { 1050,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
 
-	effectExplosionCentral = { 900,800,300,300 }; 
+	m_EffectExplosionCentral = { 900,800,300,300 }; 
 	m_pYasuko->InitBlowoff();
+	m_GameScene = BLOWOFF;
 
-	comandMake();
+	ComandMake();
 }
 
 
@@ -38,53 +39,53 @@ BlowOff::~BlowOff()
 int BlowOff::Update()
 {
 	//CreateSquareVertex(effectExplosion, effectExplosionCentral);
-	if (comandCount < 5)
+	if (m_ComandCount < 5)
 	{
 		BlowOffKeyOperation();
-		checkedComand = comandCheck();
-		if (1 == checkedComand)
+		m_CheckedComand = ComandCheck();
+		if (1 == m_CheckedComand)
 		{
 			if (SoundLib::Playing != m_pSoundOperater->GetStatus("SUCCESS")) {
 				m_pSoundOperater->Start("SUCCESS", false);
 			}
 		}
-		if (!checkedComand)
+		if (!m_CheckedComand)
 		{
 			if (SoundLib::Playing != m_pSoundOperater->GetStatus("MISS")) {
 				m_pSoundOperater->Start("MISS", false);
 			}
-			if (comandCount) {
-				comandCount -= 1;
+			if (m_ComandCount) {
+				m_ComandCount -= 1;
 			}
 		}
 	}
 	else
 	{
-		checkedComand = comandCheck();
-		if (1 == checkedComand)
+		m_CheckedComand = ComandCheck();
+		if (1 == m_CheckedComand)
 		{
 			if (m_BlowOffEffectCount < 1) {
 				m_pSoundOperater->Start("ATTACK", false);
 			}
 			m_isBlowOff = true;
 		}
-		if (!checkedComand)
+		if (!m_CheckedComand)
 		{
 			if (SoundLib::Playing != m_pSoundOperater->GetStatus("MISS")) {
 				m_pSoundOperater->Start("MISS", false);
 			}
 		}
 	}
-	checkedComand = 2;
+	m_CheckedComand = 2;
 	if (m_isBlowOff) {
 		++m_BlowOffEffectCount;
 		madamBlowOff();
-		++effectExplosionCentral.scaleX;
-		++effectExplosionCentral.scaleY;
+		++m_EffectExplosionCentral.scaleX;
+		++m_EffectExplosionCentral.scaleY;
 		if (m_BlowOffEffectCount >= 60) {
 			m_pSoundOperater->Stop("ATTACK");
 			m_GameScene = PICKGOODS;
-			comandCount = 0;
+			m_ComandCount = 0;
 		}
 	}
 	m_pYasuko->BlowOffUpdate(m_isBlowOff);
@@ -104,9 +105,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_A) == KeyPush || m_pXinputDevice->GetButton(ButtonA) == PadPush)
 		{
 
-			comandInput[comandCount] = ButtonA;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonA;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -114,9 +115,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_B) == KeyPush || m_pXinputDevice->GetButton(ButtonB) == PadPush)
 		{
 
-			comandInput[comandCount] = ButtonB;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonB;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -124,9 +125,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_X) == KeyPush || m_pXinputDevice->GetButton(ButtonX) == PadPush)
 		{
 
-			comandInput[comandCount] = ButtonX;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonX;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -134,9 +135,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_Y) == KeyPush || m_pXinputDevice->GetButton(ButtonY) == PadPush)
 		{
 
-			comandInput[comandCount] = ButtonY;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonY;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -144,9 +145,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_R) == KeyPush || m_pXinputDevice->GetButton(ButtonRB) == PadPush)
 		{
 
-			comandInput[comandCount] = ButtonRB;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonRB;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -154,9 +155,9 @@ void BlowOff::BlowOffKeyOperation() {
 		if (m_pDirectX->GetKeyStatus(DIK_L) == KeyPush || m_pXinputDevice->GetButton(ButtonLB) == KeyPush)
 		{
 
-			comandInput[comandCount] = ButtonLB;
-			if (comandCount < 5) {
-				comandCount += 1;
+			m_ComandInput[m_ComandCount] = ButtonLB;
+			if (m_ComandCount < 5) {
+				m_ComandCount += 1;
 			}
 			ButtonSE(Button, 3);
 			return;
@@ -172,7 +173,7 @@ void BlowOff::Render()
 
 	static float mobRad = 0;
 	CUSTOMVERTEX Vertex[4];
-	RECT Background = { 0,100,DISPLAY_WIDTH ,700 };
+	RECT Background = { 0,100,static_cast<long>(DISPLAY_WIDTH) ,700 };
 	CreateSquareVertex(Vertex, Background);
 	m_pDirectX->DrawTexture("FLOAMOVE_BG_TEX", Vertex);
 	CreateSquareVertex(Vertex, Background, HARFCLEAR);
@@ -194,30 +195,30 @@ void BlowOff::Render()
 				RevolveZ(Vertex, mobRad, &mobCentralBlowOff[i],WHITE, 0, 0, MOB_TU, MOB_TV);
 			}
 			else CreateSquareVertex(Vertex, &mobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
-			m_pDirectX->DrawTexture( m_mobTexKey, Vertex);
+			m_pDirectX->DrawTexture( m_MobTexKey, Vertex);
 		}
 		if ((m_BlowOffEffectCount > 20) && m_isBlowOff) {
-			CreateSquareVertex(effectExplosion, &effectExplosionCentral);
-			m_pDirectX->DrawTexture("EXPLOSION_TEX",effectExplosion);
+			CreateSquareVertex(m_EffectExplosion, &m_EffectExplosionCentral);
+			m_pDirectX->DrawTexture("EXPLOSION_TEX",m_EffectExplosion);
 		}
 	
 		for (int i = 0; i < 5; i++)
 		{
 			RECT PresentCommand = { 300 + (i * 100),200,450 + (i * 100),300 };
 			CreateSquareVertex(Vertex, PresentCommand);
-			m_pDirectX->DrawTexture(comandButtonTexture(comandPresentment[i]), Vertex);
+			m_pDirectX->DrawTexture(comandButtonTexture(m_ComandPresentment[i]), Vertex);
 		}
 		for (int i = 0; i < 5; i++)
 		{
 			RECT InputComand = { 300 + (i * 100),300,450 + (i * 100),400 };
 			CreateSquareVertex(Vertex, InputComand);
-			m_pDirectX->DrawTexture(comandButtonTexture(comandInput[i]), Vertex);
+			m_pDirectX->DrawTexture(comandButtonTexture(m_ComandInput[i]), Vertex);
 		}
 		m_pYasuko->BlowOffRender();
 }
 
 
-char BlowOff::comandButton(int comand)
+char BlowOff::ComandButton(int comand)
 {
 	switch (comand) {
 	case ButtonA:
@@ -233,43 +234,43 @@ char BlowOff::comandButton(int comand)
 	case ButtonLB:
 		return 'L';
 	}
-
+	return ' ';
 }
 
-void BlowOff::comandMake() {
+void BlowOff::ComandMake() {
 	srand((unsigned int)time(NULL));
 	if (m_Turn == 0)
 	{
-		comandPresentment[0] = rand() % 4;
-		comandPresentment[1] = rand() % 4;
-		comandPresentment[2] = rand() % 4;
-		comandPresentment[3] = rand() % 4;
-		comandPresentment[4] = rand() % 4;
+		m_ComandPresentment[0] = rand() % 4;
+		m_ComandPresentment[1] = rand() % 4;
+		m_ComandPresentment[2] = rand() % 4;
+		m_ComandPresentment[3] = rand() % 4;
+		m_ComandPresentment[4] = rand() % 4;
 
 	}
 	else {
-		comandPresentment[0] = rand() % 6;
-		comandPresentment[1] = rand() % 6;
-		comandPresentment[2] = rand() % 6;
-		comandPresentment[3] = rand() % 6;
-		comandPresentment[4] = rand() % 6;
+		m_ComandPresentment[0] = rand() % 6;
+		m_ComandPresentment[1] = rand() % 6;
+		m_ComandPresentment[2] = rand() % 6;
+		m_ComandPresentment[3] = rand() % 6;
+		m_ComandPresentment[4] = rand() % 6;
 	}
 }
 
 
-int BlowOff::comandCheck()
+int BlowOff::ComandCheck()
 {
-	for (int i = 0; i < comandCount; i++) {
-		if (comandInput[i] == 10) {
+	for (int i = 0; i < m_ComandCount; i++) {
+		if (m_ComandInput[i] == 10) {
 			return 2;
 		}
-		if (comandPresentment[i] == comandInput[i]) {
-			if (i == comandCount - 1) {
+		if (m_ComandPresentment[i] == m_ComandInput[i]) {
+			if (i == m_ComandCount - 1) {
 				return 1;
 			}
 		}
-		if (comandPresentment[i] != comandInput[i]) {
-			if (i == comandCount - 1) {
+		if (m_ComandPresentment[i] != m_ComandInput[i]) {
+			if (i == m_ComandCount - 1) {
 				return 0;
 			}
 		}

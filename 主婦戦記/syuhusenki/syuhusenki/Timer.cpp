@@ -132,7 +132,7 @@ Timer::~Timer()
 
 void Timer::Update()
 {
-		if (m_TimerCount < THREE_SECOND + Limit_frame)
+		if (m_TimerCount < THREE_SECOND + LIMIT_FRAME)
 		{
 			m_TimerCount++;
 		}
@@ -147,7 +147,7 @@ void Timer::Update()
 		}
 		if (m_isGameStart)
 		{
-			if ((Limit_frame + THREE_SECOND) - m_TimerCount == DEADLINE_SECOND)
+			if ((LIMIT_FRAME + THREE_SECOND) - m_TimerCount == DEADLINE_SECOND)
 			{
 				m_pSoundOperater->Stop("FOOD");
 				m_pSoundOperater->SetVolume("HURRY_UP", 10);
@@ -156,17 +156,17 @@ void Timer::Update()
 	
 				m_TimeDeadline = true;
 			}
-			if ((Limit_frame + THREE_SECOND) - m_TimerCount < ONE_SECOND)
+			if ((LIMIT_FRAME + THREE_SECOND) - m_TimerCount < ONE_SECOND)
 			{
 				m_pSoundOperater->Stop("TIME_LIMIT");
 	
 			}
-			if ((Limit_frame + THREE_SECOND) - m_TimerCount < HURRY_TIME)
+			if ((LIMIT_FRAME + THREE_SECOND) - m_TimerCount < HURRY_TIME)
 			{
 				m_pSoundOperater->Stop("FOOD");
 				m_pSoundOperater->Start("HURRY_UP", true);
 			}
-			if (m_TimerCount == THREE_SECOND + Limit_frame)
+			if (m_TimerCount == THREE_SECOND + LIMIT_FRAME)
 			{
 				m_pSoundOperater->Start("GONG", false);
 				m_pSoundOperater->Stop("HURRY_UP");
@@ -214,17 +214,17 @@ void Timer::Render()
 	sprintf_s(debugTime, 10, "%d", m_TimerCount);
 	RECT DEBUGText = { 100 ,300,900,600 };
 	m_pDirectX->DrawWord(DEBUGText, debugTime, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
-	sprintf_s(debugTime, 10, "%d", Limit_frame);
+	sprintf_s(debugTime, 10, "%d", LIMIT_FRAME);
 	DEBUGText = { 400 ,300,900,600 };
 	m_pDirectX->DrawWord(DEBUGText, debugTime, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
-	sprintf_s(debugTime, 10, "%f", ((360.f / Limit_frame) / 180.f)*PI);
+	sprintf_s(debugTime, 10, "%f", ((360.f / LIMIT_FRAME) / 180.f)*PI);
 	DEBUGText = { 400 ,350,900,600 };
 	m_pDirectX->DrawWord(DEBUGText, debugTime, "DEBUG_FONT", DT_LEFT, 0xff0000ff);
 
 #endif
 	if (m_TimerCount >= THREE_SECOND && !m_isTimeUp)
 	{
-		timerRotation -= ((360.f / Limit_frame) / 180.f)*PI;
+		timerRotation -= ((360.f / LIMIT_FRAME) / 180.f)*PI;
 	}
 
 	if (m_isTimeUp)
@@ -257,7 +257,7 @@ void Timer::Render()
 
 int Timer::TimeShow()
 {
-	return ((Limit_frame + THREE_SECOND) - m_TimerCount) / 60;
+	return ((LIMIT_FRAME + THREE_SECOND) - m_TimerCount) / 60;
 }
 
 void Timer::Initialize()

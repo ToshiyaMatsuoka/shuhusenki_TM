@@ -24,15 +24,4 @@ private:
 	CENTRAL_STATE playerCutinCentral = { 1200,350,320,280 };
 	std::string m_mobTexKey;
 };
-
-
-
-//extern CENTRAL_STATE playerCutinCentral;
-//
-//void pickGoods();
-//void pickGoodsControl();
-//void pickGoodsRender();
-//void pickGoodsDeviseControl(int* rushInput);
-//void rushButtonCheck(int rushInput, int rushShow);
-
 #endif

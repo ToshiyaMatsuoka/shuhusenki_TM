@@ -13,15 +13,8 @@ public:
 	void Render();
 private:
 	std::string m_TexKey;
-	CENTRAL_STATE mobCentralBlowOff[5];
+	CENTRAL_STATE m_MobCentralBlowOff[5];
 };
-
-//void choseGoods();
-//void choseGoodsControl();
-//void choseGoodsReader();
-//
-//extern int salesChoice;
-
 
 
 #endif

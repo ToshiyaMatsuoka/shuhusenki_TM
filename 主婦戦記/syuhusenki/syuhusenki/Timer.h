@@ -22,9 +22,9 @@ public:
 	}
 	void Initialize();
 private:
-	const float PI = 3.14159265358979;
+	const float PI = 3.14159265358979f;
 	const float LIMIT_TIME = 60.f;//秒
-	const float Limit_frame = (LIMIT_TIME * 60.f);
+	const float LIMIT_FRAME = (LIMIT_TIME * 60.f);
 	const float DEADLINE_SECOND = 300;
 	const float HURRY_TIME = (20 * 60);
 
@@ -47,11 +47,4 @@ private:
 	bool m_isGameStart = false;
 };
 
-//extern bool g_timeDeadline;
-//
-//void timerControl(void);
-//
-//int timeShow(void);
-//
-//void timerRender(void);
 #endif // !TIMER_H

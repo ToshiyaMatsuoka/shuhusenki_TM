@@ -54,7 +54,7 @@ void PickGoods::Render()
 	CUSTOMVERTEX playerCutin[4];
 	CUSTOMVERTEX Vertex[4];
 
-	RECT Background = { 0,100,DISPLAY_WIDTH ,700 };
+	RECT Background = { 0,100,static_cast<long>(DISPLAY_WIDTH) ,700 };
 	CreateSquareVertex(Vertex, Background);
 	m_pDirectX->DrawTexture("FLOAMOVE_BG_TEX", Vertex);
 

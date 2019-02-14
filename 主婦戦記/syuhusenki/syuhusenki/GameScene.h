@@ -10,7 +10,6 @@ class Timer;
 class GameScene :public Scene
 {
 public:
-	friend FloaMove;
 	GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~GameScene();
 	int Update();

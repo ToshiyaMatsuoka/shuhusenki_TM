@@ -15,11 +15,12 @@ ChoseGoods::ChoseGoods(DirectX * pDirectX, SoundOperater * pSoundOperater, int t
 		m_TexKey = "MITUKO_TEX";
 		break;
 	}
-	mobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[0] = { 450,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[1] = { 600,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[2] = { 750,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[3] = { 900,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[4] = { 1050,550 ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_GameScene = CHOSEGOODS;
 
 }
 
@@ -67,7 +68,7 @@ void ChoseGoods::Render()
 	m_pDirectX->DrawTexture( "BLANK",vertex);
 
 	for (int i = 0; i < 5; i++) {
-		CreateSquareVertex(vertex, &mobCentralBlowOff[i], 0, 0, MOB_TU, MOB_TV);
+		CreateSquareVertex(vertex, &m_MobCentralBlowOff[i], 0, 0, MOB_TU, MOB_TV);
 		m_pDirectX->DrawTexture(m_TexKey, vertex);
 	}
 	CreateSquareVertex(playerHit, &playerCentralHit, WHITE, 0.f, 0.f, YASUKO_TU, YASUKO_TV);
