@@ -21,6 +21,7 @@ PickGoods::PickGoods(DirectX * pDirectX, SoundOperater * pSoundOperater, int tur
 	else {
 		rushButtonShow = rand() % 6;
 	}
+	m_GameScene = PICKGOODS;
 
 }
 
@@ -38,7 +39,7 @@ int PickGoods::Update()
 	{
 		m_GameScene = BLOWOFF;
 	}
-	PickGoodsKeyOperation(&rushInput);
+	else PickGoodsKeyOperation(&rushInput);
 	madamBlowOff();
 
 	return m_GameScene;

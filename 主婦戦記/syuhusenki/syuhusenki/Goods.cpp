@@ -15,6 +15,7 @@ COMBO_OK checkOk{false,false,false};
 
 Goods::Goods(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)
 {
+	Initialize();
 }
 
 
@@ -22,154 +23,163 @@ Goods::~Goods()
 {
 }
 
-int Goods::addPrice(int num, int nomalOrSale)
+void Goods::Initialize() {
+	for (int i = 0; i < GOODS_MAX; ++i) {
+		m_FoodGoods[i].haveValue = 0;
+	}
+	for (int i = 0; i < COMBO_MAX; ++i) {
+		m_FoodCombo[i].comboSucceed = false;
+	}
+}
+
+int Goods::AddPrice(int num, int nomalOrSale)
 {
 	switch (nomalOrSale)
 	{
 	case 0:
-		return foodGoods[selectedGoods[num]].nominalCost * foodGoods[selectedGoods[num]].haveValue;
+		return m_FoodGoods[m_SelectedGoods[num]].nominalCost * m_FoodGoods[m_SelectedGoods[num]].haveValue;
 		break;
 	case 1:
-		return foodGoods[selectedGoods[num]].selePrice * foodGoods[selectedGoods[num]].haveValue;
+		return m_FoodGoods[m_SelectedGoods[num]].selePrice * m_FoodGoods[m_SelectedGoods[num]].haveValue;
 		break;
 	}
 }
 
-void Goods::comboCheck(int goodsId1, int goodsId2, int goodsId3 )
+void Goods::ComboCheck(int goodsId1, int goodsId2, int goodsId3 )
 {
-	if (foodGoods[goodsId1].haveValue)
+	if (m_FoodGoods[goodsId1].haveValue)
 	{
-		for (int i = COMBOMAX-1; i >= 0; i--) {
+		for (int i = COMBO_MAX-1; i >= 0; i--) {
 			checkOk.one = false;
 			checkOk.twe = false;
 			checkOk.three = false;
-			if (BLANKGOODS == foodCombo[i].comboElement3 && (!checkOk.three)) {
+			if (BLANKGOODS == m_FoodCombo[i].comboElement3 && (!checkOk.three)) {
 				checkOk.three = true;
 			}
 			//1つ目のチェック
 			//第一項目
-			if (foodGoods[goodsId1].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
+			if (m_FoodGoods[goodsId1].goodsID == m_FoodCombo[i].comboElement1 && (!checkOk.one))
 			{
 				checkOk.one = true;
 			}
 			//第二項目
-			else if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
+			else if ((m_FoodCombo[i].comboElement2 == FRUIT) && (m_FoodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 			{
-				if (foodGoods[goodsId1].goodsID == APPLE)
+				if (m_FoodGoods[goodsId1].goodsID == APPLE)
 				{
 					checkOk.twe = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == ORANGE)
+				else if (m_FoodGoods[goodsId1].goodsID == ORANGE)
 				{
 					checkOk.twe = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == BANANA)
+				else if (m_FoodGoods[goodsId1].goodsID == BANANA)
 				{
 					checkOk.twe = true;
 				}
 			}
-			else if (foodGoods[goodsId1].goodsID == foodCombo[i].comboElement2 && (!checkOk.twe))
+			else if (m_FoodGoods[goodsId1].goodsID == m_FoodCombo[i].comboElement2 && (!checkOk.twe))
 			{
 				checkOk.twe = true;
 			}
 			//第三項目
-			else if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
+			else if (m_FoodCombo[i].comboElement3 == MEET && (!checkOk.three))
 			{
-				if (foodGoods[goodsId1].goodsID == BEEF)
+				if (m_FoodGoods[goodsId1].goodsID == BEEF)
 				{
 					checkOk.three = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == PORK)
+				else if (m_FoodGoods[goodsId1].goodsID == PORK)
 				{
 					checkOk.three = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == CHICKEN)
+				else if (m_FoodGoods[goodsId1].goodsID == CHICKEN)
 				{
 					checkOk.three = true;
 				}
 
 			}
-			else if (foodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
+			else if (m_FoodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
 			{
-				if (foodGoods[goodsId1].goodsID == APPLE)
+				if (m_FoodGoods[goodsId1].goodsID == APPLE)
 				{
 					checkOk.three = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == ORANGE)
+				else if (m_FoodGoods[goodsId1].goodsID == ORANGE)
 				{
 					checkOk.three = true;
 				}
-				else if (foodGoods[goodsId1].goodsID == BANANA)
+				else if (m_FoodGoods[goodsId1].goodsID == BANANA)
 				{
 					checkOk.three = true;
 				}
 			}
-			else if (foodGoods[goodsId1].goodsID == foodCombo[i].comboElement3 && (!checkOk.three))
+			else if (m_FoodGoods[goodsId1].goodsID == m_FoodCombo[i].comboElement3 && (!checkOk.three))
 			{
 
 				checkOk.three = true;
 			}
 			//2つ目のチェック
 			//第一項目
-			if (foodGoods[goodsId2].haveValue)
+			if (m_FoodGoods[goodsId2].haveValue)
 			{
-				if (foodGoods[goodsId2].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
+				if (m_FoodGoods[goodsId2].goodsID == m_FoodCombo[i].comboElement1 && (!checkOk.one))
 				{
 					checkOk.one = true;
 				}
 				//第二項目
-				if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
+				if ((m_FoodCombo[i].comboElement2 == FRUIT) && (m_FoodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 				{
-					if (foodGoods[goodsId2].goodsID == APPLE)
+					if (m_FoodGoods[goodsId2].goodsID == APPLE)
 					{
 						checkOk.twe = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == ORANGE)
+					else if (m_FoodGoods[goodsId2].goodsID == ORANGE)
 					{
 						checkOk.twe = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == BANANA)
+					else if (m_FoodGoods[goodsId2].goodsID == BANANA)
 					{
 						checkOk.twe = true;
 					}
 				}
-				else if (foodGoods[goodsId2].goodsID == foodCombo[i].comboElement2 && (!checkOk.twe))
+				else if (m_FoodGoods[goodsId2].goodsID == m_FoodCombo[i].comboElement2 && (!checkOk.twe))
 				{
 
 					checkOk.twe = true;
 				}
 				//第三項目
-				if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
+				if (m_FoodCombo[i].comboElement3 == MEET && (!checkOk.three))
 				{
-					if (foodGoods[goodsId2].goodsID == BEEF)
+					if (m_FoodGoods[goodsId2].goodsID == BEEF)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == PORK)
+					else if (m_FoodGoods[goodsId2].goodsID == PORK)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == CHICKEN)
+					else if (m_FoodGoods[goodsId2].goodsID == CHICKEN)
 					{
 						checkOk.three = true;
 					}
 				}
-				else if (foodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
+				else if (m_FoodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
 				{
-					if (foodGoods[goodsId2].goodsID == APPLE)
+					if (m_FoodGoods[goodsId2].goodsID == APPLE)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == ORANGE)
+					else if (m_FoodGoods[goodsId2].goodsID == ORANGE)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId2].goodsID == BANANA)
+					else if (m_FoodGoods[goodsId2].goodsID == BANANA)
 					{
 						checkOk.three = true;
 					}
 				}
-				else if (foodGoods[goodsId2].goodsID == foodCombo[i].comboElement3 && (!checkOk.three))
+				else if (m_FoodGoods[goodsId2].goodsID == m_FoodCombo[i].comboElement3 && (!checkOk.three))
 				{
 					checkOk.three = true;
 				}
@@ -177,65 +187,65 @@ void Goods::comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 
 			//3つ目のチェック
 			//第一項目
-			if (goodsId3 != BLANKGOODS && foodGoods[goodsId3].haveValue)
+			if (goodsId3 != BLANKGOODS && m_FoodGoods[goodsId3].haveValue)
 			{
-				if (foodGoods[goodsId3].goodsID == foodCombo[i].comboElement1 && (!checkOk.one))
+				if (m_FoodGoods[goodsId3].goodsID == m_FoodCombo[i].comboElement1 && (!checkOk.one))
 				{
 					checkOk.one = true;
 				}
 				//第二項目
-				if ((foodCombo[i].comboElement2 == FRUIT) && (foodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
+				if ((m_FoodCombo[i].comboElement2 == FRUIT) && (m_FoodCombo[i].comboElement3 == FRUIT) && (!checkOk.twe))
 				{
-					if (foodGoods[goodsId3].goodsID == APPLE)
+					if (m_FoodGoods[goodsId3].goodsID == APPLE)
 					{
 						checkOk.twe = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == ORANGE)
+					else if (m_FoodGoods[goodsId3].goodsID == ORANGE)
 					{
 						checkOk.twe = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == BANANA)
+					else if (m_FoodGoods[goodsId3].goodsID == BANANA)
 					{
 						checkOk.twe = true;
 					}
 				}
-				else if (foodGoods[goodsId3].goodsID == foodCombo[i].comboElement2 && (!checkOk.twe))
+				else if (m_FoodGoods[goodsId3].goodsID == m_FoodCombo[i].comboElement2 && (!checkOk.twe))
 				{
 					checkOk.twe = true;
 				}
 				//第三項目
-				if (foodCombo[i].comboElement3 == MEET && (!checkOk.three))
+				if (m_FoodCombo[i].comboElement3 == MEET && (!checkOk.three))
 				{
-					if (foodGoods[goodsId3].goodsID == BEEF)
+					if (m_FoodGoods[goodsId3].goodsID == BEEF)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == PORK)
+					else if (m_FoodGoods[goodsId3].goodsID == PORK)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == CHICKEN)
+					else if (m_FoodGoods[goodsId3].goodsID == CHICKEN)
 					{
 						checkOk.three = true;
 					}
 				}
-				else if (foodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
+				else if (m_FoodCombo[i].comboElement3 == FRUIT && (!checkOk.three))
 				{
-					if (foodGoods[goodsId3].goodsID == APPLE)
+					if (m_FoodGoods[goodsId3].goodsID == APPLE)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == ORANGE)
+					else if (m_FoodGoods[goodsId3].goodsID == ORANGE)
 					{
 						checkOk.three = true;
 					}
-					else if (foodGoods[goodsId3].goodsID == BANANA)
+					else if (m_FoodGoods[goodsId3].goodsID == BANANA)
 					{
 						checkOk.three = true;
 					}
 
 				}
-				else if (foodGoods[goodsId3].goodsID == foodCombo[i].comboElement3 && (!checkOk.three))
+				else if (m_FoodGoods[goodsId3].goodsID == m_FoodCombo[i].comboElement3 && (!checkOk.three))
 				{
 
 					checkOk.three = true;
@@ -243,30 +253,30 @@ void Goods::comboCheck(int goodsId1, int goodsId2, int goodsId3 )
 			}
 			if (checkOk.one && checkOk.twe && checkOk.three)
 			{
-				foodCombo[i].comboSucceed = true;
+				m_FoodCombo[i].comboSucceed = true;
 				//g_SoundSuccess = soundsManager.Start("SUCCESS", false) && g_SoundSuccess;
 				return;
 			}
 
 			if (!checkOk.one || !checkOk.twe || !checkOk.three) {
 				//g_SoundSuccess = soundsManager.Start("MISS", false) && g_SoundSuccess;
-				foodCombo[i].comboSucceed = false;
+				m_FoodCombo[i].comboSucceed = false;
 			}
 		}
 	}
 }
-int Goods::comboSucceceCheck(void)
+int Goods::ComboSucceceCheck(void)
 {
-	for (int i = 0; i < COMBOMAX; i++) 
+	for (int i = 0; i < COMBO_MAX; i++) 
 	{
-		if (foodCombo[i].comboSucceed)
+		if (m_FoodCombo[i].comboSucceed)
 		{
 			return i;
 		}
 	}
 	return BLANK_COMBO;
 }
-void Goods::selectGoods(SALESMAN* popSales)
+void Goods::SelectGoods(SALESMAN* popSales)
 {
 	int randBuff[2];
 	switch (popSales->goodsSorting)
@@ -520,7 +530,7 @@ void Goods::selectGoods(SALESMAN* popSales)
 	}
 }
 
-GOODSPARAMETER Goods::foodGoods[GOODS_MAX]
+GOODSPARAMETER Goods::m_FoodGoods[GOODS_MAX]
 {
 { BLANKGOODS,"BLANK",0,0,0 },
 	//肉
@@ -559,7 +569,7 @@ GOODSPARAMETER Goods::foodGoods[GOODS_MAX]
 
 };
 //コンボ情報
-COMBOPARAMETER Goods::foodCombo[COMBOMAX]{
+COMBOPARAMETER Goods::m_FoodCombo[COMBO_MAX]{
 { BURIDAIKON,"BURIDAIKON_TEX",RARE1, FISH,RADISH,BLANKGOODS,false },
 { RELISH,"RELISH_TEX",RARE1,BEER,VIENNESE, BLANKGOODS,false },
 { TEATIME,"TEATIME_TEX", RARE1, TEA, RICECRACKER , BLANKGOODS,false },

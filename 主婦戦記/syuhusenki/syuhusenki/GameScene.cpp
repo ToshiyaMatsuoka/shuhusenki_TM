@@ -11,7 +11,7 @@ bool GameScene::isFirst = false;
 
 GameScene::GameScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scene(pDirectX, pSoundOperater)
 {
-
+	m_pGoods->Initialize();
 	if (!m_pYasuko) {
 		m_pYasuko = new Yasuko(pDirectX, pSoundOperater);
 	}
