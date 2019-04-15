@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{96a00cb4-2548-48eb-80eb-7efc7dc0f25f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{01ec7869-b8a8-4026-a42e-ff2c4d1bfcbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{4dc06c38-75de-43ca-a21a-4064f1f8d293}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{cd0eab92-e2f9-424e-bcb6-c2feef66bb4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\ResultScene">
+      <UniqueIdentifier>{02e915a7-f984-48cf-a1f6-adae78a5986b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GameScene">
+      <UniqueIdentifier>{ecc1455e-cfd9-452b-b3a0-42ae9c9eb442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GameScene\SubScene">
+      <UniqueIdentifier>{1e455605-361f-43ad-8451-85fb2430170e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameManager\GameManager.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Device\DirectX.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Device\SoundOperater.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Device\XinputDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene\TitleCursol.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene\TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ResultScene\ResultScene.cpp">
+      <Filter>Scene\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\FloaMob.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\GameScene.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\Goods.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\Object.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\Salesman.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\Timer.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\Yasuko.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\SubScene\BlowOff.cpp">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\SubScene\ChoseGoods.cpp">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\SubScene\FloaMove.cpp">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\SubScene\PickGoods.cpp">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene\SubScene\SubScene.cpp">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameManager\GameManager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\DirectX.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\SoundOperater.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Device\XinputDevice.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene\TitleCursol.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene\TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ResultScene\ResultScene.h">
+      <Filter>Scene\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\FloaMob.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\GameScene.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\Goods.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\Object.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\Salesman.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\Timer.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\Yasuko.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\SubScene\BlowOff.h">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\SubScene\ChoseGoods.h">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\SubScene\FloaMove.h">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\SubScene\PickGoods.h">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene\SubScene\SubScene.h">
+      <Filter>Scene\GameScene\SubScene</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="syuhusenki.rc" />
+  </ItemGroup>
+</Project>
