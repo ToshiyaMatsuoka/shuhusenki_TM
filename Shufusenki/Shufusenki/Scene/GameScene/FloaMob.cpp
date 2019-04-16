@@ -1,6 +1,11 @@
+﻿/**
+* @file FloaMob.cpp
+* @brief 徘徊モブ処理
+* @author Toshiya Matsuoka
+*/
 #include "FloaMob.h"
 
-//���u�̓�������
+//モブの動く方向
 enum MOBDIRECTION {
 	NORTH,
 	SOUTH,

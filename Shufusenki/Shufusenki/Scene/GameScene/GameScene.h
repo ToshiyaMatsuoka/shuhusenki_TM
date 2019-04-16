@@ -1,5 +1,10 @@
 ﻿#ifndef GAMESCENE_H
 #define GAMESCENE_H
+/**
+* @file GameScene.h
+* @brief メインゲームシーン処理
+* @author Toshiya Matsuoka
+*/
 
 #include "Scene/Scene.h"
 #include "SubScene/SubScene.h"

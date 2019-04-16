@@ -1,4 +1,9 @@
-﻿#include "Yasuko.h"
+﻿/**
+* @file Yasuko.cpp
+* @brief 主人公処理
+* @author Toshiya Matsuoka
+*/
+#include "Yasuko.h"
 #include "SubScene/FloaMove.h"
 
 

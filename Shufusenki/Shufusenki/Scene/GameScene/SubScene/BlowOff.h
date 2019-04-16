@@ -1,5 +1,11 @@
 ﻿#ifndef BLOWOFF_H
 #define BLOWOFF_H
+/**
+* @file BlowOff.h
+* @brief コマンド入力シーン処理
+* @author Toshiya Matsuoka
+*/
+
 #include "Scene/GameScene/SubScene/SubScene.h"
 
 class BlowOff :
@@ -9,11 +15,20 @@ public:
 	BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko);
 	~BlowOff();
 	int Update();
-	void BlowOffKeyOperation();
+	void KeyOperation();
 	void LoadResouce();
 	void Render();
+	/**
+	* @brief 入力ボタンを文字列で返す
+	*/
 	char ComandButton(int comand);
+	/*
+	* @brief 提示コマンドの抽選
+	*/
 	void ComandMake();
+	/*
+	* @brief 入力コマンドと提示コマンドの照合
+	*/
 	int ComandCheck();
 private:
 	int m_ComandInput[5];

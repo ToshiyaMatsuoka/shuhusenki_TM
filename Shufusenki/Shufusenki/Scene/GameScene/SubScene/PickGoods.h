@@ -1,5 +1,11 @@
 ﻿#ifndef PICKGOODS_H
 #define PICKGOODS_H
+/**
+* @file PickGoods.h
+* @brief 商品取得シーン処理
+* @author Toshiya Matsuoka
+*/
+
 #include "Scene/GameScene/SubScene/SubScene.h"
 
 class PickGoods :

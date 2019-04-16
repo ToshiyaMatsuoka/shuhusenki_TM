@@ -1,3 +1,9 @@
+ï»¿/**
+* @file ResultScene.cpp
+* @brief ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³å‡¦ç†
+* @author Toshiya Matsuoka
+*/
+
 #include "ResultScene.h"
 #include "Scene/GameScene/Goods.h"
 
@@ -191,44 +197,44 @@ void ResultScene::resultRenderOne(void)
 	if (apperText[0])
 	{
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultBaseTex1);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 0));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 0));
 		RECT resultBase1{ 160,125,600,275 };
 		m_pDirectX->DrawWord( resultBase1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultSeleTex1);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 1));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 1));
 		RECT resultSele1{ 930,125,1240,275 };
 		m_pDirectX->DrawWord( resultSele1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[1])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultBaseTex2);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 0));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 0));
 		RECT resultBase2{ 160,225,600,275 };
 		m_pDirectX->DrawWord( resultBase2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultSeleTex2);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 1));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 1));
 		RECT resultSele2{ 930,225,1240,275 };
 		m_pDirectX->DrawWord( resultSele2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[2])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultBaseTex3);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 0));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 0));
 		RECT resultBase3{ 160,325,600,475 };
 		m_pDirectX->DrawWord( resultBase3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultSeleTex3);
-		sprintf_s(resulttantValue, 32, "%d~%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 1));
+		sprintf_s(resulttantValue, 32, "%dÃ—%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 1));
 		RECT resultSele3{ 930,325,1240,475 };
 		m_pDirectX->DrawWord( resultSele3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[3])
 	{
 
-		sprintf_s(resulttantValue, 32, "‡Œv%d‰~", nomalSum);
+		sprintf_s(resulttantValue, 32, "åˆè¨ˆ%då††", nomalSum);
 		RECT resultBaseTotal{ 160,425,440,575 };
 		m_pDirectX->DrawWord( resultBaseTotal, resulttantValue, "RESULT_FONT", DT_RIGHT, BLACK);
-		sprintf_s(resulttantValue, 32, "‡Œv%d‰~", saleSale);
+		sprintf_s(resulttantValue, 32, "åˆè¨ˆ%då††", saleSale);
 		RECT resultSeleTotal{ 930,425,1240,575 };
 		m_pDirectX->DrawWord( resultSeleTotal, resulttantValue, "RESULT_FONT", DT_RIGHT, BLACK);
 

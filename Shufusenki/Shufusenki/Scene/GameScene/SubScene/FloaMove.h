@@ -1,5 +1,10 @@
 ﻿#ifndef FLOAMOVE_H
 #define FLOAMOVE_H
+/**
+* @file FloaMove.h
+* @brief 売り場移動処理
+* @author Toshiya Matsuoka
+*/
 
 #include "Scene/GameScene/SubScene/SubScene.h"
 #include "Scene/GameScene/Salesman.h"
@@ -15,7 +20,6 @@ public:
 	int Update();
 	void Render();
 	void LoadResouce();
-	void DebugAction();
 private:
 	Object* m_pSalesman;
 	Object* m_pFloaMob;

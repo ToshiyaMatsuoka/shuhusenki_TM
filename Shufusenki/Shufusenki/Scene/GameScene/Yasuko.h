@@ -1,5 +1,10 @@
 ﻿#ifndef YASUKO_H
 #define YASUKO_H
+/**
+* @file Yasuko.h
+* @brief 主人公処理
+* @author Toshiya Matsuoka
+*/
 
 #include "Object.h"
 

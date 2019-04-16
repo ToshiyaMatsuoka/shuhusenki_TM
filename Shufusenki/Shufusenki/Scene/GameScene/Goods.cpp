@@ -1,4 +1,9 @@
-﻿#include "Goods.h"
+﻿/**
+* @file Goods.cpp
+* @brief 売り物処理
+* @author Toshiya Matsuoka
+*/
+#include "Goods.h"
 #include <stdlib.h>
 
 //商品情報

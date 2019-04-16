@@ -1,5 +1,11 @@
 ﻿#ifndef CHOSEGOODS_H
 #define CHOSEGOODS_H
+/**
+* @file ChoseGoods.h
+* @brief 商品選択処理
+* @author Toshiya Matsuoka
+*/
+
 #include "Scene/GameScene/SubScene/SubScene.h"
 
 class ChoseGoods :

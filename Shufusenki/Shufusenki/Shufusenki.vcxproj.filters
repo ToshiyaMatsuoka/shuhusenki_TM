@@ -154,6 +154,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="syuhusenki.rc" />
+    <ResourceCompile Include="Shufusenki.rc" />
   </ItemGroup>
 </Project>

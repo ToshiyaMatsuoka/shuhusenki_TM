@@ -1,3 +1,8 @@
+ï»¿/**
+* @file Salesman.cpp
+* @brief å£²ã‚Šå­å‡¦ç†
+* @author Toshiya Matsuoka
+*/
 #include "Salesman.h"
 #include "Goods.h"
 
@@ -48,7 +53,7 @@ void Salesman::Update()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		//‘å‚«‚³AÀ•W‚ÍŒ»•¨‡‚í‚¹
+		//å¤§ãã•ã€åº§æ¨™ã¯ç¾ç‰©åˆã‚ã›
 		switch (popSales[i].goodsSorting)
 		{
 		case MEET_SORT:

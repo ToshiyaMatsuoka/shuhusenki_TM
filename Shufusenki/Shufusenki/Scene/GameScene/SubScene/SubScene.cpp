@@ -1,3 +1,8 @@
+﻿/**
+* @file SubScene.cpp
+* @brief メインゲーム内シーン基底処理
+* @author Toshiya Matsuoka
+*/
 #include "SubScene.h"
 
 int SubScene::m_GameScene = FLOAMOVE;

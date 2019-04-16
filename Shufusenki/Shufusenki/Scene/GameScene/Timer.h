@@ -1,4 +1,9 @@
-﻿#ifndef TIMER_H
+﻿/**
+* @file Timer.h
+* @brief タイマー処理
+* @author Toshiya Matsuoka
+*/
+#ifndef TIMER_H
 #define TIMER_H
 
 #include "Object.h"
@@ -22,7 +27,6 @@ public:
 	}
 	void Initialize();
 private:
-	//const float D3DX_PI = 3.14159265358979f;
 	const float LIMIT_TIME = 60.f;//秒
 	const float LIMIT_FRAME = (LIMIT_TIME * 60.f);
 	const float DEADLINE_SECOND = 300;

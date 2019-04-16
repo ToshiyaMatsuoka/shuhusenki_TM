@@ -1,4 +1,9 @@
-﻿#include "Timer.h"
+﻿/**
+* @file Timer.cpp
+* @brief タイマー処理
+* @author Toshiya Matsuoka
+*/
+#include "Timer.h"
 
 
 Timer::Timer(DirectX* pDirectX, SoundOperater* pSoundOperater) :Object(pDirectX, pSoundOperater)

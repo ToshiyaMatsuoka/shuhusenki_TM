@@ -1,5 +1,10 @@
 ﻿#ifndef GOODS_H
 #define GOODS_H
+/**
+* @file Goods.h
+* @brief 売り物処理
+* @author Toshiya Matsuoka
+*/
 
 #include "GameManager/GameManager.h"
 #include "Object.h"

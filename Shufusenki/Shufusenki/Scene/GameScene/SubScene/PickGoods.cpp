@@ -1,4 +1,9 @@
-﻿#include "PickGoods.h"
+﻿/**
+* @file PickGoods.cpp
+* @brief 商品取得シーン処理
+* @author Toshiya Matsuoka
+*/
+#include "PickGoods.h"
 
 PickGoods::PickGoods(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater, turn, pYasuko)
 {

@@ -1,5 +1,11 @@
-#ifndef FLOAMOB_H
+﻿#ifndef FLOAMOB_H
 #define FLOAMOB_H
+/**
+* @file FloaMob.h
+* @brief 徘徊モブ処理
+* @author Toshiya Matsuoka
+*/
+
 #include "Object.h"
 class FloaMob :
 	public Object

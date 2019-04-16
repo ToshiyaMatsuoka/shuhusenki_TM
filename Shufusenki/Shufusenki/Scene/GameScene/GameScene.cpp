@@ -1,4 +1,9 @@
-﻿#include "GameScene.h"
+﻿/**
+* @file GameScene.cpp
+* @brief メインゲームシーン処理
+* @author Toshiya Matsuoka
+*/
+#include "GameScene.h"
 #include "Goods.h"
 #include "SubScene/FloaMove.h"
 #include "SubScene/ChoseGoods.h"

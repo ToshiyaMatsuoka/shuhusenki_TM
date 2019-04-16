@@ -15,12 +15,16 @@
 #include <map>
 #include <iostream>
 
+/**
+* 描画用頂点情報
+*/
 struct CUSTOMVERTEX
 {
 	FLOAT	x, y, z, rhw;
 	DWORD	color;
 	FLOAT	tu, tv;
 };
+
 enum KEYSTATE
 {
 	//! 押されていない
@@ -34,7 +38,6 @@ enum KEYSTATE
 };
 
 
-// TODO:Singletonにする
 /**
 * @class DirectX
 * @brief DirectX

@@ -1,5 +1,10 @@
-#ifndef SALESMAN_H
+﻿#ifndef SALESMAN_H
 #define SALESMAN_H
+/**
+* @file Salesman.h
+* @brief 売り子処理
+* @author Toshiya Matsuoka
+*/
 #include "Object.h"
 
 class Salesman :

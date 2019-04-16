@@ -1,4 +1,9 @@
-﻿
+﻿/**
+* @file FloaMove.cpp
+* @brief 売り場移動処理
+* @author Toshiya Matsuoka
+*/
+
 #include "FloaMove.h"
 
 FloaMove::FloaMove(DirectX * pDirectX, SoundOperater * pSoundOperater,int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater,turn,pYasuko)
@@ -65,15 +70,6 @@ void FloaMove::Render()
 
 void FloaMove::LoadResouce()
 {
-}
-
-void FloaMove::DebugAction()
-{
-	m_pYasuko->DrawLotsgoodsSorting();//フロア移動で決めたものを入れる
-	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(0));
-	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(1));
-	m_pGoods->SelectGoods(m_pYasuko->GetSalesman(2));
-	m_pSalesman->Update();
 }
 
 void FloaMove::LeachedGondolaCheck(int* leschgondola, SALESMAN* popSales, int whergondola)

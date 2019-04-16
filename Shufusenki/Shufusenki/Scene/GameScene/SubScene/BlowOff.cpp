@@ -1,4 +1,9 @@
-﻿#include "BlowOff.h"
+﻿/**
+* @file BlowOff.cpp
+* @brief コマンド入力シーン処理
+* @author Toshiya Matsuoka
+*/
+#include "BlowOff.h"
 
 BlowOff::BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater, turn, pYasuko)
 {
@@ -41,7 +46,7 @@ int BlowOff::Update()
 	//CreateSquareVertex(effectExplosion, effectExplosionCentral);
 	if (m_ComandCount < 5)
 	{
-		BlowOffKeyOperation();
+		KeyOperation();
 		m_CheckedComand = ComandCheck();
 		if (1 == m_CheckedComand)
 		{
@@ -92,7 +97,7 @@ int BlowOff::Update()
 	return m_GameScene;
 }
 
-void BlowOff::BlowOffKeyOperation() {
+void BlowOff::KeyOperation() {
 		static int buttonKeyID = 0;
 		static int prevbuttonKeyID = 1;
 	#ifdef _DEBUG	

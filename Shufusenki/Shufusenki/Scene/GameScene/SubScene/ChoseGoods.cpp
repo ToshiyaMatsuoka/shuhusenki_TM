@@ -1,4 +1,9 @@
-﻿#include "ChoseGoods.h"
+﻿/**
+* @file ChoseGoods.cpp
+* @brief 商品選択処理
+* @author Toshiya Matsuoka
+*/
+#include "ChoseGoods.h"
 
 
 ChoseGoods::ChoseGoods(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :SubScene(pDirectX, pSoundOperater, turn, pYasuko)

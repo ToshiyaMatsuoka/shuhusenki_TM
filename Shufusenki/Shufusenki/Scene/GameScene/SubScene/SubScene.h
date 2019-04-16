@@ -1,5 +1,10 @@
-#ifndef SUBSCENE_H
+﻿#ifndef SUBSCENE_H
 #define SUBSCENE_H
+/**
+* @file SubScene.h
+* @brief メインゲーム内シーン基底処理
+* @author Toshiya Matsuoka
+*/
 
 #include "Scene/GameScene/Goods.h"
 #include "Scene/GameScene/Yasuko.h"

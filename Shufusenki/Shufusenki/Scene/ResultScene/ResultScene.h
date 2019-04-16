@@ -1,5 +1,10 @@
-#ifndef RESULTSCENE_H
+﻿#ifndef RESULTSCENE_H
 #define RESULTSCENE_H
+/**
+* @file ResulutScene.h
+* @brief リザルトシーン処理
+* @author Toshiya Matsuoka
+*/
 
 #include "Scene/Scene.h"
 class ResultScene :
