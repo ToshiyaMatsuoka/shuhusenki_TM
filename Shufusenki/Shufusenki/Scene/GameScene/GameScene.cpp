@@ -41,11 +41,6 @@ GameScene::~GameScene()
 
 int GameScene::Update()
 {
-#ifdef _DEBUG
-	if (m_pDirectX->GetKeyStatus(DIK_0)) {
-		DebugSetting();
-	}
-#endif
 	m_pXinputDevice->DeviceUpdate();
 	m_pTimer->Update();
 	if (m_CurrentGameScene != m_GameScene)
@@ -239,35 +234,35 @@ void GameScene::goodsScoreShow()
 				goodsInfoCount = 0;
 			}
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			DrawFoodTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 0), GoodsShow);
+			DrawFoodTexture(m_pYasuko->EditMerchandise(goodsInfoShowing, 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			DrawPriceTexture( m_pYasuko->editMerchandise(goodsInfoShowing, 0), 0, GoodsShow);
+			DrawPriceTexture( m_pYasuko->EditMerchandise(goodsInfoShowing, 0), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 0), 1, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(goodsInfoShowing, 0), 1, GoodsShow);
 			//TODO:関数化
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			DrawFoodTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), GoodsShow);
+			DrawFoodTexture(m_pYasuko->EditMerchandise(goodsInfoShowing, 1), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), 0, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(goodsInfoShowing, 1), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(goodsInfoShowing, 1), 1, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(goodsInfoShowing, 1), 1, GoodsShow);
 
 			break;
 
 		case CHOSEGOODS:
 			CreateSquareVertex(GoodsShow, 100.f, 10.f, 200.f, 80.f);
-			DrawFoodTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), GoodsShow);
+			DrawFoodTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 0), GoodsShow);
 			CreateSquareVertex(GoodsShow, 200.f, 10.f, 300.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), 0, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 0), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 300.f, 10.f, 400.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 0), 1, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 0), 1, GoodsShow);
 
 			CreateSquareVertex(GoodsShow, 800.f, 10.f, 900.f, 80.f);
-			DrawFoodTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), GoodsShow);
+			DrawFoodTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 1), GoodsShow);
 			CreateSquareVertex(GoodsShow, 900.f, 10.f, 1000.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), 0, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 1), 0, GoodsShow);
 			CreateSquareVertex(GoodsShow, 1000.f, 10.f, 1100.f, 80.f);
-			DrawPriceTexture(m_pYasuko->editMerchandise(m_SalesChoice, 1), 1, GoodsShow);
+			DrawPriceTexture(m_pYasuko->EditMerchandise(m_SalesChoice, 1), 1, GoodsShow);
 
 			break;
 		case BLOWOFF:
@@ -406,10 +401,6 @@ std::string GameScene::priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, i
 		return "BLANK";
 	}
 	return "BLANK";
-}
-
-void GameScene::DebugSetting() {
-	m_pSubScene->DebugAction();
 }
 
 void GameScene::DrawFoodTexture(int arrayNum ,CUSTOMVERTEX* vertex) {

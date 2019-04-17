@@ -6,7 +6,7 @@
 #include "SubScene.h"
 
 int SubScene::m_GameScene = FLOAMOVE;
-CENTRAL_STATE SubScene::mobCentralBlowOff[5];
+CENTRAL_STATE SubScene::m_MobCentralBlowOff[5];
 
 SubScene::SubScene(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Yasuko* pYasuko) :Scene(pDirectX, pSoundOperater),m_Turn(turn)
 {
@@ -24,7 +24,7 @@ void SubScene::Finalize() {
 }
 
 
-std::string SubScene::comandButtonTexture(int comand)
+std::string SubScene::ComandButtonTexture(int comand)
 {
 	switch (comand) {
 	case ButtonA:
@@ -178,27 +178,27 @@ void SubScene::ButtonSE(SoundEffect Button, int SoundNumber) {
 	}
 }
 
-void SubScene::madamBlowOff() {
+void SubScene::MadamBlowOff() {
 
 
-	mobCentralBlowOff[0].x -= rand() % 15;
-	mobCentralBlowOff[0].y -= rand() % 5;
+	m_MobCentralBlowOff[0].x -= rand() % 15;
+	m_MobCentralBlowOff[0].y -= rand() % 5;
 
-	mobCentralBlowOff[1].x += rand() % 10;
-	mobCentralBlowOff[1].y -= rand() % 10;
+	m_MobCentralBlowOff[1].x += rand() % 10;
+	m_MobCentralBlowOff[1].y -= rand() % 10;
 
-	mobCentralBlowOff[2].x += rand() % 3;
-	mobCentralBlowOff[2].y -= rand() % 10;
+	m_MobCentralBlowOff[2].x += rand() % 3;
+	m_MobCentralBlowOff[2].y -= rand() % 10;
 
-	mobCentralBlowOff[3].x -= rand() % 8;
-	mobCentralBlowOff[3].y -= rand() % 10;
+	m_MobCentralBlowOff[3].x -= rand() % 8;
+	m_MobCentralBlowOff[3].y -= rand() % 10;
 
-	mobCentralBlowOff[4].x += rand() % 25;
-	mobCentralBlowOff[4].y -= rand() % 30;
+	m_MobCentralBlowOff[4].x += rand() % 25;
+	m_MobCentralBlowOff[4].y -= rand() % 30;
 
 	if (m_EffectCount > 200) {
 		for (int i = 0; i < 5; i++) {
-			mobCentralBlowOff[i].y += 35;
+			m_MobCentralBlowOff[i].y += 35;
 		}
 	}
 

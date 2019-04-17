@@ -15,13 +15,19 @@ public:
 	Yasuko(DirectX* pDirectX, SoundOperater* pSoundOperater);
 	~Yasuko();
 	void mobToPCContact(CENTRAL_STATE * mobCentralFloa);
+	//! フロア移動時の更新
 	void FloaUpdate();
+	//! コマンド入力時の更新
 	void BlowOffUpdate(bool isAttack);
+	//! フロア移動時の描画
 	void FloaRender();
+	//! コマンド入力時の描画
 	void BlowOffRender();
+	//! コマンド入力時の初期化
 	void InitBlowoff();
 	void KeyOperation(KeyInput key);
 	void TurnTheAnimation(int AnimationPage);
+	//! フロア移動時の移動処理
 	void FloaMoveUpdate();
 
 	void FloaMoveLeft();
@@ -33,6 +39,7 @@ public:
 	void FloaMoveDown();
 
 	void  Initialize();
+	//! Aボタンの表示
 	void ShowA();
 private:
 	CUSTOMVERTEX m_EffectVertex[4];

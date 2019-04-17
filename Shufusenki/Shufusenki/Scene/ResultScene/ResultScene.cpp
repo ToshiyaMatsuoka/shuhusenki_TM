@@ -27,8 +27,8 @@ ResultScene::ResultScene(DirectX* pDirectX, SoundOperater* pSoundOperater) :Scen
 
 	for (int i = 0; i < 3; i++)
 	{
-		nomalSum += m_pGoods->AddPrice(i, 0);
-		saleSale +=m_pGoods->AddPrice(i, 1);
+		nomalSum += m_pGoods->AddPrice(i, false);
+		saleSale += m_pGoods->AddPrice(i, true);
 	}
 	memset(apperText, false, 10);
 
@@ -197,34 +197,34 @@ void ResultScene::resultRenderOne(void)
 	if (apperText[0])
 	{
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultBaseTex1);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 0));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, false));
 		RECT resultBase1{ 160,125,600,275 };
 		m_pDirectX->DrawWord( resultBase1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(0)), resultSeleTex1);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, 1));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(0)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(0)),m_pGoods->AddPrice(0, true));
 		RECT resultSele1{ 930,125,1240,275 };
 		m_pDirectX->DrawWord( resultSele1, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[1])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultBaseTex2);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 0));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, false));
 		RECT resultBase2{ 160,225,600,275 };
 		m_pDirectX->DrawWord( resultBase2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture(m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(1)), resultSeleTex2);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, 1));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(1)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(1)),m_pGoods->AddPrice(1, true));
 		RECT resultSele2{ 930,225,1240,275 };
 		m_pDirectX->DrawWord( resultSele2, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}
 	if (apperText[2])
 	{
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultBaseTex3);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 0));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetnominalCost(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, false));
 		RECT resultBase3{ 160,325,600,475 };
 		m_pDirectX->DrawWord( resultBase3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 		m_pDirectX->DrawTexture( m_pGoods->GetFoodGoodsTexID(m_pGoods->GetselectedGoods(2)), resultSeleTex3);
-		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, 1));
+		sprintf_s(resulttantValue, 32, "%d×%d=%d", m_pGoods->GetselePrice(m_pGoods->GetselectedGoods(2)), m_pGoods->GetHaveValue(m_pGoods->GetselectedGoods(2)),m_pGoods->AddPrice(2, true));
 		RECT resultSele3{ 930,325,1240,475 };
 		m_pDirectX->DrawWord( resultSele3, resulttantValue, "RESULT_FONT", DT_LEFT, BLACK);
 	}

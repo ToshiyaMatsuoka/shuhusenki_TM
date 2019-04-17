@@ -44,8 +44,8 @@ int PickGoods::Update()
 	{
 		m_GameScene = BLOWOFF;
 	}
-	else PickGoodsKeyOperation(&rushInput);
-	madamBlowOff();
+	else KeyOperation(&rushInput);
+	MadamBlowOff();
 
 	return m_GameScene;
 }
@@ -79,7 +79,7 @@ void PickGoods::Render()
 		{
 			mobRad = mobRad * -1;
 		}
-		RevolveZ(Vertex, mobRad, &mobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
+		RevolveZ(Vertex, mobRad, &m_MobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
 		m_pDirectX->DrawTexture(m_mobTexKey, Vertex);
 	}
 
@@ -90,7 +90,7 @@ void PickGoods::Render()
 
 	RECT rushButtonAppear = { 470,200,810,550 };
 	CreateSquareVertex(Vertex,rushButtonAppear);
-	m_pDirectX->DrawTexture(comandButtonTexture(rushButtonShow), Vertex);
+	m_pDirectX->DrawTexture(ComandButtonTexture(rushButtonShow), Vertex);
 #ifdef _DEBUG
 	char goodsNumA[10];
 	char DebugTakeBoolA[10];
@@ -143,7 +143,7 @@ void PickGoods::Render()
 
 }
 
-void PickGoods::PickGoodsKeyOperation(int* rushInput) {
+void PickGoods::KeyOperation(int* rushInput) {
 #ifdef _DEBUG
 
 	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonStart) == PadPush)

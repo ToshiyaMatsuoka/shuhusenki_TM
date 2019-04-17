@@ -45,17 +45,23 @@ public:
 
 	void Finalize();
 
-	std::string comandButtonTexture(int comand);
+	//! ボタン入力からテクスチャキーを返す
+	std::string ComandButtonTexture(int comand);
 
+	/**
+	* @brief ボタン入力音の再生
+	*/
 	void ButtonSE(SoundEffect Button, int SoundNumber);
 
-	void madamBlowOff();
+	void MadamBlowOff();
 
+	/**
+	* @brief エフェクトのページめくり
+	*/
 	void TurnEffectAnimation();
-	virtual void DebugAction(){}
 
 protected:
-	static CENTRAL_STATE mobCentralBlowOff[5];
+	static CENTRAL_STATE m_MobCentralBlowOff[5];
 	const float CHARCTOR_BLOWOFF_SCALE = 150.f;
 	int m_Turn = 0;
 	int m_EffectCount = 0;

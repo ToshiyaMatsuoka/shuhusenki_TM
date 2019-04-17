@@ -44,7 +44,7 @@ int FloaMove::Update()
 		m_pYasuko->KeyOperation(DOWN);
 	}
 	if (GetPushedRETURN() || m_pXinputDevice->GetButton(ButtonA)) {
-		LeachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->salesmanToPCCollision(m_pYasuko->GetCentral()));
+		LeachedGondolaCheck(&m_SalesChoice, m_pSalesman->GetSalesman(), m_pYasuko->SalesmanToPCCollision(m_pYasuko->GetCentral()));
 	}
 
 	m_pYasuko->FloaUpdate();

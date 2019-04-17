@@ -25,12 +25,16 @@ public:
 	void Render();
 	void LoadResouce();
 
+	/*
+	* @brief 商品情報の提示UIの描画
+	*/
 	void goodsScoreShow();
 
+	/*
+	* @brief 値段の値から描画テクスチャキーを返す
+	*/
 	std::string priceEdit(GOODSPARAMETER* foodGoods, int goodsselector, int nomalOrSale);
-
-	void DebugSetting();
-
+	
 	void SetGameScene(GAMESCENE gamescene) {
 		m_GameScene = gamescene;
 	}

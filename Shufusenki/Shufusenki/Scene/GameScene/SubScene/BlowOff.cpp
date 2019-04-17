@@ -23,11 +23,11 @@ BlowOff::BlowOff(DirectX * pDirectX, SoundOperater * pSoundOperater, int turn, Y
 		m_MobTexKey = "MITUKO_TEX";
 		break;
 	}
-	mobCentralBlowOff[0] = { 450,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[1] = { 600,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[2] = { 750,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[3] = { 900,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
-	mobCentralBlowOff[4] = { 1050,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[0] = { 450,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[1] = { 600,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[2] = { 750,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[3] = { 900,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
+	m_MobCentralBlowOff[4] = { 1050,MOB_HEIGHT ,CHARCTOR_BLOWOFF_SCALE,CHARCTOR_BLOWOFF_SCALE };
 
 	m_EffectExplosionCentral = { 900,800,300,300 }; 
 	m_pYasuko->InitBlowoff();
@@ -84,7 +84,7 @@ int BlowOff::Update()
 	m_CheckedComand = 2;
 	if (m_isBlowOff) {
 		++m_BlowOffEffectCount;
-		madamBlowOff();
+		MadamBlowOff();
 		++m_EffectExplosionCentral.scaleX;
 		++m_EffectExplosionCentral.scaleY;
 		if (m_BlowOffEffectCount >= 60) {
@@ -197,9 +197,9 @@ void BlowOff::Render()
 				{
 					mobRad = mobRad * -1;
 				}
-				RevolveZ(Vertex, mobRad, &mobCentralBlowOff[i],WHITE, 0, 0, MOB_TU, MOB_TV);
+				RevolveZ(Vertex, mobRad, &m_MobCentralBlowOff[i],WHITE, 0, 0, MOB_TU, MOB_TV);
 			}
-			else CreateSquareVertex(Vertex, &mobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
+			else CreateSquareVertex(Vertex, &m_MobCentralBlowOff[i], WHITE, 0, 0, MOB_TU, MOB_TV);
 			m_pDirectX->DrawTexture( m_MobTexKey, Vertex);
 		}
 		if ((m_BlowOffEffectCount > 20) && m_isBlowOff) {
@@ -211,13 +211,13 @@ void BlowOff::Render()
 		{
 			RECT PresentCommand = { 300 + (i * 100),200,450 + (i * 100),300 };
 			CreateSquareVertex(Vertex, PresentCommand);
-			m_pDirectX->DrawTexture(comandButtonTexture(m_ComandPresentment[i]), Vertex);
+			m_pDirectX->DrawTexture(ComandButtonTexture(m_ComandPresentment[i]), Vertex);
 		}
 		for (int i = 0; i < 5; i++)
 		{
 			RECT InputComand = { 300 + (i * 100),300,450 + (i * 100),400 };
 			CreateSquareVertex(Vertex, InputComand);
-			m_pDirectX->DrawTexture(comandButtonTexture(m_ComandInput[i]), Vertex);
+			m_pDirectX->DrawTexture(ComandButtonTexture(m_ComandInput[i]), Vertex);
 		}
 		m_pYasuko->BlowOffRender();
 }

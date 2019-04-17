@@ -42,7 +42,7 @@ void Yasuko::BlowOffUpdate(bool isAttack)
 
 void Yasuko::FloaRender()
 {
-	if (POS_NOTING > salesmanToPCCollision(&m_Center)) {
+	if (POS_NOTING > SalesmanToPCCollision(&m_Center)) {
 		m_ReachedSalesman = true;
 	}
 	else m_ReachedSalesman = false;
@@ -139,7 +139,7 @@ void Yasuko::FloaMoveUpdate()
 
 	m_AnimeCount++;
 
-	collision(&m_Center);
+	Collision(&m_Center);
 }
 void Yasuko::FloaMoveLeft() {
 	m_isRight = false;

@@ -15,6 +15,9 @@ public:
 	~FloaMob();
 	void Update();
 	void Render();
+	/*
+	* @brief 移動方向の設定
+	*/
 	void SelectDirection();
 	CENTRAL_STATE* GetCentral() {
 		return m_MobCenter;

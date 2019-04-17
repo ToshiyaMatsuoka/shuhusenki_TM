@@ -242,7 +242,7 @@ void TitleScene::LoadResouce()
 }
 
 void TitleScene::ChoseMenu() {
-	switch (m_pCursor->getCursolPosition()) {
+	switch (m_pCursor->GetCursolPosition()) {
 	case Cursol::START:
 		SetNextScene(GAME_SCENE);
 		break;
@@ -253,7 +253,7 @@ void TitleScene::ChoseMenu() {
 	}
 }
 
-void TitleScene::TeamlogoControl(void) {
+void TitleScene::TeamlogoControl() {
 	
 	if (SoundLib::Playing != m_pSoundOperater->GetStatus("LOGO")) {
 		m_pSoundOperater->Start("LOGO", false);
@@ -266,7 +266,7 @@ void TitleScene::TeamlogoControl(void) {
 	}
 }
 
-void TitleScene::TeamlogoRender(void) {
+void TitleScene::TeamlogoRender() {
 	CUSTOMVERTEX teamlogo[4];
 	CENTRAL_STATE logo{ 640,320,400,400 };
 	static DWORD logoColor = 0x00ffffff;

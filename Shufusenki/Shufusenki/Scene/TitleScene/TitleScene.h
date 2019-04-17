@@ -51,8 +51,8 @@ private:
 	int BGM = 0;
 
 	void ChoseMenu();
-	void TeamlogoControl(void);
-	void TeamlogoRender(void);
+	void TeamlogoControl();
+	void TeamlogoRender();
 	void WisdomControl();
 	void WisdomRender();
 };

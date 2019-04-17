@@ -10,4 +10,5 @@ Release/
 主婦戦記/syuhusenki/syuhusenki/Texture/ClothBattle1.png
 *.orig
 *.bak
-
+*html/
+!*html/.chm

@@ -10,6 +10,9 @@
 
 #include "Scene/Scene.h"
 
+/**
+* @brief 売り子の場所ID
+*/
 enum SALESPOSITION
 {
 	POS_MEET,
@@ -28,6 +31,9 @@ enum SALESPOSITION
 	POS_NOTING
 };
 
+/**
+* @brief 衝突方向
+*/
 enum CONTACTDIRECTION
 {
 	SIDE,
@@ -35,6 +41,9 @@ enum CONTACTDIRECTION
 	UNDER
 };
 
+/**
+* @brief ボタン入力
+*/
 enum KeyInput
 {
 	PUSH_NONE,
@@ -48,6 +57,9 @@ enum KeyInput
 	ACTION,
 };
 
+/**
+* @brief 売り子情報
+*/
 struct SALESMAN {
 	CENTRAL_STATE popPositionCentral;
 	int popPosition;
@@ -66,7 +78,6 @@ public:
 
 	virtual void Update();
 	virtual void Render();
-	virtual void prevSaveMapCharaPos() {};
 
 	/*
 	* @brief テクスチャの貼り付け
@@ -99,20 +110,47 @@ public:
 	* @details 関連するCUSTOMVERTEX作成関数の逆動作をする
 	*/
 	void TranslateCentral_State(CENTRAL_STATE* Central, CUSTOMVERTEX* Vertex);
-	int salesmanToPCCollision(CENTRAL_STATE* central);
+	
+	/**
+	* @brief 売り子と指定の中心情報と当たり判定を取る
+	* @param central 当たり判定を取りたい中心情報
+	* @return 売り場ID
+	*/
+	int SalesmanToPCCollision(CENTRAL_STATE* central);
 
+	/**
+	* @brief 商品を選択する
+	* @param seleChoice 売り子番号
+	* @param arrayNum 選択番号
+	* @return 商品ID
+	*/
+	int EditMerchandise(int seleChoice, int arrayNum);
 
-	int editMerchandise(int seleChoice, int arrayNum);
+	/**
+	* @brief ゴンドラとの当たり判定
+	* @param charctor 当たり判定を取る中心情報
+	*/
+	void Collision(CENTRAL_STATE * charctor);
 
-	void collision(CENTRAL_STATE * charctor);
-	bool MoveOutToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom, int direction);
+	/**
+	* @brief 指定の4座標の中に中心情報が入らないようにする
+	* @param central 指定の中心情報
+	* @param left 左端座標 
+	* @param top 上端座標
+	* @param right 右端座標
+	* @param bottom 下端座標
+	* @param direction 当たり判定を取る方向
+	*/
+	bool MoveOutToErea(CENTRAL_STATE * central, float left, float top, float right, float bottom, int direction);
 
 	float DegToRad(float deg) {
 		return deg * (D3DX_PI / 180);
 	}
+
 	SALESMAN* GetSalesman() {
 		return popSales;
 	}
+
 	SALESMAN* GetSalesman(int ArrayNum) {
 		return &popSales[ArrayNum];
 	}
@@ -120,6 +158,10 @@ public:
 	int GetgoodsSorting(int ArrayNum) {
 		return popSales[ArrayNum].goodsSorting;
 	}
+
+	/**
+	* @brief 商品種別の抽選
+	*/
 	void DrawLotsgoodsSorting();
 
 	virtual CENTRAL_STATE* GetCentral() {
@@ -130,7 +172,7 @@ protected:
 	SoundOperater* m_pSoundOperater = NULL;
 	CUSTOMVERTEX Vertex[4];
 	const DWORD WHITE = 0xFFFFFFFF;
-	const DWORD  HARFCLEAR = 0x8a000000;
+	const DWORD HARFCLEAR = 0x8a000000;
 	static SALESMAN popSales[3];
 	CENTRAL_STATE m_Center;
 
@@ -146,9 +188,6 @@ protected:
 	bool toBoxContact(CENTRAL_STATE * central1, CENTRAL_STATE * central2);
 
 	void MoveInToErea(CENTRAL_STATE * central, float Left, float Top, float Right, float Bottom);
-
-private:
-	//CENTRAL_STATE m_Central = { 400,10,(40 * 2),(40 * 4) };
 
 };
 #endif

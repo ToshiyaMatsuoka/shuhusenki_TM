@@ -18,8 +18,10 @@ public:
 	void LoadResouce();
 	void Render();
 
-	void PickGoodsKeyOperation(int * rushInput);
-
+	void KeyOperation(int * rushInput);
+	/**
+	* @brief 入力ボタンと提示ボタンの照合と結果処理 
+	*/
 	void RushButtonCheck(int rushInput, int rushShow);
 private:
 	int rushButtonShow;

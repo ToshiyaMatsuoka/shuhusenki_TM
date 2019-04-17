@@ -1,7 +1,7 @@
 ﻿#ifndef RESULTSCENE_H
 #define RESULTSCENE_H
 /**
-* @file ResulutScene.h
+* @file ResultScene.h
 * @brief リザルトシーン処理
 * @author Toshiya Matsuoka
 */
@@ -18,8 +18,11 @@ public:
 	void KeyOperation();
 
 	void Render();
+	//! 1ページ目の描画
 	void resultRenderOne(void);
+	//! 2ページ目の描画
 	void resultRenderTwo(void);
+	//! 3ページ目の描画
 	void resultRenderThree(void);
 	void LoadResouce();
 private:

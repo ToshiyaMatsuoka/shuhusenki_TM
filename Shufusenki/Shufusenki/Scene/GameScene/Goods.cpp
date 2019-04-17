@@ -37,17 +37,13 @@ void Goods::Initialize() {
 	}
 }
 
-int Goods::AddPrice(int num, int nomalOrSale)
+int Goods::AddPrice(int num, bool isNomal)
 {
-	switch (nomalOrSale)
+	if (isNomal)
 	{
-	case 0:
-		return m_FoodGoods[m_SelectedGoods[num]].nominalCost * m_FoodGoods[m_SelectedGoods[num]].haveValue;
-		break;
-	case 1:
 		return m_FoodGoods[m_SelectedGoods[num]].selePrice * m_FoodGoods[m_SelectedGoods[num]].haveValue;
-		break;
 	}
+	return m_FoodGoods[m_SelectedGoods[num]].nominalCost * m_FoodGoods[m_SelectedGoods[num]].haveValue;
 }
 
 void Goods::ComboCheck(int goodsId1, int goodsId2, int goodsId3 )
@@ -270,7 +266,7 @@ void Goods::ComboCheck(int goodsId1, int goodsId2, int goodsId3 )
 		}
 	}
 }
-int Goods::ComboSucceceCheck(void)
+int Goods::ComboSucceceCheck()
 {
 	for (int i = 0; i < COMBO_MAX; i++) 
 	{

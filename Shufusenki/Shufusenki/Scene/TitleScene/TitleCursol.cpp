@@ -81,6 +81,3 @@ void TitleCursol::MoveDown() {
 		break;
 	}
 }
-CursolPosition TitleCursol::getCursolPosition() {
-	return m_CursolPos;
-}

@@ -176,7 +176,7 @@ void Object::MoveInToErea(CENTRAL_STATE* central, float Left, float Top, float R
 	}
 }
 
-int Object::salesmanToPCCollision(CENTRAL_STATE* central)
+int Object::SalesmanToPCCollision(CENTRAL_STATE* central)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -189,7 +189,7 @@ int Object::salesmanToPCCollision(CENTRAL_STATE* central)
 }
 
 
-int Object::editMerchandise(int seleChoice, int arrayNum)
+int Object::EditMerchandise(int seleChoice, int arrayNum)
 {
 	return popSales[seleChoice].merchandise[arrayNum];
 }
@@ -244,7 +244,7 @@ void Object::DrawLotsgoodsSorting(){
 	}
 }
 
-void Object::collision(CENTRAL_STATE* charctor)
+void Object::Collision(CENTRAL_STATE* charctor)
 {
 	MoveInToErea(charctor, 0.f, 145.f, 1280.f, 690.f);
 	//商品棚

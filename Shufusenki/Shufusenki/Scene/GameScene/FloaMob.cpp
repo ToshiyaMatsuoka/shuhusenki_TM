@@ -253,9 +253,9 @@ void FloaMob::Update()
 		}
 	}
 
-	collision(&m_MobCenter[1]);
-	collision(&m_MobCenter[2]);
-	collision(&m_MobCenter[3]);
+	Collision(&m_MobCenter[1]);
+	Collision(&m_MobCenter[2]);
+	Collision(&m_MobCenter[3]);
 
 
 }

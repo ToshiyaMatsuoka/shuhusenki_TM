@@ -15,16 +15,22 @@ public:
 	~Timer();
 	void Update();
 	void Render();
+	
+	//! 残り時間を返す
 	int TimeShow();
+
 	bool GetGameStart() {
 		return m_isGameStart;
 	}
+
 	bool GetDeadline() {
 		return m_TimeDeadline;
 	}
+
 	bool GetTimeUp() {
 		return m_isTimeUp;
 	}
+
 	void Initialize();
 private:
 	const float LIMIT_TIME = 60.f;//秒
