@@ -98,4 +98,29 @@
 ヤスコが流れきったらコマンド入力フェイズへ
 
 ***
-2018/8/13
+
+***
+  
+# 必要環境
+
+実行ファイルを起動するためには、
+"DirectX 9.0c End-User Runtime"が必要です。  
+[こちら](https://www.microsoft.com/en-us/download/details.aspx?id=8109)からダウンロードしてください。  
+
+
+***
+
+
+# プロジェクトをビルドするための準備
+プロジェクトをビルドするには必要なツールとsdkを用意する必要があります。
+
+* 必要なツール
+
+    Visual Studio 2017
+* 必要なsdk
+
+    Microsoft DirectX SDK (June 2010) [こちら](https://www.microsoft.com/en-us/download/details.aspx?id=6812)  
+    Microsoft DirectX SDKはダウンロードファイルに従えば簡単にインストールできます。
+
+
+
